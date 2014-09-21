@@ -119,7 +119,7 @@ void main_loop() {
 			q=strtok(NULL," ");
 			q+=2;
 			uint32_t addr=0;
-			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
+			while ((unsigned int)(*q-48)<16&&(unsigned int)(*q-48)>=0)
 			{
 				addr=addr*16+(*q-48);
 				q++;
