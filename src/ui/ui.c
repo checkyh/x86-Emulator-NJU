@@ -117,13 +117,36 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			uint32_t N=*q-48;
 			q=strtok(NULL," ");
-			q+=2;
+			q+=2;int temp;
 			uint32_t addr=0;
-			while ((unsigned int)(*q-48)<16&&(unsigned int)(*q-48)>=0)
+			bool readOK=1;
 			{
-				addr=addr*16+(*q-48);
-				q++;
-			}
+				
+				switch(*q)    
+				{      case '0' : temp=0 ; break;
+				       case '1' : temp=1 ; break;
+				       case '2' : temp=2 ; break;
+				       case '3' : temp=3 ; break;
+				       case '4' : temp=4 ; break;
+				       case '5' : temp=5 ; break;
+				       case '6' : temp=6 ; break;
+				       case '7' : temp=7 ; break;
+				       case '8' : temp=8 ; break;
+				       case '9' : temp=9 ; break;
+				       case 'a' : temp=10 ; break;
+				       case 'b' : temp=11 ; break;
+				       case 'c' : temp=12 ; break;
+				       case 'd' : temp=13 ; break;
+				       case 'e' : temp=14 ; break;
+				       case 'f' : temp=15 ; break;
+				       default: readOK=0;
+				}
+				if (readOK)
+				{
+					addr=addr*16+temp;
+					q++;
+				}
+			}while (readOK);
 			for (;N>0;N--,addr++) printf("%d",swaddr_read(addr,1));			
 		}
 
