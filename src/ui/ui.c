@@ -114,7 +114,7 @@ void main_loop() {
 			uint32_t addr=0;
 			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
 			{
-				addr=addr*10+(*q-48);
+				addr=addr*16+(*q-48);
 				q++;
 			}
 			for (;N>0;N--,addr++) printf("%d",swaddr_read(addr,1));			
