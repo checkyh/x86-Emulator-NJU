@@ -96,6 +96,7 @@ void main_loop() {
 		else if(strcmp(p,"si")==0)
 		{
 			if (nemu_state==END) restart();
+			nemu_state=STOP;
 			char *q=strtok(NULL," ");
 			uint32_t step=0;
 			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
@@ -104,7 +105,6 @@ void main_loop() {
 				q++;
 			}			
 			cpu_exec(step);
-			nemu_state=STOP;
 		}
 		else if (strcmp(p,"info")==0)
 		{
