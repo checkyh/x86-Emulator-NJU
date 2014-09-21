@@ -102,8 +102,7 @@ void main_loop() {
 			{
 				step=step*10+(*q-48);
 				q++;
-			}
-			
+			}			
 			cpu_exec(step);
 			nemu_state=STOP;
 		}
@@ -117,9 +116,11 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			uint32_t N=*q-48;
 			q=strtok(NULL," ");
-			q+=2;int temp;
+			q+=2;
+			int temp;
 			uint32_t addr=0;
 			bool readOK=1;
+			do
 			{
 				
 				switch(*q)    
