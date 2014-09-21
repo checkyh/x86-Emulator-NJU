@@ -37,3 +37,15 @@ void reg_test() {
 	assert(sample[R_ESI] == cpu.esi);
 	assert(sample[R_EDI] == cpu.edi);
 }
+void printreg()
+{
+	printf("eax\t\t0x%x\t\t%d\n",cpu.eax,cpu.eax);
+	printf("ecx\t\t0x%x\t\t%d\n",cpu.ecx,cpu.ecx);
+	printf("edx\t\t0x%x\t\t%d\n",cpu.edx,cpu.edx);
+	printf("ebx\t\t0x%x\t\t%d\n",cpu.ebx,cpu.ebx);
+	printf("esp\t\t0x%x\t\t%d\n",cpu.esp,cpu.esp);
+	printf("ebp\t\t0x%x\t\t%d\n",cpu.ebp,cpu.ebp);
+	printf("esi\t\t0x%x\t\t%d\n",cpu.esi,cpu.esi);
+	printf("edi\t\t0x%x\t\t%d\n",cpu.edi,cpu.edi);
+	printf("eip\t\t0x%x\t\t%d\n",cpu.eip,cpu.eip);
+}

@@ -8,9 +8,9 @@
 #include <readline/history.h>
 
 int nemu_state = END;
-
 void cpu_exec(uint32_t);
 void restart();
+void printreg();
 
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -65,7 +65,9 @@ static void cmd_r() {
 		char c;
 		while(1) {
 			printf("The program is already running. Restart the program? (y or n)");
-			scanf("%c", &c);
+			fflush(stdout);
+
+			scanf(" %c", &c);
 			switch(c) {
 				case 'y': goto restart_;
 				case 'n': return;
@@ -91,6 +93,32 @@ void main_loop() {
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
 		else if(strcmp(p, "q") == 0) { return; }
+		else if(strcmp(p,"si")==0)
+		{
+			if (nemu_state==END) restart();
+			char *q=strtok(NULL," ");
+			cpu_exec(*q-48);
+			nemu_state=STOP;
+		}
+		else if (strcmp(p,"info")==0)
+		{
+			char *q=strtok(NULL," ");
+			if(strcmp(q,"r")==0) printreg();			
+		}
+		else if (strcmp(p,"x")==0)
+		{
+			char *q=strtok(NULL," ");
+			uint32_t N=*q-48;
+			q=strtok(NULL," ");
+			q+=2;
+			uint32_t addr=0;
+			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
+			{
+				addr=addr*10+(*q-48);
+				q++;
+			}
+			for (;N>0;N--,addr++) printf("%d",swaddr_read(addr,1));			
+		}
 
 		/* TODO: Add more commands */
 
