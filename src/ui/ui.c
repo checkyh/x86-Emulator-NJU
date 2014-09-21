@@ -100,7 +100,7 @@ void main_loop() {
 			uint32_t step=0;
 			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
 			{
-				step=step*16+(*q-48);
+				step=step*10+(*q-48);
 				q++;
 			}
 			
