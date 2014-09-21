@@ -114,7 +114,12 @@ void main_loop() {
 		else if (strcmp(p,"x")==0)
 		{
 			char *q=strtok(NULL," ");
-			uint32_t N=*q-48;
+			uint32_t N=0;
+			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
+			{
+				N=N*10+(*q-48);
+				q++;
+			}	
 			q=strtok(NULL," ");
 			q+=2;
 			int temp;
