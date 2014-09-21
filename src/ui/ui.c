@@ -148,7 +148,7 @@ void main_loop() {
 					q++;
 				}
 			}while (readOK);
-			for (;N>0;N--,addr++) printf("%d",swaddr_read(addr,1));			
+			for (;N>0;N--,addr++) printf("%d\n",swaddr_read(addr,1));			
 		}
 
 		/* TODO: Add more commands */
