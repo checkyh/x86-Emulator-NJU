@@ -124,9 +124,9 @@ void main_loop() {
 		if(p == NULL) { continue; }
 
 		if(strcmp(p, "c") == 0) { cmd_c(); }
-		else if(strcmp(p, "r") == 0) { cmd_r(); }
-		else if(strcmp(p, "q") == 0) { return; }
-		else if(strcmp(p,"si")==0)
+		else if(strcmp(p, "r") == 0) { cmd_r(); }	//r
+		else if(strcmp(p, "q") == 0) { return; }	//q
+		else if(strcmp(p,"si")==0)			//si 
 		{
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
@@ -134,12 +134,12 @@ void main_loop() {
 			uint32_t step=sixteenstring(q);			
 			cpu_exec(step);
 		}
-		else if (strcmp(p,"info")==0)
+		else if (strcmp(p,"info")==0)			//info 
 		{
 			char *q=strtok(NULL," ");
 			if(strcmp(q,"r")==0) printreg();			
 		}
-		else if (strcmp(p,"x")==0)
+		else if (strcmp(p,"x")==0)			//x
 		{
 			char *q=strtok(NULL," ");
 			uint32_t N=0;
@@ -150,8 +150,12 @@ void main_loop() {
 			}	
 			q=strtok(NULL," ");
 			q+=2;
-			uint32_t addr=sixteenstring(q);			
-			for (;N>0;N--,addr++) printf("%02x\n",swaddr_read(addr,1));			
+			uint32_t addr=sixteenstring(q);	
+			int cir_x=1;		
+			for (;cir_x<=N;cir_x++,addr++) {
+			printf("%02x ",swaddr_read(addr,1));	
+			if ((cir_x%5)==0) printf("\n");
+			}		
 		}
 
 		/* TODO: Add more commands */
