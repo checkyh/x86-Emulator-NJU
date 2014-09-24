@@ -151,7 +151,7 @@ void main_loop() {
 			q=strtok(NULL," ");
 			q+=2;
 			uint32_t addr=sixteenstring(q);			
-			for (;N>0;N--,addr++) printf("%x\n",swaddr_read(addr,1));			
+			for (;N>0;N--,addr++) printf("%02x\n",swaddr_read(addr,1));			
 		}
 
 		/* TODO: Add more commands */
