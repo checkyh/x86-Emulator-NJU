@@ -40,8 +40,7 @@ uint32_t  sixteenstring(char *q)
 		addr=addr*16+temp;
 		q++;
 	}
-	}while (temp);
-	
+	}while (temp);	
 	return  addr;
 }
 /* We use the readline library to provide more flexibility to read from stdin. */
@@ -130,12 +129,7 @@ void main_loop() {
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			uint32_t step=0;
-			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
-			{
-				step=step*10+(*q-48);
-				q++;
-			}			
+			uint32_t step=sixteenstring(q);			
 			cpu_exec(step);
 		}
 		else if (strcmp(p,"info")==0)
@@ -154,8 +148,7 @@ void main_loop() {
 			}	
 			q=strtok(NULL," ");
 			q+=2;
-			uint32_t addr=sixteenstring(q);
-			
+			uint32_t addr=sixteenstring(q);			
 			for (;N>0;N--,addr++) printf("%x\n",swaddr_read(addr,1));			
 		}
 
