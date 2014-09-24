@@ -18,7 +18,14 @@ void init_bp_pool() {
 	head = NULL;
 	free_ = bp_pool;
 }
-BP *new_bp();
+BP *new_bp()
+{
+	if (head==NULL) init_bp_pool();
+	head=free_;
+	if (free_->next!=NULL) free_=free_->next;
+	else assert(0);
+	return free_;	
+}
 void free_bp(BP *bp);
 
 /* TODO: Implement the function of breakpoint */

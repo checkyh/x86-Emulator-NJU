@@ -6,11 +6,13 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "ui/breakpoint.h"
 
 int nemu_state = END;
 void cpu_exec(uint32_t);
 void restart();
 void printreg();
+extern BP *new_bp();
 uint32_t  sixteenstring(char *q)
 {
 	int addr=0;
@@ -157,6 +159,17 @@ void main_loop() {
 			if ((cir_x%5)==0) printf("\n");
 			}		
 		}
+		else if (strcmp(p,"b")==0)			//b
+		{
+			char *q=strtok(NULL," ");
+			q+=2;
+			uint32_t addr=sixteenstring(q);
+			
+			BP *nbp=new_bp();
+			printf("%x,%d",addr,nbp->NO);
+			
+		}
+			
 
 		/* TODO: Add more commands */
 
