@@ -11,10 +11,12 @@ int nemu_state = END;
 void cpu_exec(uint32_t);
 void restart();
 void printreg();
-int sixteenstring(char *q)
+uint32_t  sixteenstring(char *q)
 {
-	int temp;
-	switch(*q)    
+	int addr=0;
+	int temp=1;
+	do
+	{	switch(*q)    
 	{      case '0' : temp=0 ; break;
 	       case '1' : temp=1 ; break;
 	       case '2' : temp=2 ; break;
@@ -33,9 +35,15 @@ int sixteenstring(char *q)
 	       case 'f' : temp=15 ; break;
 	       default: temp=-1;
 	}
-	return  temp;
+	if (temp!=-1)
+	{
+		addr=addr*16+temp;
+		q++;
+	}
+	}while (temp);
+	
+	return  addr;
 }
-extern int sixteenstring();
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -146,17 +154,8 @@ void main_loop() {
 			}	
 			q=strtok(NULL," ");
 			q+=2;
-			int temp=1;
-			uint32_t addr=0;
-			do
-			{
-				temp=sixteenstring(q);				
-				if (temp!=-1)
-				{
-					addr=addr*16+temp;
-					q++;
-				}
-			}while (temp);
+			uint32_t addr=sixteenstring(q);
+			
 			for (;N>0;N--,addr++) printf("%x\n",swaddr_read(addr,1));			
 		}
 
