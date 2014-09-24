@@ -18,5 +18,7 @@ void init_bp_pool() {
 	head = NULL;
 	free_ = bp_pool;
 }
+BP *new_bp();
+void free_bp(BP *bp);
 
 /* TODO: Implement the function of breakpoint */

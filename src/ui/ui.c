@@ -11,7 +11,31 @@ int nemu_state = END;
 void cpu_exec(uint32_t);
 void restart();
 void printreg();
-
+int sixteenstring(char *q)
+{
+	int temp;
+	switch(*q)    
+	{      case '0' : temp=0 ; break;
+	       case '1' : temp=1 ; break;
+	       case '2' : temp=2 ; break;
+	       case '3' : temp=3 ; break;
+	       case '4' : temp=4 ; break;
+	       case '5' : temp=5 ; break;
+	       case '6' : temp=6 ; break;
+	       case '7' : temp=7 ; break;
+	       case '8' : temp=8 ; break;
+	       case '9' : temp=9 ; break;
+	       case 'a' : temp=10 ; break;
+	       case 'b' : temp=11 ; break;
+	       case 'c' : temp=12 ; break;
+	       case 'd' : temp=13 ; break;
+	       case 'e' : temp=14 ; break;
+	       case 'f' : temp=15 ; break;
+	       default: temp=-1;
+	}
+	return  temp;
+}
+extern int sixteenstring();
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -122,37 +146,17 @@ void main_loop() {
 			}	
 			q=strtok(NULL," ");
 			q+=2;
-			int temp;
+			int temp=1;
 			uint32_t addr=0;
-			bool readOK=1;
 			do
 			{
-				
-				switch(*q)    
-				{      case '0' : temp=0 ; break;
-				       case '1' : temp=1 ; break;
-				       case '2' : temp=2 ; break;
-				       case '3' : temp=3 ; break;
-				       case '4' : temp=4 ; break;
-				       case '5' : temp=5 ; break;
-				       case '6' : temp=6 ; break;
-				       case '7' : temp=7 ; break;
-				       case '8' : temp=8 ; break;
-				       case '9' : temp=9 ; break;
-				       case 'a' : temp=10 ; break;
-				       case 'b' : temp=11 ; break;
-				       case 'c' : temp=12 ; break;
-				       case 'd' : temp=13 ; break;
-				       case 'e' : temp=14 ; break;
-				       case 'f' : temp=15 ; break;
-				       default: readOK=0;
-				}
-				if (readOK)
+				temp=sixteenstring(q);				
+				if (temp!=-1)
 				{
 					addr=addr*16+temp;
 					q++;
 				}
-			}while (readOK);
+			}while (temp);
 			for (;N>0;N--,addr++) printf("%x\n",swaddr_read(addr,1));			
 		}
 
