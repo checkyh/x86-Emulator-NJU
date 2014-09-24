@@ -16,7 +16,8 @@ uint32_t  sixteenstring(char *q)
 	int addr=0;
 	int temp=1;
 	do
-	{	switch(*q)    
+	{	
+	switch(*q)    
 	{      case '0' : temp=0 ; break;
 	       case '1' : temp=1 ; break;
 	       case '2' : temp=2 ; break;
@@ -40,7 +41,8 @@ uint32_t  sixteenstring(char *q)
 		addr=addr*16+temp;
 		q++;
 	}
-	}while (temp);	
+	}
+	while (temp!=-1);	
 	return  addr;
 }
 /* We use the readline library to provide more flexibility to read from stdin. */
