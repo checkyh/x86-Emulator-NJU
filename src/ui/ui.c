@@ -13,7 +13,6 @@ void cpu_exec(uint32_t);
 void restart();
 void printreg();
 extern BP *new_bp();
-extern uint32_t hwaddr_read(hwaddr_t addr, size_t len);
 uint32_t  sixteenstring(char *q)
 {
 	int addr=0;
@@ -165,8 +164,6 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			q+=2;
 			uint32_t addr=sixteenstring(q);
-			int ke;
-			for (ke=0;ke<=20;ke++)printf("%x ",hwaddr_read(ke,1));
 			BP *nbp=new_bp(addr);
 			printf("%x,%d",addr,nbp->NO);			
 		}
