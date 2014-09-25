@@ -30,7 +30,7 @@ BP *new_bp(uint32_t addr)
 	free_->addr=addr;
 	free_->inst=swaddr_read(addr,1);
 	printf("%x",addr);
-	swaddr_write(addr,1,0xcc);
+	swaddr_write(addr,1,0x80);
 	if (free_->next!=NULL) free_=free_->next;
 	else assert(0);
 	return 	current;
