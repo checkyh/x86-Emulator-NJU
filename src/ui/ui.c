@@ -1,4 +1,5 @@
 #include "ui/ui.h"
+#include "ui/breakpoint.h"
 
 #include "nemu.h"
 
@@ -6,7 +7,6 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "ui/breakpoint.h"
 
 int nemu_state = END;
 void cpu_exec(uint32_t);
