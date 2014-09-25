@@ -164,10 +164,8 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			q+=2;
 			uint32_t addr=sixteenstring(q);
-			
-			BP *nbp=new_bp();
-			printf("%x,%d",addr,nbp->NO);
-			
+			BP *nbp=new_bp(addr);
+			printf("%x,%d",addr,nbp->NO);			
 		}
 			
 
