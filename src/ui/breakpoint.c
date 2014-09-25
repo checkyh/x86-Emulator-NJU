@@ -28,9 +28,9 @@ BP *new_bp(uint32_t addr)
 	}
 	BP *current=free_;
 	free_->addr=addr;
-	free_->inst=hwaddr_read(addr,1);
+	free_->inst=swaddr_read(addr,1);
 	printf("%x",free_->inst);
-	hwaddr_write(addr,1,0xcc);
+	swaddr_write(addr,1,0xcc);
 	if (free_->next!=NULL) free_=free_->next;
 	else assert(0);
 	return 	current;
