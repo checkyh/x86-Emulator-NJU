@@ -6,6 +6,7 @@
 
 /* All function defined with 'make_helper' return the length of the instruction. */
 #define make_helper(name) int name(swaddr_t eip)
+//examples: make_helper(int3)= int int3(swaddr_t eip)
 
 uint32_t instr_fetch(swaddr_t addr, size_t len);
 
