@@ -165,7 +165,7 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			q+=2;
 			uint32_t addr=sixteenstring(q);
-			printf("%d",addr);
+			printf("%x",addr);
 			BP *nbp=new_bp(addr);
 			printf("%x,%d",addr,nbp->NO);			
 		}
