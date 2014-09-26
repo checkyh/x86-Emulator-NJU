@@ -30,7 +30,7 @@ BP *new_bp(uint32_t addr)
 	free_->addr=addr;
 	free_->inst=swaddr_read(addr,1);
 	printf("\n%x\n",loader[addr-0x100000]);
-	swaddr_write((addr+*hw_mem),1,0xcc);
+	loader[addr-0x100000]=0xcc;
 	if (free_->next!=NULL) free_=free_->next;
 	else assert(0);
 	return 	current;
