@@ -21,7 +21,7 @@ make_helper(int3) {
 	break_state=1;
 	printf("%d",break_state);
 	cpu.eip--;
-	return 1;
+	return 0;
 }
 
 make_helper(nemu_trap) {
