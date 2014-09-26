@@ -154,7 +154,7 @@ void main_loop() {
 			q+=2;
 			uint32_t addr=sixteenstring(q);	
 			int cir_x=1;		
-			printf("%d",addr);
+			printf("%x\n",addr);
 			for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
