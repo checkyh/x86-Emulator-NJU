@@ -161,6 +161,7 @@ void main_loop() {
 		}
 		else if (strcmp(p,"b")==0)			//b
 		{
+			if (nemu_state==END) restart();
 			char *q=strtok(NULL," ");
 			q+=2;
 			uint32_t addr=sixteenstring(q);
