@@ -18,7 +18,7 @@ void init_bp_pool()
 	head = NULL;
 	free_ = bp_pool;
 }
-BP *new_bp(hwaddr_t addr)
+BP *new_bp(uint32_t addr)
 {
 	if (head==NULL) 
 	{
