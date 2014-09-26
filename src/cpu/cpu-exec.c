@@ -10,7 +10,6 @@ int exec(swaddr_t);
 void load_prog();
 void init_dram();
 extern int break_state;
-
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 
@@ -40,15 +39,9 @@ static void print_bin_instr(swaddr_t eip, int len) {
 
 void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
+	if (break_state==1) printf("%x",cpu.eip);
 	setjmp(jbuf);
 	for(; n > 0; n --) {
-		if (break_state) 
-		{
-			printf("%x\n",cpu.eip);
-			break_state=0;
-		}
-		else
-		{
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
 
@@ -64,6 +57,5 @@ void cpu_exec(volatile uint32_t n) {
 			return;
 		} 
 		else if(nemu_state == END) { return; }
-		}
 	}
 }
