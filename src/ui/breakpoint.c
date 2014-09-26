@@ -33,7 +33,6 @@ BP *new_bp(uint32_t addr)
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
 		swaddr_write(addr,1,0xcc);
-		break_state=1;
 		free_=free_->next;
 		
 		return 	current;

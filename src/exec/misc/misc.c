@@ -3,7 +3,7 @@
 #include "ui/ui.h"
 
 #include "nemu.h"
-
+extern int break_state;
 make_helper(inv) {
 	/* invalid opcode */
 
@@ -19,7 +19,7 @@ make_helper(inv) {
 make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
 	printf("OK");
-	nemu_state=STOP;
+	break_state=1;
 	return 1;
 }
 
