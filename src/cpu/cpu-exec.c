@@ -39,9 +39,9 @@ static void print_bin_instr(swaddr_t eip, int len) {
 
 void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
-	if (break_state==1) {break_state=0; return ;}
 	setjmp(jbuf);
 	for(; n > 0; n --) {
+		if (break_state==1) {break_state=0; printf("%x",cpu.eip);cpu.eip++;return ;}
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
 
