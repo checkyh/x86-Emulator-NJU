@@ -5,6 +5,7 @@
 extern unsigned char loader[];
 static BP bp_pool[NR_BP];
 static BP *head, *free_;
+int break_state=0;
 
 void init_bp_pool() 
 {
@@ -20,18 +21,23 @@ void init_bp_pool()
 }
 BP *new_bp(uint32_t addr)
 {
-	if (head==NULL) 
+	if (free_==NULL) assert(0);
+	else
 	{
-		init_bp_pool();
-		head=free_;
+		if (head==NULL) 
+		{
+			init_bp_pool();
+			head=free_;
+		}
+		BP *current=free_;
+		free_->addr=addr;
+		free_->inst=swaddr_read(addr,1);
+		swaddr_write(addr,1,0xcc);
+		break_state=1;
+		free_=free_->next;
+		
+		return 	current;
 	}
-	BP *current=free_;
-	free_->addr=addr;
-	free_->inst=swaddr_read(addr,1);
-	swaddr_write(addr,1,0xcc);
-	if (free_->next!=NULL) free_=free_->next;
-	else assert(0);
-	return 	current;
 }
 void free_bp(BP *bp);
 /* TODO: Implement the function of breakpoint */
