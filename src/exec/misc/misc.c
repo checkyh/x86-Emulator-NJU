@@ -21,6 +21,7 @@ make_helper(int3) {
 	break_state=1;
 	printf("%d",break_state);
 	cpu.eip--;
+	nemu_state=STOP;
 	return 1;
 }
 
