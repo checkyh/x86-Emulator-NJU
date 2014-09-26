@@ -18,9 +18,8 @@ make_helper(inv) {
 
 make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
-	printf("%x",eip);
-	assert(0);
-
+	eip--;
+	nemu_state=STOP;
 	return 1;
 }
 
