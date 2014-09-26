@@ -5,8 +5,7 @@
 extern unsigned char loader[];
 static BP bp_pool[NR_BP];
 static BP *head, *free_;
-extern uint32_t hwaddr_read(hwaddr_t addr, size_t len);
-extern void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data);
+
 void init_bp_pool() 
 {
 	int i;
@@ -28,7 +27,7 @@ BP *new_bp(uint32_t addr)
 	}
 	BP *current=free_;
 	free_->addr=addr;
-	free_->inst=swaddr_read(addr-1,1);
+	free_->inst=swaddr_read(addr,1);
 	printf("\n%x\n",free_->inst);
 	swaddr_write(addr,1,0xcc);
 	if (free_->next!=NULL) free_=free_->next;
