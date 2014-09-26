@@ -18,7 +18,6 @@ make_helper(inv) {
 
 make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
-	printf("OK");
 	break_state=1;
 	return 1;
 }
