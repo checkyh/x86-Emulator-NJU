@@ -20,6 +20,7 @@ make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
 	break_state=1;
 	printf("%d",break_state);
+	cpu.eip--;
 	return 1;
 }
 
