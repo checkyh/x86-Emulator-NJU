@@ -151,11 +151,9 @@ void main_loop() {
 				q++;
 			}	
 			q=strtok(NULL," ");
-			printf("%10s",q);
 			q+=2;
 			uint32_t addr=sixteenstring(q);	
 			int cir_x=1;		
-			
 			for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
@@ -164,9 +162,8 @@ void main_loop() {
 		else if (strcmp(p,"b")==0)			//b
 		{
 			char *q=strtok(NULL," ");
-			q+=2;printf("%10s",q);
+			q+=2;
 			uint32_t addr=sixteenstring(q);
-			
 			BP *nbp=new_bp(addr);
 			printf("%d",nbp->NO);			
 		}
