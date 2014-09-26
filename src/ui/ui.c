@@ -164,7 +164,7 @@ void main_loop() {
 		else if (strcmp(p,"b")==0)			//b
 		{
 			char *q=strtok(NULL," ");
-			q+=2;printf("10%s",q);
+			q+=2;printf("%10s",q);
 			uint32_t addr=sixteenstring(q);
 			
 			BP *nbp=new_bp(addr);
