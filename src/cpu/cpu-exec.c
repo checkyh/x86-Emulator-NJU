@@ -39,6 +39,7 @@ static void print_bin_instr(swaddr_t eip, int len) {
 
 void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
+	printf("%d",break_state);
 	if (break_state==1) {printf("%x",cpu.eip);cpu.eip--;}
 	setjmp(jbuf);
 	for(; n > 0; n --) {
