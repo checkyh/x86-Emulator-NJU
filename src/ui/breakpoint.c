@@ -28,8 +28,7 @@ BP *new_bp(uint32_t addr)
 	}
 	BP *current=free_;
 	free_->addr=addr;
-	free_->inst=swaddr_read(addr,1);
-	printf("\n%x\n",loader[addr-0x100000]);
+	free_->inst=loader[addr-0x100000];
 	loader[addr-0x100000]=0xcc;
 	if (free_->next!=NULL) free_=free_->next;
 	else assert(0);
