@@ -35,7 +35,6 @@ BP *new_bp(uint32_t addr)
 		free_->inst=swaddr_read(addr,1);
 		swaddr_write(addr,1,0xcc);
 		free_=free_->next;
-		
 		return 	current;
 	}
 }
@@ -49,5 +48,53 @@ void break_tcl(uint32_t addr)
 	}
 	
 }
-void free_bp(BP *bp);
+void free_bp(int NO)
+{
+	BP *temp;
+	BP *cirall=head;
+	while(cirall!=NULL)
+	{
+		if (cirall->NO==NO)
+		{
+			if (cirall==head){
+			if (cirall->next!=NULL)
+			  head=cirall->next;
+			 else head=NULL;
+			  cirall->next=free_;
+				free_=cirall;
+			}
+			else{
+				temp->next=cirall->next;
+				cirall->next=free_;
+				free_=cirall;
+			}
+			return;
+		}
+		temp=cirall;
+		cirall=cirall->next;
+	}
+}
+void free_all(BP *head)
+{
+	BP *cirall=head;
+	while(cirall!=NULL)
+	{
+		BP *temp=cirall;
+		cirall=cirall->next;
+		temp->next=free_;
+				free_=temp;
+	}
+	head=NULL;
+}
+void printbreak()
+{
+	BP *cirall=head;
+	printf("Num\tType            Address");
+	while(cirall!=NULL)
+	{
+		printf("%d  :\tbreakpoint\t0x%08x",cirall->NO,cirall->addr);
+		cirall=cirall->next;
+		
+	}
+}
 /* TODO: Implement the function of breakpoint */

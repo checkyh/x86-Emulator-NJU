@@ -11,8 +11,11 @@
 int nemu_state = END;
 void cpu_exec(uint32_t);
 void restart();
-void printreg();
+extern void printreg();
+extern void free_all();
+extern void free_bp(int NO);
 extern BP *new_bp();
+extern void printbreak();
 uint32_t  sixteenstring(char *q)
 {
 	int addr=0;
@@ -139,7 +142,8 @@ void main_loop() {
 		else if (strcmp(p,"info")==0)			//info 
 		{
 			char *q=strtok(NULL," ");
-			if(strcmp(q,"r")==0) printreg();			
+			if(strcmp(q,"r")==0) printreg();
+			if(strcmp(q,"b")==0) printbreak();
 		}
 		else if (strcmp(p,"x")==0)			//x
 		{
@@ -161,13 +165,22 @@ void main_loop() {
 		}
 		else if (strcmp(p,"b")==0)			//b
 		{
-			if (nemu_state==END) restart();
+			if (nemu_state==END) 
+			{
+				restart();
+				free_all();
+			}
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			q+=2;
+			q+=3;
 			uint32_t addr=sixteenstring(q);
 			BP *nbp=new_bp(addr);
 			printf("%d",nbp->NO);			
+		}
+		else if (strcmp(p,"d")==0)
+		{
+			char *q=strtok(NULL," ");
+			if(sixteenstring(q)<=32&&sixteenstring>=0) free_bp(sixteenstring(q));
 		}
 			
 
