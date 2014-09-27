@@ -44,7 +44,7 @@ void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
 	setjmp(jbuf);
 	for(; n > 0; n --) {
-		if(break_state!=1)
+		if(break_state!=0)
 		{
 			if (break_state==1) 
 			{break_state=2;
