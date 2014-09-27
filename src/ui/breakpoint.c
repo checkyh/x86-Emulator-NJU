@@ -20,7 +20,7 @@ void init_bp_pool()
 	head = NULL;
 	free_ = bp_pool;
 }
-BP *new_bp(uint32_t addr)
+void new_bp(uint32_t addr)
 {
 	if (free_==NULL) assert(0);
 	else
@@ -36,7 +36,6 @@ BP *new_bp(uint32_t addr)
 		free_->inst=swaddr_read(addr,1);
 		swaddr_write(addr,1,0xcc);
 		free_=free_->next;
-		return 	current;
 	}
 }
 void break_tcl(uint32_t addr)
@@ -90,10 +89,10 @@ void free_all(BP *head)
 void printbreak()
 {
 	BP *cirall=head;
-	printf("Num\tType\tAddress\n");
+	printf("Num\tType\t\tAddress\n");
 	while(cirall!=NULL)
 	{
-		printf("%d:\tbreakpoint\t0x%06x",cirall->NO,cirall->addr);
+		printf("%d\tbreakpoint\t0x%06x\n",cirall->NO,cirall->addr);
 		cirall=cirall->next;
 		
 	}
