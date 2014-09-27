@@ -16,8 +16,11 @@ jmp_buf jbuf;	/* Make it easy to perform exception handling */
 extern uint8_t loader [];
 extern uint32_t loader_len;
 
+
 extern int quiet;
 
+uint32_t break_addr;
+extern void break_tcl(uint32_t addr);
 void restart() {
 	/* Perform some initialization to restart a program */
 	load_prog();
@@ -41,7 +44,20 @@ void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
 	setjmp(jbuf);
 	for(; n > 0; n --) {
-		if (break_state==1) {break_state=0; printf("%x",cpu.eip);cpu.eip++;return ;}
+		if(break_state!=1)
+		{
+			if (break_state==1) 
+			{break_state=2;
+			 cpu.eip--;
+			 break_addr=cpu.eip;
+			 break_tcl(cpu.eip);
+			 return ;}
+			else if (break_state==2&&(cpu.eip>break_addr))
+			{
+			 break_state=0;
+			 swaddr_write(break_addr,1,0xcc);
+			}		
+		}
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
 
