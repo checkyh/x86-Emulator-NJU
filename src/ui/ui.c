@@ -16,7 +16,7 @@ extern void free_all();
 extern void free_bp(int NO);
 extern BP *new_bp();
 extern void printbreak();
-extern uint32_t consult(char *q);
+uint32_t expr(char *e, bool *success);
 uint32_t  sixteenstring(char *q)
 {
 	int addr=0;
@@ -122,7 +122,7 @@ restart_:
 }
 
 void main_loop() {
-	char *cmd;
+	char *cmd;bool suc;
 	while(1) {
 		cmd = rl_gets();
 		char *p = strtok(cmd, " ");
@@ -184,8 +184,10 @@ void main_loop() {
 		}
 		else if(strcmp(p,"expr")==0)			//si 
 		{
+			suc=true;
+			bool *expr_suc=&suc;
 			char *q=strtok(NULL," ");
-			printf("%d",consult(q));
+			expr(q,expr_suc);			
 		}
 			
 
