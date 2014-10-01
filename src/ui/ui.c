@@ -16,6 +16,7 @@ extern void free_all();
 extern void free_bp(int NO);
 extern BP *new_bp();
 extern void printbreak();
+extern uint32_t consult(char *q);
 uint32_t  sixteenstring(char *q)
 {
 	int addr=0;
@@ -180,6 +181,11 @@ void main_loop() {
 		{
 			char *q=strtok(NULL," ");
 			if(sixteenstring(q)<=32&&sixteenstring>=0) free_bp(sixteenstring(q));
+		}
+		else if(strcmp(p,"expr")==0)			//si 
+		{
+			char *q=strtok(NULL," ");
+			printf("%d",consult(q));
 		}
 			
 
