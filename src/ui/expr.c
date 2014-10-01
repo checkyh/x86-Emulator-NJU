@@ -37,7 +37,7 @@ static regex_t re[NR_REGEX];
 /* Rules are used for more times.
  * Therefore we compile them only once before any usage.
  */
-void init_regex() {
+void init_regex() {				//在main 调用了
 	int i;
 	char error_msg[128];
 	int ret;
@@ -86,6 +86,9 @@ static bool make_token(char *e) {
 				{
 					case NOTYPE:break;
 					case ADD:tokens[nr_token].type=ADD;break;
+					case MINUS:tokens[nr_token].type=MINUS;break;
+					case STRING:tokens[nr_token].type=STRING;
+						strcpy(tokens[nr_token].str,e+position);break;
 					default: assert(0);
 				}
 
@@ -107,7 +110,7 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-
+	
 	/* TODO: Implement code to evaluate the expression. */
 	assert(0);
 	return 0;

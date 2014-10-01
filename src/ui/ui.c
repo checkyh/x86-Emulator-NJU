@@ -17,7 +17,7 @@ extern void free_bp(int NO);
 extern BP *new_bp();
 extern void printbreak();
 uint32_t expr(char *e, bool *success);
-uint32_t  sixteenstring(char *q)
+uint32_t  sixteenstring(char *q,int step)
 {
 	int addr=0;
 	int temp=1;
@@ -44,7 +44,7 @@ uint32_t  sixteenstring(char *q)
 	}
 	if (temp!=-1)
 	{
-		addr=addr*16+temp;
+		addr=addr*step+temp;
 		q++;
 	}
 	}
@@ -137,7 +137,7 @@ void main_loop() {
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			uint32_t step=sixteenstring(q);			
+			uint32_t step=sixteenstring(q,10);			
 			cpu_exec(step);
 		}
 		else if (strcmp(p,"info")==0)			//info 
@@ -157,7 +157,7 @@ void main_loop() {
 			}	
 			q=strtok(NULL," ");
 			q+=2;
-			uint32_t addr=sixteenstring(q);	
+			uint32_t addr=sixteenstring(q,16);	
 			int cir_x=1;		
 			for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
@@ -174,20 +174,20 @@ void main_loop() {
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
 			q+=3;
-			uint32_t addr=sixteenstring(q);
+			uint32_t addr=sixteenstring(q,16);
 			new_bp(addr);		
 		}
 		else if (strcmp(p,"d")==0)
 		{
 			char *q=strtok(NULL," ");
-			if(sixteenstring(q)<=32&&sixteenstring>=0) free_bp(sixteenstring(q));
+			if(sixteenstring(q,10)<=32&&sixteenstring(q,10)>=0) free_bp(sixteenstring(q,16));
 		}
 		else if(strcmp(p,"expr")==0)			//si 
 		{
 			suc=true;
 			bool *expr_suc=&suc;
 			char *q=strtok(NULL," ");
-			expr(q,expr_suc);			
+			printf("%d\n",expr(q,expr_suc));			
 		}
 			
 
