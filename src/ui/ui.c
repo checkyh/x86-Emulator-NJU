@@ -187,7 +187,7 @@ void main_loop() {
 			suc=true;
 			bool *expr_suc=&suc;
 			char *q=strtok(NULL," ");
-			printf("%d\n",expr(q,expr_suc));			
+			expr(q,expr_suc);			
 		}
 			
 
