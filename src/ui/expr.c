@@ -24,7 +24,6 @@ static struct rule {
 
 	{" +",NOTYPE},				// white space
 	{"\\*",MULT},
-	{"\\",DIV},
 	{"\\+",ADD},					// plus
 	{"\\-",MINUS},
 	{"==",EQ},				// equal
