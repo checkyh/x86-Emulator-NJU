@@ -105,7 +105,7 @@ static bool make_token(char *e) {
 				break;
 			}
 		}
-		printf("%d\n",nr_token);
+		
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
@@ -174,6 +174,7 @@ uint32_t expr(char *e, bool *success) {
     		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type ==LEFT) ) {
 		tokens[i].type = DEREF;}
     	}
+    	printf("%d\n",nr_token);
 	printf("%d\n",eval(0,nr_token));	
 	/* TODO: Implement code to evaluate the expression. */
 	return 0;
