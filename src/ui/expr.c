@@ -140,7 +140,7 @@ uint32_t eval(int p,int q) {
     	return sixteenstring(tokens[p].str,10);
     }
     else if(check_parentheses(p, q) == true) {
-    assert(0);
+
 	 return eval(p + 1, q - 1); 
 	
     }
