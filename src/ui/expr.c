@@ -156,7 +156,7 @@ uint32_t eval(int p,int q) {
 	    case DIV: return val1/val2;
 	    case DEREF:return val2;
 	    case 0: return 0;
-	    default:assert(0);
+	    default:return 0;
 	}
 			
 	}
