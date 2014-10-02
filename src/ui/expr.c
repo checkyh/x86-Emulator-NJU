@@ -26,7 +26,7 @@ static struct rule {
 	{"\\+",ADD},					// plus
 	{"\\-",MINUS},
 	{"==",EQ},				// equal
-	{"^[A-Za-z0-9]+$",STRING}
+	{"[a-Z0-9]*",STRING}
 	
 };
 
