@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ,ADD,MINUS,STRING
+	NOTYPE = 256, MULT,DIV,ADD,MINUS,STRING,EQ
 
 	/* TODO: Add more token types */
 
@@ -23,6 +23,8 @@ static struct rule {
 	 */
 
 	{" +",NOTYPE},				// white space
+	{"\\*",MULT},
+	{"\\",DIV},
 	{"\\+",ADD},					// plus
 	{"\\-",MINUS},
 	{"==",EQ},				// equal
