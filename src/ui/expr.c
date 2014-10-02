@@ -176,7 +176,7 @@ uint32_t expr(char *e, bool *success) {
     		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type ==LEFT) ) {
 		tokens[i].type = DEREF;}
     	}
-	printf("%d\n",eval(0,nr_token));	
+	printf("%d\n",eval(0,nr_token-1));	
 	/* TODO: Implement code to evaluate the expression. */
 	return 0;
 }
