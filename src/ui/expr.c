@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, MULT,DIV,ADD,MINUS,STRING,EQ
+	NOTYPE = 256, MULT=3,DIV=4,ADD=5,MINUS=6,STRING=2,EQ=7,LEFT=-1,RIGHT=-2,DEREF=1
 
 	/* TODO: Add more token types */
 
@@ -27,7 +27,10 @@ static struct rule {
 	{"\\+",ADD},					// plus
 	{"\\-",MINUS},
 	{"==",EQ},				// equal
-	{"[a-zA-Z0-9]+",STRING}
+	{"[a-zA-Z0-9]+",STRING},
+	{"\\",DIV},
+	{"\\)",RIGHT},
+	{"\\(",LEFT},
 	
 };
 
@@ -59,6 +62,7 @@ typedef struct token {
 
 Token tokens[32];
 int nr_token;
+int stop;
 
 static bool make_token(char *e) {
 	int position = 0;
@@ -86,25 +90,76 @@ static bool make_token(char *e) {
 				switch(rules[i].token_type) 
 				{
 					case NOTYPE:break;
-					case ADD:tokens[nr_token].type=ADD;break;
-					case MINUS:tokens[nr_token].type=MINUS;break;
+					case EQ:tokens[nr_token].type=EQ;nr_token++;break;
+					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
+					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
 					case STRING:tokens[nr_token].type=STRING;
-						strcpy(tokens[nr_token].str,e+position);break;
-					case MULT:tokens[nr_token].type=MULT;break;
+						strcpy(tokens[nr_token].str,e+position);nr_token++;break;
+					case MULT:tokens[nr_token].type=MULT;nr_token++;break;
+					case DIV:tokens[nr_token].type=DIV;nr_token++;break;
+					case LEFT:tokens[nr_token].type=LEFT;nr_token++;break;
+					case RIGHT:tokens[nr_token].type=RIGHT;nr_token++;break;
 					default: break;
 				}
 
 				break;
 			}
 		}
-
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
 	}
+	
 
 	return true; 
+}
+bool check_parentheses(int p,int q)
+{
+	if (tokens[p].type==LEFT)
+	{
+		int leftmost=1,cou=p+1;
+		for (;cou<=q-1;cou++) { if (tokens[cou].type==LEFT) leftmost++;
+					if (tokens[cou].type==RIGHT) leftmost--;
+					}
+		if (tokens[q].type==RIGHT&&leftmost==1) return true;
+		else return false;
+		
+	}
+	else return false;
+}
+
+extern uint32_t sixteenstring(char *q,int step);
+uint32_t eval(int p,int q) {
+	uint32_t val1,val2;
+    if(p > q) {
+	assert(0);
+    }
+    else if(p == q) { 
+    	return sixteenstring(tokens[p].str,10);
+    }
+    else if(check_parentheses(p, q) == true) {
+	 return eval(p + 1, q - 1); 
+    }
+    else {
+    	int cou,op_type=0,op=0;
+    	for (cou=p;cou<=q;cou++)
+    		if (tokens[cou].type>op) {op_type=tokens[cou].type;op=cou;}
+	val1 = eval(p, op - 1);
+	 val2 = eval(op + 1, q);
+ 
+	switch(op_type) {
+	    case EQ:return (val1==val2);
+	    case ADD: return val1 + val2;
+	    case MINUS: return  val1-val2;
+	    case MULT: return val1*val2;
+	    case DIV: return val1/val2;
+	    case DEREF:return val2;
+	    case 0: return 0;
+	    default:assert(0);
+	}
+			
+	}
 }
 
 uint32_t expr(char *e, bool *success) {
@@ -112,9 +167,13 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-	
+	int i;
+	for(i = 0; i < nr_token; i ++)
+	 {
+    		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type ==LEFT) ) {
+		tokens[i].type = DEREF;}
+    	}
+	printf("%d",eval(0,nr_token));	
 	/* TODO: Implement code to evaluate the expression. */
-	assert(0);
 	return 0;
 }
-
