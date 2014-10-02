@@ -29,8 +29,8 @@ static struct rule {
 	{"==",EQ},				// equal
 	{"[a-zA-Z0-9]+",STRING},
 	{"\\",DIV},
-	{"\\(",RIGHT},
-	{"\\)",LEFT}
+	{"\\(",LEFT},
+	{"\\)",RIGHT}
 	
 };
 
