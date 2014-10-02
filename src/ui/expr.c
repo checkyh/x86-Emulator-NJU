@@ -133,7 +133,7 @@ extern uint32_t sixteenstring(char *q,int step);
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	printf("%d",p);return 0;
+	printf("%d",stop);return 0;
     }
     else if(p == q) { 
     	return sixteenstring(tokens[p].str,10);
