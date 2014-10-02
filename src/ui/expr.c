@@ -149,7 +149,10 @@ uint32_t eval(int p,int q) {
     else {
     	int cou,op_type=0,op=0;
     	for (cou=p;cou<=q;cou++)
-    		if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
+    	{if (tokens[cou].type==LEFT) while (tokens[cou].type!=RIGHT) {cou++;}	
+    	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
+    	}
+    	
 	val1 = eval(p, op - 1);
 	 val2 = eval(op + 1, q);
  
