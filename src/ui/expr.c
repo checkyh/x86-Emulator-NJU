@@ -90,6 +90,7 @@ static bool make_token(char *e) {
 					case MINUS:tokens[nr_token].type=MINUS;break;
 					case STRING:tokens[nr_token].type=STRING;
 						strcpy(tokens[nr_token].str,e+position);break;
+					case MULT:tokens[nr_token].type=MULT;break;
 					default: assert(0);
 				}
 
