@@ -134,7 +134,7 @@ extern uint32_t sixteenstring(char *q,int step);
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	printf("%d",q);return 0;
+	assert(0);
     }
     else if(p == q) { 
     	return sixteenstring(tokens[p].str,10);
@@ -145,9 +145,9 @@ uint32_t eval(int p,int q) {
 	
     }
     else {
-    	int cou,op_type=0,op=0;
+    	int cou,op_type=0,op=p;
     	for (cou=p;cou<=q;cou++)
-    		if (tokens[cou].type>op) {op_type=tokens[cou].type;op=cou;}
+    		if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
 	val1 = eval(p, op - 1);
 	 val2 = eval(op + 1, q);
  
