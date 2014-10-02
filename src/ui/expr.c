@@ -139,7 +139,6 @@ uint32_t eval(int p,int q) {
 	assert(0);
     }
     else if(p == q) { 
-    printf("%s\n",tokens[p].str);
     	return sixteenstring(tokens[p].str,10);
     }
     else if(check_parentheses(p, q) == true) {
