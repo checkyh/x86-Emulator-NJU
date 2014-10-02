@@ -94,7 +94,9 @@ static bool make_token(char *e) {
 					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
 					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
 					case STRING:tokens[nr_token].type=STRING;
-						strcpy(tokens[nr_token].str,e+position);nr_token++;break;
+						int i=1;for (i=position-substr_len;i<=position;i++)
+						tokens[nr_token].str[i-position+substr_len]=*(e+i);
+						nr_token++;break;
 					case MULT:tokens[nr_token].type=MULT;nr_token++;break;
 					case DIV:tokens[nr_token].type=DIV;nr_token++;break;
 					case LEFT:tokens[nr_token].type=LEFT;nr_token++;break;
