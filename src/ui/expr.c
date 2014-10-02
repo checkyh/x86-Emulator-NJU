@@ -133,7 +133,7 @@ extern uint32_t sixteenstring(char *q,int step);
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	printf("%d",stop);return 0;
+	printf("%d",q);return 0;
     }
     else if(p == q) { 
     	return sixteenstring(tokens[p].str,10);
@@ -173,7 +173,7 @@ uint32_t expr(char *e, bool *success) {
     		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type ==LEFT) ) {
 		tokens[i].type = DEREF;}
     	}
-	printf("%d",eval(0,nr_token));	
+	printf("%d\n",eval(0,nr_token));	
 	/* TODO: Implement code to evaluate the expression. */
 	return 0;
 }
