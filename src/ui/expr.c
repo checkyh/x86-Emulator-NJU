@@ -140,7 +140,9 @@ uint32_t eval(int p,int q) {
     	return sixteenstring(tokens[p].str,10);
     }
     else if(check_parentheses(p, q) == true) {
+    assert(0);
 	 return eval(p + 1, q - 1); 
+	
     }
     else {
     	int cou,op_type=0,op=0;
@@ -174,7 +176,6 @@ uint32_t expr(char *e, bool *success) {
     		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type ==LEFT) ) {
 		tokens[i].type = DEREF;}
     	}
-    	printf("%d\n",nr_token);
 	printf("%d\n",eval(0,nr_token));	
 	/* TODO: Implement code to evaluate the expression. */
 	return 0;
