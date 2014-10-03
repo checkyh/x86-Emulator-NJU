@@ -8,7 +8,7 @@
 int number_state=0;
 enum {
 	NOTYPE = 256, MULT=22,DIV=21,ADD=24,MINUS=23,STRING=1,EQ=15,LEFT=-1,RIGHT=-2,DEREF=2,REG=3,MOD=20,LESS=19,GREATER=18,
-	LESSEQ=17,GREATEQ=16,NEQ=14,ALSO=13,ORSO=12,NOT=11,SHIFTL=10,SHIFTR=9,AND=8,OR=7,CRA=6
+	LESSEQ=17,GREATEQ=16,NEQ=14,ALSO=13,ORSO=12,NOT=11,SHIFTL=10,SHIFTR=9,AND=8,OR=7,CRA=6,FAN=5
 
 	/* TODO: Add more token types */
 
@@ -46,7 +46,8 @@ static struct rule {
 	{"!",NOT},
 	{"\\&",AND},
 	{"\\|",OR},
-	{"\\^",CRA}
+	{"\\^",CRA},
+	{"\\~",FAN}
 	
 };
 
@@ -132,6 +133,7 @@ static bool make_token(char *e) {
 					case SHIFTL:tokens[nr_token].type=SHIFTL;nr_token++;break;
 					case SHIFTR:tokens[nr_token].type=SHIFTR;nr_token++;break;
 					case CRA:tokens[nr_token].type=CRA;nr_token++;break;
+					case FAN:tokens[nr_token].type=FAN;nr_token++;break;
 					default: break;
 				}
 
@@ -212,6 +214,7 @@ uint32_t eval(int p,int q) {
 	    case SHIFTL:return (val1<<val2);
 	    case SHIFTR:return(val1>>val2);
 	    case CRA:return (val1^val2);
+	    case FAN:return(~val2);
 	    case 0: return 0;
 	    default:return 0;
 	}
