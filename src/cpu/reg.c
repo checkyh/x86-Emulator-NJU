@@ -49,3 +49,17 @@ void printreg()
 	printf("edi\t\t0x%08x\t\t%d\n",cpu.edi,cpu.edi);
 	printf("eip\t\t0x%08x\t\t%d\n",cpu.eip,cpu.eip);
 }
+uint32_t regfinder(char *q)
+{
+	if(strcmp(q,"eax")==0) return cpu.eax;
+	if(strcmp(q,"ecx")==0) return cpu.ecx;
+	if(strcmp(q,"edx")==0) return cpu.edx;
+	if(strcmp(q,"ebx")==0) return cpu.ebx;
+	if(strcmp(q,"esp")==0) return cpu.esp;
+	if(strcmp(q,"ebp")==0) return cpu.ebp;
+	if(strcmp(q,"esi")==0) return cpu.esi;
+	if(strcmp(q,"edi")==0) return cpu.edi;
+	if(strcmp(q,"eip")==0) return cpu.eip;
+	return 0;
+	
+}

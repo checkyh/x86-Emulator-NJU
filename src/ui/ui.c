@@ -184,9 +184,9 @@ void main_loop() {
 		else if(strcmp(p,"expr")==0)			//si 
 		{
 			suc=true;
-			bool *expr_suc=&suc;
 			char *q=strtok(NULL," ");
-			printf("%d",expr(q,expr_suc));			
+			if (number_state==2) printf("%08x\n",expr(q,&suc));
+			else printf("%d\n",expr(q,&suc));			
 		}
 			
 

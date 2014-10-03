@@ -133,7 +133,7 @@ bool check_parentheses(int p,int q)
 	}
 	else return false;
 }
-
+extern uint32_t regfinder(char *q);
 extern uint32_t sixteenstring(char *q,int step);
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
@@ -168,6 +168,7 @@ uint32_t eval(int p,int q) {
 	    case MULT: return val1*val2;
 	    case DIV: return val1/val2;
 	    case DEREF:number_state=1;return val2;
+	    case REG:number_state=2;return regfinder(tokens[op+1].str);
 	    case 0: return 0;
 	    default:return 0;
 	}
