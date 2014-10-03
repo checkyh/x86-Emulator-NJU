@@ -139,6 +139,9 @@ uint32_t eval(int p,int q) {
 	return 0;
     }
     else if(p == q) { 
+    	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
+    	return sixteenstring(tokens[p].str,16);
+    	else
     	return sixteenstring(tokens[p].str,10);
     }
     else if(check_parentheses(p, q) == true) {
