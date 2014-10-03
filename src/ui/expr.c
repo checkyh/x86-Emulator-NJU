@@ -34,10 +34,10 @@ static struct rule {
 	{"\\)",RIGHT},
 	{"\\$",REG},
 	{"\\%",MOD},
-	{"<",LESS},
-	{">",GREATER},
 	{"<=",LESSEQ},
-	{">=",GREATEQ}
+	{">=",GREATEQ},
+	{"<",LESS},
+	{">",GREATER}
 	
 };
 
