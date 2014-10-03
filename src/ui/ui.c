@@ -181,7 +181,7 @@ void main_loop() {
 			if(sixteenstring(q,10)<=32&&sixteenstring(q,10)>=0) free_bp(sixteenstring(q,16));
 			else printf("error NO\n");
 		}
-		else if(strcmp(p,"expr")==0)			//si 
+		else if(strcmp(p,"p")==0)			//si 
 		{
 			suc=true;
 			char *q=strtok(NULL," ");
