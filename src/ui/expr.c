@@ -8,7 +8,7 @@
 int number_state=0;
 enum {
 	NOTYPE = 256, MULT=22,DIV=21,ADD=24,MINUS=23,STRING=1,EQ=15,LEFT=-1,RIGHT=-2,DEREF=2,REG=3,MOD=20,LESS=19,GREATER=18,
-	LESSEQ=17,GREATEQ=16,NEQ=14,AND=13,OR=12,NOT=11,SHIFTL=10,SHIFTR=9
+	LESSEQ=17,GREATEQ=16,NEQ=14,ALSO=13,ORSO=12,NOT=11,SHIFTL=10,SHIFTR=9,AND=8,OR=7
 
 	/* TODO: Add more token types */
 
@@ -41,9 +41,11 @@ static struct rule {
 	{"<",LESS},
 	{">",GREATER},
 	{"!=",NEQ},
-	{"\\&&",AND},
-	{"\\|\\|",OR},
-	{"!",NOT}
+	{"\\&&",ALSO},
+	{"\\|\\|",ORSO},
+	{"!",NOT},
+	{"\\&",AND},
+	{"\\|",OR}
 	
 };
 
@@ -121,8 +123,10 @@ static bool make_token(char *e) {
 					case LESSEQ:tokens[nr_token].type=LESSEQ;nr_token++;break;
 					case GREATEQ:tokens[nr_token].type=GREATEQ;nr_token++;break;
 					case NEQ:tokens[nr_token].type=NEQ;nr_token++;break;
-					case AND:tokens[nr_token].type=AND;nr_token++;break;
+					case ALSO:tokens[nr_token].type=ALSO;nr_token++;break;
+					case ORSO:tokens[nr_token].type=ORSO;nr_token++;break;
 					case OR:tokens[nr_token].type=OR;nr_token++;break;
+					case AND:tokens[nr_token].type=AND;nr_token++;break;
 					case NOT:tokens[nr_token].type=NOT;nr_token++;break;
 					case SHIFTL:tokens[nr_token].type=SHIFTL;nr_token++;break;
 					case SHIFTR:tokens[nr_token].type=SHIFTR;nr_token++;break;
@@ -198,11 +202,13 @@ uint32_t eval(int p,int q) {
 	    case LESSEQ:return (val1<=val2);
 	    case GREATEQ:return (val1>=val2);
 	    case NEQ:return (val1!=val2);
-	    case AND:return (val1&&val2);
-	    case OR:return (val1||val2);
+	    case ALSO:return (val1&&val2);
+	    case ORSO:return (val1||val2);
+	    case AND:return (val1&val2);
+	    case OR:return(val1|val2);
 	    case NOT:return (!val2);
-	    case SHIFTL:return (val1>>val2);
-	    case SHIFTR:return(val1<<val2);
+	    case SHIFTL:return (val1<<val2);
+	    case SHIFTR:return(val1>>val2);
 	    case 0: return 0;
 	    default:return 0;
 	}
