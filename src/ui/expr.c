@@ -165,7 +165,7 @@ uint32_t eval(int p,int q) {
 	    case MINUS: return  val1-val2;
 	    case MULT: return val1*val2;
 	    case DIV: return val1/val2;
-	    case DEREF:return val2;
+	    case DEREF:number_state=1;return val2;
 	    case 0: return 0;
 	    default:return 0;
 	}

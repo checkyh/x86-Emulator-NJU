@@ -150,16 +150,13 @@ void main_loop() {
 		}
 		else if (strcmp(p,"x")==0)			//x
 		{
+			suc=true;
 			char *q=strtok(NULL," ");
-			uint32_t N=0;
-			while ((unsigned int)(*q-48)<10&&(unsigned int)(*q-48)>=0)
-			{
-				N=N*10+(*q-48);
-				q++;
-			}	
+			uint32_t N=expr(q,&suc);
 			q=strtok(NULL," ");
 			q+=2;
-			uint32_t addr=sixteenstring(q,16);	
+			suc=true;
+			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
 			for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
@@ -168,6 +165,7 @@ void main_loop() {
 		}
 		else if (strcmp(p,"b")==0)			//b
 		{
+			suc=true;
 			if (nemu_state==END) 
 			{
 				restart();
@@ -175,21 +173,21 @@ void main_loop() {
 			}
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			q+=3;
-			uint32_t addr=sixteenstring(q,16);
-			new_bp(addr);		
+			uint32_t addr=expr(q,&suc);
+			if (number_state==1) new_bp(addr);	
 		}
 		else if (strcmp(p,"d")==0)
 		{
 			char *q=strtok(NULL," ");
 			if(sixteenstring(q,10)<=32&&sixteenstring(q,10)>=0) free_bp(sixteenstring(q,16));
+			else printf("error NO\n");
 		}
 		else if(strcmp(p,"expr")==0)			//si 
 		{
 			suc=true;
 			bool *expr_suc=&suc;
 			char *q=strtok(NULL," ");
-			expr(q,expr_suc);			
+			printf("%d",expr(q,expr_suc));			
 		}
 			
 
