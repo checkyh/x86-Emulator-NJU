@@ -39,7 +39,7 @@ static struct rule {
 	{"<",LESS},
 	{">",GREATER},
 	{"!=",NEQ},
-	{"&&",AND}
+	{"\\&&",AND}
 	
 };
 
