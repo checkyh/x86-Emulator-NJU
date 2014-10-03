@@ -154,7 +154,6 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			uint32_t N=expr(q,&suc);
 			q=strtok(NULL," ");
-			q+=2;
 			suc=true;
 			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
