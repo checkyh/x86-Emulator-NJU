@@ -8,7 +8,7 @@
 int number_state=0;
 enum {
 	NOTYPE = 256, MULT=22,DIV=21,ADD=24,MINUS=23,STRING=1,EQ=15,LEFT=-1,RIGHT=-2,DEREF=2,REG=3,MOD=20,LESS=19,GREATER=18,
-	LESSEQ=17,GREATEQ=16,NEQ=14,AND=13,OR=12
+	LESSEQ=17,GREATEQ=16,NEQ=14,AND=13,OR=12,NOT=11
 
 	/* TODO: Add more token types */
 
@@ -40,7 +40,8 @@ static struct rule {
 	{">",GREATER},
 	{"!=",NEQ},
 	{"\\&&",AND},
-	{"\\|\\|",OR}
+	{"\\|\\|",OR},
+	{"!",NOT}
 	
 };
 
@@ -120,6 +121,7 @@ static bool make_token(char *e) {
 					case NEQ:tokens[nr_token].type=NEQ;nr_token++;break;
 					case AND:tokens[nr_token].type=AND;nr_token++;break;
 					case OR:tokens[nr_token].type=OR;nr_token++;break;
+					case NOT:tokens[nr_token].type=NOT;nr_token++;break;
 					default: break;
 				}
 
@@ -194,6 +196,7 @@ uint32_t eval(int p,int q) {
 	    case NEQ:return (val1!=val2);
 	    case AND:return (val1&&val2);
 	    case OR:return (val1||val2);
+	    case NOT:return (!val2);
 	    case 0: return 0;
 	    default:return 0;
 	}
