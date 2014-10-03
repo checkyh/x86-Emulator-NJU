@@ -166,6 +166,7 @@ bool check_parentheses(int p,int q)
 }
 extern uint32_t regfinder(char *q);
 extern uint32_t sixteenstring(char *q,int step);
+extern uint32_t swaddr_read(swaddr_t addr, size_t len);
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
@@ -198,7 +199,7 @@ uint32_t eval(int p,int q) {
 	    case MINUS: return  val1-val2;
 	    case MULT: return val1*val2;
 	    case DIV: return val1/val2;
-	    case DEREF:number_state=1;return val2;
+	    case DEREF:number_state=1;return swaddr_read(val2,1);
 	    case REG:number_state=2;return regfinder(tokens[op+1].str);
 	    case MOD:return val1%val2;
 	    case LESS:return (val1<val2);

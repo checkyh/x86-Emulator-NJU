@@ -172,8 +172,8 @@ void main_loop() {
 			}
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			uint32_t addr=expr(q,&suc);
-			if (number_state==1) new_bp(addr);	
+			expr(q,&suc);
+			if (number_state==1) { int addr=expr(q+1,&suc); new_bp(addr);}	
 		}
 		else if (strcmp(p,"d")==0)
 		{
