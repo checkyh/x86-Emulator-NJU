@@ -186,7 +186,6 @@ uint32_t expr(char *e, bool *success) {
   
 		tokens[i].type = DEREF;
     	}
-	printf("%d\n",eval(0,nr_token-1));	
 	/* TODO: Implement code to evaluate the expression. */
-	return 0;
+	return eval(0,nr_token-1);
 }
