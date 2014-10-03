@@ -40,7 +40,7 @@ static struct rule {
 	{">",GREATER},
 	{"!=",NEQ},
 	{"\\&&",AND},
-	{"\\||",OR}
+	{"\\|\\|",OR}
 	
 };
 
