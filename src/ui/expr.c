@@ -33,7 +33,7 @@ static struct rule {
 	{"\\)",RIGHT},
 	{"\\$",REG},
 	{"\\%",MOD},
-	{"\\<",LESS}
+	{"[<]",LESS}
 	
 };
 
@@ -174,7 +174,7 @@ uint32_t eval(int p,int q) {
 	    case DEREF:number_state=1;return val2;
 	    case REG:number_state=2;return regfinder(tokens[op+1].str);
 	    case MOD:return val1%val2;
-	    case LESS:return val1<val2;
+	    case LESS:return (val1<val2);
 	    case 0: return 0;
 	    default:return 0;
 	}
