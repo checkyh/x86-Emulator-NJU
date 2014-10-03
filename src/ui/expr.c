@@ -33,8 +33,8 @@ static struct rule {
 	{"\\)",RIGHT},
 	{"\\$",REG},
 	{"\\%",MOD},
-	{"[<]",LESS},
-	{"[>]",GREATER}
+	{"<",LESS},
+	{">",GREATER}
 	
 };
 
