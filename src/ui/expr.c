@@ -5,7 +5,7 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
+int number_state=0;
 enum {
 	NOTYPE = 256, MULT=3,DIV=4,ADD=5,MINUS=6,STRING=1,EQ=7,LEFT=-1,RIGHT=-2,DEREF=2
 
@@ -174,6 +174,7 @@ uint32_t eval(int p,int q) {
 }
 
 uint32_t expr(char *e, bool *success) {
+	number_state=0;
 	if(!make_token(e)) {
 		*success = false;
 		return 0;

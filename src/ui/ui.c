@@ -10,6 +10,7 @@
 
 int nemu_state = END;
 void cpu_exec(uint32_t);
+extern int number_state;
 void restart();
 extern void printreg();
 extern void free_all();
@@ -134,10 +135,11 @@ void main_loop() {
 		else if(strcmp(p, "q") == 0) { return; }	//q
 		else if(strcmp(p,"si")==0)			//si 
 		{
+			suc=true;
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			uint32_t step=sixteenstring(q,10);			
+			uint32_t step=expr(q,&suc);			
 			cpu_exec(step);
 		}
 		else if (strcmp(p,"info")==0)			//info 
