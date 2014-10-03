@@ -7,7 +7,7 @@
 #include <regex.h>
 int number_state=0;
 enum {
-	NOTYPE = 256, MULT=22,DIV=21,ADD=24,MINUS=23,STRING=1,EQ=8,LEFT=-1,RIGHT=-2,DEREF=2,REG=3,MOD=20
+	NOTYPE = 256, MULT=22,DIV=21,ADD=24,MINUS=23,STRING=1,EQ=8,LEFT=-1,RIGHT=-2,DEREF=2,REG=3,MOD=20,LESS=19
 
 	/* TODO: Add more token types */
 
@@ -32,7 +32,8 @@ static struct rule {
 	{"\\(",LEFT},
 	{"\\)",RIGHT},
 	{"\\$",REG},
-	{"\\%",MOD}
+	{"\\%",MOD},
+	{"\\<",LESS}
 	
 };
 
@@ -105,6 +106,7 @@ static bool make_token(char *e) {
 					case RIGHT:tokens[nr_token].type=RIGHT;nr_token++;break;
 					case REG:tokens[nr_token].type=REG;nr_token++;break;
 					case MOD:tokens[nr_token].type=MOD;nr_token++;break;
+					case LESS:tokens[nr_token].type=LESS;nr_token++;break;
 					default: break;
 				}
 
@@ -172,6 +174,7 @@ uint32_t eval(int p,int q) {
 	    case DEREF:number_state=1;return val2;
 	    case REG:number_state=2;return regfinder(tokens[op+1].str);
 	    case MOD:return val1%val2;
+	    case LESS:return val1<val2;
 	    case 0: return 0;
 	    default:return 0;
 	}
