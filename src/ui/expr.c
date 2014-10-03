@@ -181,8 +181,9 @@ uint32_t expr(char *e, bool *success) {
 	int i;
 	for(i = 0; i < nr_token; i ++)
 	 {
-    		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type ==LEFT) ) {
-		tokens[i].type = DEREF;}
+    		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
+  
+		tokens[i].type = DEREF;
     	}
 	printf("%d\n",eval(0,nr_token-1));	
 	/* TODO: Implement code to evaluate the expression. */
