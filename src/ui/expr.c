@@ -140,7 +140,7 @@ uint32_t eval(int p,int q) {
     }
     else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
-    	return sixteenstring(tokens[p].str,16);
+    	return sixteenstring(tokens[p+2].str,16);
     	else
     	return sixteenstring(tokens[p].str,10);
     }
