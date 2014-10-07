@@ -241,8 +241,10 @@ uint32_t expr(char *e, bool *success) {
 	for(i = 0; i < nr_token; i ++)
 	 {
     		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
-  
+  		{
 		tokens[i].type = DEREF;
+		assert(1);
+		}
     	}
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
