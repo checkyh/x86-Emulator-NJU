@@ -7,6 +7,7 @@ static BP bp_pool[NR_BP];
 static BP *head, *free_;
 int break_state=0;
 uint32_t break_ins;
+BP *previous=NULL;
 
 void init_bp_pool() 
 {
@@ -30,13 +31,16 @@ void new_bp(uint32_t addr)
 			init_bp_pool();
 			head=free_;
 		}
-		BP *current=free_;
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
 		free_->type=0;
 		swaddr_write(addr,1,0xcc);
+		if(previous!=NULL) {previous->next=free_;
+		previous=previous->next;
+		}
+		else previous=free_;
 		free_=free_->next;
-		current->next=NULL;
+		previous->next=NULL;
 	}
 }
 void break_tcl(uint32_t addr)
@@ -115,12 +119,16 @@ void new_watch(char *q)
 			init_bp_pool();
 			head=free_;
 		}
-		BP *current=free_;
-		free_->watch_expr=q;
+		strcpy(free_->watch_expr,q);
 		free_->type=1;
 		free_->watch_value=expr(q,&suc);
+		if(previous!=NULL) {previous->next=free_;
+		previous=previous->next;
+		}
+		else previous=free_;
 		free_=free_->next;
-		current->next=NULL;
+		previous->next=NULL;
+		
 	}
 }
 /* TODO: Implement the function of breakpoint */
