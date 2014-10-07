@@ -185,10 +185,10 @@ uint32_t eval(int p,int q) {
     else {
     	int cou,op_type=0,op=0;
     	for (cou=p;cou<=q;)
-    	{
-    	printf("%d\n",tokens[cou].type);	
+    	{	
     	if (tokens[cou].type==LEFT) 
     		{
+    		 	printf("OK1\n");
     			int count=1; 
     			while (count!=0) 
     			{
