@@ -188,6 +188,16 @@ void main_loop() {
 			if (number_state==2) printf("%08x\n",expr(q,&suc));
 			else printf("%d\n",expr(q,&suc));			
 		}
+		else if(strcmp(p,"w")==0)
+		{
+			suc=true;
+			if (nemu_state==END) 
+			{
+				restart();
+				free_all();
+			}
+			nemu_state=STOP;			
+		}
 			
 
 		/* TODO: Add more commands */
