@@ -243,7 +243,7 @@ uint32_t expr(char *e, bool *success) {
     		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
   		{
 		tokens[i].type = DEREF;
-		assert(1);
+		assert(0);
 		}
     	}
 	/* TODO: Implement code to evaluate the expression. */
