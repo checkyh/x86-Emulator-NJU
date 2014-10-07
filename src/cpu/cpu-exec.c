@@ -51,11 +51,10 @@ void cpu_exec(volatile uint32_t n) {
 		{
 			if (break_state==1) 
 			{
-			 cpu.eip--;
+			 cpu.eip-=2;
 			 break_state=2;
 			 break_addr=cpu.eip;
 			 break_tcl(cpu.eip);
-			 printf("OK");
 			 return ;}
 			else if (break_state==2&&(cpu.eip>break_addr))
 			{
