@@ -188,6 +188,7 @@ void main_loop() {
 		{
 			char *q=strtok(NULL," ");
 			new_watch(q);	
+			setbreak();
 		}	
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
