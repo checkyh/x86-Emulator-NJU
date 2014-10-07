@@ -43,6 +43,8 @@ void new_bp(uint32_t addr)
 		}
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
+		printf("%x",free_->inst);
+		swaddr_write(addr,1,0xcc);
 		free_->type=0;
 		if(previous!=NULL) {previous->next=free_;
 		previous=previous->next;
