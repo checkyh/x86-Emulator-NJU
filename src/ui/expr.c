@@ -156,8 +156,7 @@ bool check_parentheses(int p,int q)
 	{
 		int leftmost=1,cou=p+1;
 		for (;cou<=q-1;cou++) { if (tokens[cou].type==LEFT) leftmost++;
-					if (tokens[cou].type==RIGHT) leftmost--;
-					}
+					if (tokens[cou].type==RIGHT) leftmost--;}
 		if (tokens[q].type==RIGHT&&leftmost==1) return true;
 		else return false;
 		
@@ -180,9 +179,7 @@ uint32_t eval(int p,int q) {
     	return sixteenstring(tokens[p].str,10);
     }
     else if(check_parentheses(p, q) == true) {
-
-	 return eval(p + 1, q - 1); 
-	
+	 return eval(p + 1, q - 1); 	
     }
     else {
     	int cou,op_type=0,op=0;
@@ -192,9 +189,10 @@ uint32_t eval(int p,int q) {
     			int count=1; 
     			while (count!=0) {
     			cou++;
+    			if (cou>q) judge=false;break;
     			if (tokens[cou].type==LEFT) count++;
     			if (tokens[cou].type==RIGHT) count--;
-    			if (cou>q) judge=false;break;
+    			
     			}	
     		}
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
@@ -241,10 +239,9 @@ uint32_t expr(char *e, bool *success) {
 	for(i = 0; i < nr_token; i ++)
 	 {
     		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
-  		{
 		tokens[i].type = DEREF;
-		assert(0);
-		}
+	
+	
     	}
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
