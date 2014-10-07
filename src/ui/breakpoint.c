@@ -41,6 +41,7 @@ void new_bp(uint32_t addr)
 			init_bp_pool();
 			head=free_;
 		}
+		printf("%x",addr);
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
 		printf("%x",free_->inst);
