@@ -73,6 +73,7 @@ void free_bp(int NO)
 		temp=cirall;
 		cirall=cirall->next;
 	}
+	if (head==NULL) break_state=0;
 }
 void free_all(BP *head)
 {
@@ -85,6 +86,7 @@ void free_all(BP *head)
 				free_=temp;
 	}
 	head=NULL;
+	break_state=0;
 }
 void printbreak()
 {
@@ -95,6 +97,26 @@ void printbreak()
 		printf("%d\tbreakpoint\t0x%06x\n",cirall->NO,cirall->addr);
 		cirall=cirall->next;
 		
+	}
+}
+extern uint32_t expr(char *e, bool *success);
+void new_watch(char *q)
+{
+	bool suc=true;
+	if (free_==NULL) assert(0);
+	else
+	{
+		if (head==NULL) 
+		{
+			init_bp_pool();
+			head=free_;
+		}
+		BP *current=free_;
+		current->next=NULL;
+		free_->watch_expr=q;
+		free_->type=1;
+		free_->watch_value=expr(q,&suc);
+		free_=free_->next;
 	}
 }
 /* TODO: Implement the function of breakpoint */

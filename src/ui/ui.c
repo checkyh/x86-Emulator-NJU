@@ -16,6 +16,7 @@ extern void printreg();
 extern void free_all();
 extern void free_bp(int NO);
 extern BP *new_bp();
+extern void new_watch();
 extern void printbreak();
 uint32_t expr(char *e, bool *success);
 uint32_t  sixteenstring(char *q,int step)
@@ -196,7 +197,9 @@ void main_loop() {
 				restart();
 				free_all();
 			}
-			nemu_state=STOP;			
+			nemu_state=STOP;	
+			char *q=strtok(NULL," ");
+			new_watch(q);	
 		}
 			
 

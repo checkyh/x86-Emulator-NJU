@@ -10,9 +10,10 @@ typedef struct breakpoint {
 	struct breakpoint *next;
 	uint32_t addr;
 	uint32_t inst;
+	int type;
+	uint32_t watch_value;
+	char *watch_expr;
 	/* TODO: Add more members if necessary */
-
-
 } BP;
 
 #endif
