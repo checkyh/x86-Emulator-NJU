@@ -30,8 +30,7 @@ void new_bp(uint32_t addr)
 			init_bp_pool();
 			head=free_;
 		}
-		BP *current=free_;
-		current->next=NULL;
+		
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
 		free_->type=0;
@@ -115,8 +114,7 @@ void new_watch(char *q)
 			init_bp_pool();
 			head=free_;
 		}
-		BP *current=free_;
-		current->next=NULL;
+		
 		free_->watch_expr=q;
 		free_->type=1;
 		free_->watch_value=expr(q,&suc);
