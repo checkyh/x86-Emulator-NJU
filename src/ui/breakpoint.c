@@ -95,7 +95,7 @@ void printbreak()
 	printf("Num\tType\t\tAddress\t\tEXPR\n");
 	while(cirall!=NULL)
 	{
-		printf("%d\t\t",cirall->NO);
+		printf("%d\t",cirall->NO);
 		if (cirall->type==0) printf("breakpoint\t");
 		else printf("watchpoint\t");
 		printf("0x%06x\t%s\n",cirall->addr,cirall->watch_expr);
