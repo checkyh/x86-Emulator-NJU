@@ -225,7 +225,6 @@ uint32_t eval(int p,int q) {
 	    case SHIFTR:return(val1>>val2);
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
-	    case 0:return 0;
 	    default:judge=0;return 0;
 	}	
 	}
@@ -238,7 +237,7 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-	/*int i;
+	int i;
 	
 	for(i = 0; i < nr_token; i ++)
 	 {
@@ -246,7 +245,7 @@ uint32_t expr(char *e, bool *success) {
 		tokens[i].type = DEREF;
 	
 	
-    	}*/
+    	}
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
 	if (judge) return sult;
