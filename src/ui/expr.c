@@ -156,8 +156,13 @@ bool check_parentheses(int p,int q)
 	if (tokens[p].type==LEFT)
 	{
 		int leftmost=1,cou=p+1;
-		for (;cou<=q-1;cou++) { if (tokens[cou].type==LEFT) leftmost++;
-					if (tokens[cou].type==RIGHT) leftmost--;}
+		for (;cou<=q-1;cou++) { 
+		
+		if (leftmost<=0) return 0;
+		if (tokens[cou].type==LEFT) leftmost++;		
+		if (tokens[cou].type==RIGHT) leftmost--;
+		
+		}
 		if (tokens[q].type==RIGHT&&leftmost==1) return true;
 		else return false;
 		
