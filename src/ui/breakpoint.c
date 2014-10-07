@@ -10,7 +10,16 @@ uint32_t break_ins;
 int have_watch=0;
 BP *previous=NULL;
 
-void init_bp_pool() 
+void setbreak()
+{
+	BP *cirall=head;
+	while(cirall!=NULL)
+	{
+		if(cirall->type==0) swaddr_write(cirall->addr,1,0xcc);
+		cirall=cirall->next;
+	}	
+}
+void init_bp_pool() 						
 {
 	int i;
 	for(i = 0; i < NR_BP - 1; i ++) {
@@ -35,7 +44,6 @@ void new_bp(uint32_t addr)
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
 		free_->type=0;
-		swaddr_write(addr,1,0xcc);
 		if(previous!=NULL) {previous->next=free_;
 		previous=previous->next;
 		}

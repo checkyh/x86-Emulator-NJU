@@ -18,7 +18,8 @@ extern void free_bp(int NO);
 extern BP *new_bp();
 extern void new_watch();
 extern void printbreak();
-uint32_t expr(char *e, bool *success);
+extern uint32_t expr(char *e, bool *success);
+extern void setbreak();
 uint32_t  sixteenstring(char *q,int step)
 {
 	int addr=0;
@@ -95,8 +96,8 @@ static void cmd_c() {
 		puts("The Program does not start. Use 'r' command to start the program.");
 		return;
 	}
-
 	nemu_state = RUNNING;
+	setbreak();
 	cpu_exec(-1);
 	if(nemu_state != END) { nemu_state = STOP; }
 }
@@ -107,7 +108,6 @@ static void cmd_r() {
 		while(1) {
 			printf("The program is already running. Restart the program? (y or n)");
 			fflush(stdout);
-
 			scanf(" %c", &c);
 			switch(c) {
 				case 'y': goto restart_;
@@ -118,6 +118,7 @@ static void cmd_r() {
 	}
 
 restart_:
+	setbreak();
 	restart();
 	nemu_state = STOP;
 	cmd_c();
@@ -166,15 +167,10 @@ void main_loop() {
 		else if (strcmp(p,"b")==0)			//b
 		{
 			suc=true;
-			if (nemu_state==END) 
-			{
-				restart();
-				free_all();
-			}
-			nemu_state=STOP;
 			char *q=strtok(NULL," ");
 			expr(q,&suc);
 			if (number_state==1) { int addr=expr(q+1,&suc); new_bp(addr);}	
+			setbreak();
 		}
 		else if (strcmp(p,"d")==0)
 		{
@@ -191,20 +187,10 @@ void main_loop() {
 		}
 		else if(strcmp(p,"w")==0)
 		{
-			suc=true;
-			if (nemu_state==END) 
-			{
-				restart();
-				free_all();
-			}
-			nemu_state=STOP;	
 			char *q=strtok(NULL," ");
 			new_watch(q);	
-		}
-			
-
+		}	
 		/* TODO: Add more commands */
-
 		else { printf("Unknown command '%s'\n", p); }
 	}
 }
