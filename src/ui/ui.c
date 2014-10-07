@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-extern uint32_t hwaddr_read(hwaddr_t addr, size_t len);
+
 int nemu_state = END;
 void cpu_exec(uint32_t);
 extern int number_state;
@@ -158,7 +158,7 @@ void main_loop() {
 			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
 			for (;cir_x<=N;cir_x++,addr++) {
-			printf("%02x ",hwaddr_read(addr,1));	
+			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
 			}		
 		}
