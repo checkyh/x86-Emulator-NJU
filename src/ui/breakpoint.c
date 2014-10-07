@@ -41,7 +41,6 @@ void new_bp(uint32_t addr)
 			init_bp_pool();
 			head=free_;
 		}
-		printf("%x\n",addr);
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
 		swaddr_write(addr,1,0xcc);
