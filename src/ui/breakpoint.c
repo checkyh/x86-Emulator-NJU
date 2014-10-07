@@ -6,6 +6,7 @@ extern unsigned char loader[];
 static BP bp_pool[NR_BP];
 static BP *head, *free_;
 int break_state=0;
+int NOmax=0;
 uint32_t break_ins;
 
 void init_bp_pool() 
@@ -36,7 +37,7 @@ void new_bp(uint32_t addr)
 		free_->type=0;
 		swaddr_write(addr,1,0xcc);
 		free_=free_->next;
-		free_->next=NULL;
+		NOmax++;
 	}
 }
 void break_tcl(uint32_t addr)
@@ -53,7 +54,8 @@ void free_bp(int NO)
 {
 	BP *temp;
 	BP *cirall=head;
-	while(cirall!=NULL)
+	int i=0;
+	while(i<=NOmax)
 	{
 		if (cirall->NO==NO)
 		{
@@ -63,23 +65,27 @@ void free_bp(int NO)
 			 else head=NULL;
 			  cirall->next=free_;
 				free_=cirall;
+				NOmax--;
 			}
 			else{
 				temp->next=cirall->next;
 				cirall->next=free_;
 				free_=cirall;
+				NOmax--;
 			}
 			return;
 		}
 		temp=cirall;
 		cirall=cirall->next;
+		i++;
 	}
 	if (head==NULL) break_state=0;
 }
 void free_all(BP *head)
 {
 	BP *cirall=head;
-	while(cirall!=NULL)
+	int i=0;
+	while(i<=NOmax)
 	{
 		BP *temp=cirall;
 		cirall=cirall->next;
@@ -88,18 +94,20 @@ void free_all(BP *head)
 	}
 	head=NULL;
 	break_state=0;
+	NOmax=0;
 }
 void printbreak()
 {
-	BP *cirall=head;
+	BP *cirall=head;int i=0;
 	printf("Num\tType\t\tAddress\t\tEXPR\n");
-	while(cirall!=NULL)
+	while(i<=NOmax)
 	{
 		printf("%d\t",cirall->NO);
 		if (cirall->type==0) printf("breakpoint\t");
 		else printf("watchpoint\t");
 		printf("0x%06x\t%s\n",cirall->addr,cirall->watch_expr);
 		cirall=cirall->next;
+		i++;
 		
 	}
 }
@@ -119,7 +127,7 @@ void new_watch(char *q)
 		free_->type=1;
 		free_->watch_value=expr(q,&suc);
 		free_=free_->next;
-		free_->next=NULL;
+		NOmax++;
 	}
 }
 /* TODO: Implement the function of breakpoint */
