@@ -156,8 +156,7 @@ bool findwatch()
 		{	find=1;
 			printf("%s\tpreivous value=%d\n\t\tnow value=%d\n",cirall->watch_expr,cirall->watch_value,now_val);
 		
-			cirall->watch_value=now_val;
-		}
+			cirall->watch_value=now_val;}
 		}
 		cirall=cirall->next;
 	}
