@@ -39,11 +39,13 @@ static void print_bin_instr(swaddr_t eip, int len) {
 	}
 	printf("%*.s", 50 - (12 + 3 * len), "");
 }
-
+extern bool findwatch();
+extern int have_watch;
 void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
 	setjmp(jbuf);
 	for(; n > 0; n --) {
+		if (have_watch&&findwatch()) return;
 		if(break_state!=0)
 		{
 			if (break_state==1) 

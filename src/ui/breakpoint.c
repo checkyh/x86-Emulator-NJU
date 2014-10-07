@@ -7,6 +7,7 @@ static BP bp_pool[NR_BP];
 static BP *head, *free_;
 int break_state=0;
 uint32_t break_ins;
+int have_watch=0;
 BP *previous=NULL;
 
 void init_bp_pool() 
@@ -73,6 +74,7 @@ void free_bp(int NO)
 				cirall->next=free_;
 				free_=cirall;
 			}
+			if (cirall->type==1) have_watch--;
 			return;
 		}
 		temp=cirall;
@@ -92,6 +94,7 @@ void free_all(BP *head)
 	}
 	head=NULL;
 	break_state=0;
+	have_watch=0;
 }
 void printbreak()
 {
@@ -128,7 +131,25 @@ void new_watch(char *q)
 		else previous=free_;
 		free_=free_->next;
 		previous->next=NULL;
+		have_watch++;
 		
 	}
+}
+bool findwatch()
+{	bool suc=true;
+	BP *cirall=head;
+	bool find=0;
+	while(cirall!=NULL)
+	{
+		if (cirall->type) { 
+		
+		uint32_t now_val=expr(cirall->watch_expr,&suc);
+		if (cirall->watch_value!=now_val) find=1;
+		printf("preivous value=%d\nnow value=%d\n",cirall->watch_value,now_val);
+		}
+		cirall=cirall->next;
+	}
+	if (find) return 1;
+	else return 0;
 }
 /* TODO: Implement the function of breakpoint */
