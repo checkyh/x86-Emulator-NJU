@@ -97,7 +97,6 @@ static void cmd_c() {
 		return;
 	}
 	nemu_state = RUNNING;
-	setbreak();
 	cpu_exec(-1);
 	if(nemu_state != END) { nemu_state = STOP; }
 }
