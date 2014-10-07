@@ -12,7 +12,7 @@ typedef struct breakpoint {
 	uint32_t inst;
 	int type;
 	uint32_t watch_value;
-	char *watch_expr;
+	char watch_expr[100];
 	/* TODO: Add more members if necessary */
 } BP;
 
