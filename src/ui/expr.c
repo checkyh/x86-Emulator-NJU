@@ -191,12 +191,12 @@ uint32_t eval(int p,int q) {
     			cou++;
     			if (cou>q) judge=false;break;
     			if (tokens[cou].type==LEFT) count++;
-    			if (tokens[cou].type==RIGHT) count--;
-    			
+    			if (tokens[cou].type==RIGHT) count--;    			
     			}	
     		}
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
     	}
+    	printf("%d\n",op_type);
 	val1 = eval(p, op - 1);
 	val2 = eval(op + 1, q); 
 	switch(op_type) {
