@@ -119,7 +119,6 @@ static void cmd_r() {
 restart_:
 	
 	restart();
-	
 	nemu_state = STOP;
 	setbreak();
 	cmd_c();
