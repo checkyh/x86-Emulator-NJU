@@ -36,6 +36,7 @@ void new_bp(uint32_t addr)
 		free_->type=0;
 		swaddr_write(addr,1,0xcc);
 		free_=free_->next;
+		free_->next=NULL;
 	}
 }
 void break_tcl(uint32_t addr)
@@ -114,11 +115,11 @@ void new_watch(char *q)
 			init_bp_pool();
 			head=free_;
 		}
-		
 		free_->watch_expr=q;
 		free_->type=1;
 		free_->watch_value=expr(q,&suc);
 		free_=free_->next;
+		free_->next=NULL;
 	}
 }
 /* TODO: Implement the function of breakpoint */
