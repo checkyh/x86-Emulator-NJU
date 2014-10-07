@@ -139,8 +139,7 @@ void new_watch(char *q)
 		else previous=free_;
 		free_=free_->next;
 		previous->next=NULL;
-		have_watch++;
-		
+		have_watch++;		
 	}
 }
 bool findwatch()

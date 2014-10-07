@@ -16,7 +16,7 @@ jmp_buf jbuf;	/* Make it easy to perform exception handling */
 extern uint8_t loader [];
 extern uint32_t loader_len;
 
-
+extern void setbreak();
 extern int quiet;
 
 uint32_t break_addr;
@@ -29,6 +29,7 @@ void restart() {
 	cpu.eip = LOADER_START;
 
 	init_dram();
+	setbreak();
 }
 
 static void print_bin_instr(swaddr_t eip, int len) {

@@ -120,7 +120,6 @@ restart_:
 	
 	restart();
 	nemu_state = STOP;
-	setbreak();
 	cmd_c();
 }
 
@@ -170,7 +169,6 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			expr(q,&suc);
 			if (number_state==1) { int addr=expr(q+1,&suc); new_bp(addr);}	
-			setbreak();
 		}
 		else if (strcmp(p,"d")==0)
 		{
@@ -184,13 +182,12 @@ void main_loop() {
 			char *q=strtok(NULL," ");
 			if (number_state==2) printf("%08x\n",expr(q,&suc));
 			else printf("%d\n",expr(q,&suc));			
-		}
+		}	
 		else if(strcmp(p,"w")==0)
 		{
 			char *q=strtok(NULL," ");
 			new_watch(q);	
-			setbreak();
-		}	
+		}
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
 	}
