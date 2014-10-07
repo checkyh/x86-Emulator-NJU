@@ -186,10 +186,18 @@ uint32_t eval(int p,int q) {
     else {
     	int cou,op_type=0,op=0;
     	for (cou=p;cou<=q;cou++)
-    	{if (tokens[cou].type==LEFT) while (tokens[cou].type!=RIGHT) {cou++;}	
+    	{
+    	if (tokens[cou].type==LEFT) 
+    	{
+    		int p=1; while (p!=0) {
+    		cou++;
+    		if (tokens[cou].type==LEFT) p++;
+    		if (tokens[cou].type==RIGHT) p--;
+    		if (cou>q) assert(0);
+    		}	
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
     	}
-    	
+    	}
 	val1 = eval(p, op - 1);
 	 val2 = eval(op + 1, q);
  
@@ -216,8 +224,7 @@ uint32_t eval(int p,int q) {
 	    case SHIFTR:return(val1>>val2);
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
-	    case 0: return 0;
-	    default:return 0;
+	    default:printf("bad expression\n");return 0;
 	}
 			
 	}
