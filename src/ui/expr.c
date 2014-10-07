@@ -240,13 +240,13 @@ uint32_t expr(char *e, bool *success) {
 	int i;
 	for(i = 0; i < nr_token; i ++)
 	 {
-    		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
+    		//if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
   
 		tokens[i].type = DEREF;
     	}
 	/* TODO: Implement code to evaluate the expression. */
-	if (judge) 
-	return eval(0,nr_token-1);
+	uint32_t sult=eval(0,nr_token-1);
+	if (judge) return sult;
 	else {
 	printf("bad expression\n");
 	return 0;
