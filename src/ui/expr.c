@@ -170,7 +170,7 @@ bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	judge=false;return 0;
+	return 0;
     }
     else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
@@ -183,18 +183,20 @@ uint32_t eval(int p,int q) {
     }
     else {
     	int cou,op_type=0,op=0;
-    	for (cou=p;cou<=q;cou++)
+    	for (cou=p;cou<=q;)
     	{	if (tokens[cou].type==LEFT) 
     		{
     			int count=1; 
-    			while (count!=0) {
-    			cou++;
-    			if (cou>q) judge=false;break;
-    			if (tokens[cou].type==LEFT) count++;
-    			if (tokens[cou].type==RIGHT) count--;    			
+    			while (count!=0) 
+    			{
+    			 cou++;
+    			 if (cou>q) judge=false;break;
+    			 if (tokens[cou].type==LEFT) count++;
+    			 if (tokens[cou].type==RIGHT) count--;    			
     			}	
     		}
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
+    	cou++;	
     	}
     	printf("%d\n",op_type);
 	val1 = eval(p, op - 1);
@@ -222,9 +224,9 @@ uint32_t eval(int p,int q) {
 	    case SHIFTR:return(val1>>val2);
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
+	    case 0:return 0;
 	    default:judge=0;return 0;
-	}
-			
+	}	
 	}
 }
 
