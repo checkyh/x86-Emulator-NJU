@@ -34,6 +34,7 @@ void new_bp(uint32_t addr)
 		current->next=NULL;
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
+		free_->type=0;
 		swaddr_write(addr,1,0xcc);
 		free_=free_->next;
 	}
@@ -91,10 +92,13 @@ void free_all(BP *head)
 void printbreak()
 {
 	BP *cirall=head;
-	printf("Num\tType\t\tAddress\n");
+	printf("Num\tType\t\tAddress\t\tEXPR\n");
 	while(cirall!=NULL)
 	{
-		printf("%d\tbreakpoint\t0x%06x\n",cirall->NO,cirall->addr);
+		printf("%d\t\t",cirall->NO);
+		if (cirall->type==0) printf("breakpoint\t");
+		else printf("watchpoint\t");
+		printf("0x%06x\t%s\n",cirall->addr,cirall->watch_expr);
 		cirall=cirall->next;
 		
 	}
