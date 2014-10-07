@@ -188,12 +188,11 @@ uint32_t eval(int p,int q) {
     	{	
     	if (tokens[cou].type==LEFT) 
     		{
-    		 	printf("OK1\n");
     			int count=1; 
     			while (count!=0) 
     			{
     			 cou++;
-    			 if (cou>q) judge=false;break;
+    			 if (cou>q) {judge=false;break;}
     			 if (tokens[cou].type==LEFT) count++;
     			 if (tokens[cou].type==RIGHT) count--;    			
     			}	
