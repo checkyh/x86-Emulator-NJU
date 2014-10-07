@@ -77,7 +77,7 @@ typedef struct token {
 	char str[32];
 } Token;
 
-Token tokens[32];
+Token tokens[100];
 int nr_token;
 int stop;
 
