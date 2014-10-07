@@ -145,7 +145,7 @@ bool findwatch()
 		
 		uint32_t now_val=expr(cirall->watch_expr,&suc);
 		if (cirall->watch_value!=now_val) find=1;
-		printf("preivous value=%d\nnow value=%d\n",cirall->watch_value,now_val);
+		printf("%s\tpreivous value=%d\n\t\tnow value=%d\n",cirall->watch_expr,cirall->watch_value,now_val);
 		}
 		cirall=cirall->next;
 	}
