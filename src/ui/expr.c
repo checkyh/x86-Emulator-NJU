@@ -167,10 +167,11 @@ bool check_parentheses(int p,int q)
 extern uint32_t regfinder(char *q);
 extern uint32_t sixteenstring(char *q,int step);
 extern uint32_t swaddr_read(swaddr_t addr, size_t len);
+bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	return 0;
+	judge=false;return 0;
     }
     else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
@@ -186,21 +187,20 @@ uint32_t eval(int p,int q) {
     else {
     	int cou,op_type=0,op=0;
     	for (cou=p;cou<=q;cou++)
-    	{
-    	if (tokens[cou].type==LEFT) 
-    	{
-    		int p=1; while (p!=0) {
-    		cou++;
-    		if (tokens[cou].type==LEFT) p++;
-    		if (tokens[cou].type==RIGHT) p--;
-    		if (cou>q) assert(0);
-    		}	
+    	{	if (tokens[cou].type==LEFT) 
+    		{
+    			int count=1; 
+    			while (count!=0) {
+    			cou++;
+    			if (tokens[cou].type==LEFT) count++;
+    			if (tokens[cou].type==RIGHT) count--;
+    			if (cou>q) assert(0);
+    			}	
+    		}
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
     	}
-    	}
 	val1 = eval(p, op - 1);
-	 val2 = eval(op + 1, q);
- 
+	val2 = eval(op + 1, q); 
 	switch(op_type) {
 	    case EQ:return (val1==val2);
 	    case ADD: return val1 + val2;
@@ -232,6 +232,7 @@ uint32_t eval(int p,int q) {
 
 uint32_t expr(char *e, bool *success) {
 	number_state=0;
+	judge=true;
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
@@ -244,5 +245,10 @@ uint32_t expr(char *e, bool *success) {
 		tokens[i].type = DEREF;
     	}
 	/* TODO: Implement code to evaluate the expression. */
+	if (judge) 
 	return eval(0,nr_token-1);
+	else {
+	printf("bad expression\n");
+	return 0;
+	}
 }
