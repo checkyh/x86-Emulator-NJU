@@ -15,7 +15,7 @@ void setbreak()
 	BP *cirall=head;
 	while(cirall!=NULL)
 	{
-		if(cirall->type==0) swaddr_write(cirall->addr,1,0xcc);
+		if(cirall->type==0) {cirall->inst=swaddr_read(cirall->addr,1);swaddr_write(cirall->addr,1,0xcc);}
 		cirall=cirall->next;
 	}	
 }
@@ -41,10 +41,9 @@ void new_bp(uint32_t addr)
 			init_bp_pool();
 			head=free_;
 		}
-		printf("%x",addr);
+		printf("%x\n",addr);
 		free_->addr=addr;
 		free_->inst=swaddr_read(addr,1);
-		printf("%x",free_->inst);
 		swaddr_write(addr,1,0xcc);
 		free_->type=0;
 		if(previous!=NULL) {previous->next=free_;

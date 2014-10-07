@@ -29,6 +29,7 @@ void restart() {
 	cpu.eip = LOADER_START;
 
 	init_dram();
+	
 	setbreak();
 }
 
