@@ -27,7 +27,8 @@ static struct rule {
 	{"\\*",MULT},
 	{"\\+",ADD},					// plus
 	{"\\-",MINUS},
-	{"==",EQ},				// equal
+	{"==",EQ},			
+		// equal
 	{"[a-zA-Z0-9]+",STRING},
 	{"\\/",DIV},
 	{"\\(",LEFT},
@@ -184,7 +185,9 @@ uint32_t eval(int p,int q) {
     else {
     	int cou,op_type=0,op=0;
     	for (cou=p;cou<=q;)
-    	{	if (tokens[cou].type==LEFT) 
+    	{
+    	printf("%d\n",tokens[cou].type);	
+    	if (tokens[cou].type==LEFT) 
     		{
     			int count=1; 
     			while (count!=0) 
@@ -195,7 +198,6 @@ uint32_t eval(int p,int q) {
     			 if (tokens[cou].type==RIGHT) count--;    			
     			}	
     		}
-    	printf("%d\n",tokens[cou].type);
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
     	cou++;	
     	}
