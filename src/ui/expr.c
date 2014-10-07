@@ -194,7 +194,7 @@ uint32_t eval(int p,int q) {
     			cou++;
     			if (tokens[cou].type==LEFT) count++;
     			if (tokens[cou].type==RIGHT) count--;
-    			if (cou>q) assert(0);
+    			if (cou>q) judge=false;break;
     			}	
     		}
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
@@ -224,7 +224,7 @@ uint32_t eval(int p,int q) {
 	    case SHIFTR:return(val1>>val2);
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
-	    default:printf("bad expression\n");return 0;
+	    default:judge=0;return 0;
 	}
 			
 	}
