@@ -218,7 +218,7 @@ uint32_t eval(int p,int q) {
 	    case DEREF:number_state=1;return swaddr_read(val2,1);
 	    case REG:number_state=2;
 	    if(tokens[op+1].type==STRING) 
-	    {printf("%d\n",op);return regfinder(tokens[op+1].str);} else {judge=0;return 0;}
+	    {printf("%s\n",tokens[op+1].str);return regfinder(tokens[op+1].str);} else {judge=0;return 0;}
 	    case MOD:return val1%val2;
 	    case LESS:return (val1<val2);
 	    case GREATER:return (val1>val2);
