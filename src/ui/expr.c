@@ -185,7 +185,6 @@ uint32_t eval(int p,int q) {
     	return sixteenstring(tokens[p].str,10);
     }
     else if(check_parentheses(p, q) == true) {
-    	printf("OK");
 	 return eval(p + 1, q - 1); 	
     }
     else {
@@ -207,6 +206,7 @@ uint32_t eval(int p,int q) {
     	cou++;	
     	}
     	val1=0;
+    	printf("%d\n",op_type);
 	if (op_type>5) val1 = eval(p, op - 1);
 	
 	val2 = eval(op + 1, q); 
