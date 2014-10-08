@@ -176,7 +176,7 @@ bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	judge=0;return 0;
+	assert(1);judge=0;return 0;
     }
     else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
@@ -230,8 +230,8 @@ uint32_t eval(int p,int q) {
 	    case SHIFTR:return(val1>>val2);
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
-	    case IMPO:return -val2;
-	    default:judge=0;return 0;
+	    case IMPO:return (0-val2);
+	    default:judge=0;assert(0);return 0;
 	}	
 	}
 }
@@ -250,7 +250,7 @@ uint32_t expr(char *e, bool *success) {
     		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
 		tokens[i].type = DEREF;
 		if(tokens[i].type ==MINUS && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
-		{tokens[i].type = IMPO;printf("once\n");}
+		tokens[i].type = IMPO;
 	
     	}
 	/* TODO: Implement code to evaluate the expression. */
