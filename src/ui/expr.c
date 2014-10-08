@@ -176,7 +176,7 @@ bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	assert(0);judge=0;return 0;
+	judge=0;return 0;
     }
     else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
@@ -205,7 +205,9 @@ uint32_t eval(int p,int q) {
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
     	cou++;	
     	}
-	val1 = eval(p, op - 1);
+    	val1=0;
+	if (op_type>5) val1 = eval(p, op - 1);
+	
 	val2 = eval(op + 1, q); 
 	switch(op_type) {
 	    case EQ:return (val1==val2);
