@@ -216,7 +216,9 @@ uint32_t eval(int p,int q) {
 	    case MULT: return val1*val2;
 	    case DIV: return val1/val2;
 	    case DEREF:number_state=1;return swaddr_read(val2,1);
-	    case REG:number_state=2;return regfinder(tokens[op+1].str);
+	    case REG:number_state=2;
+	    if(tokens[op+1].type==STRING) 
+	    {return regfinder(tokens[op+1].str);} else {judge=0;return 0;}
 	    case MOD:return val1%val2;
 	    case LESS:return (val1<val2);
 	    case GREATER:return (val1>val2);
