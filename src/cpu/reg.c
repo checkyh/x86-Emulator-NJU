@@ -60,6 +60,14 @@ uint32_t regfinder(char *q)
 	if(strcmp(q,"esi")==0) return cpu.esi;
 	if(strcmp(q,"edi")==0) return cpu.edi;
 	if(strcmp(q,"eip")==0) return cpu.eip;
+	if(strcmp(q,"ax")==0) return reg_w(R_AX);
+	if(strcmp(q,"cx")==0) return reg_w(R_CX);
+	if(strcmp(q,"dx")==0) return reg_w(R_DX);
+	if(strcmp(q,"bx")==0) return reg_w(R_BX);
+	if(strcmp(q,"sp")==0) return reg_w(R_SP);
+	if(strcmp(q,"bp")==0) return reg_w(R_BP);
+	if(strcmp(q,"si")==0) return reg_w(R_SI);
+	if(strcmp(q,"di")==0) return reg_w(R_DI);
 	return 0;
 	
 }
