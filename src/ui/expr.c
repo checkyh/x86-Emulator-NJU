@@ -114,7 +114,7 @@ static bool make_token(char *e) {
 					case STRING:tokens[nr_token].type=STRING;
 						int i=0;for (;i<substr_len;i++)
 						tokens[nr_token].str[i]=*(e-substr_len+i+position);
-						nr_token++;printf("%s\n",tokens[nr_token].str);break;
+						nr_token++;printf("%c\n",tokens[nr_token].str[0]);break;
 					case MULT:tokens[nr_token].type=MULT;nr_token++;break;
 					case DIV:tokens[nr_token].type=DIV;nr_token++;break;
 					case LEFT:tokens[nr_token].type=LEFT;nr_token++;break;
