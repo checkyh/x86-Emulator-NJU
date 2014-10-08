@@ -180,6 +180,7 @@ void main_loop() {
 		{
 			suc=true;
 			char *q=strtok(NULL," ");
+			expr(q,&suc);
 			if (number_state==2) printf("%08x\n",expr(q,&suc));
 			else printf("%d\n",expr(q,&suc));			
 		}	

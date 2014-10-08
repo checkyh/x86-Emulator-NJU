@@ -175,10 +175,10 @@ extern uint32_t swaddr_read(swaddr_t addr, size_t len);
 bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
-    if(p > q) {
+    	if(p > q) {
 	judge=0;return 0;
-    }
-    else if(p == q) { 
+    	}
+   	 else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
     	return sixteenstring(&tokens[p].str[2],16);
     	else
@@ -218,7 +218,7 @@ uint32_t eval(int p,int q) {
 	    case DEREF:number_state=1;return swaddr_read(val2,1);
 	    case REG:number_state=2;
 	    if(tokens[op+1].type==STRING) 
-	    {printf("%s\n",tokens[op+1].str);return regfinder(tokens[op+1].str);} else {judge=0;return 0;}
+	    return regfinder(tokens[op+1].str); else {judge=0;return 0;}
 	    case MOD:return val1%val2;
 	    case LESS:return (val1<val2);
 	    case GREATER:return (val1>val2);
