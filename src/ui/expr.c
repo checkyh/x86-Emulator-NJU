@@ -112,9 +112,9 @@ static bool make_token(char *e) {
 					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
 					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
 					case STRING:tokens[nr_token].type=STRING;
-						int i=1;for (i=position-substr_len;i<=position;i++)
-						tokens[nr_token].str[i-position+substr_len]=*(e+i);
-						nr_token++;break;
+						int i=0;for (;i<substr_len;i++)
+						tokens[nr_token].str[i]=*(e+i+position);
+						nr_token++;printf("%s\n",tokens[nr_token].str);break;
 					case MULT:tokens[nr_token].type=MULT;nr_token++;break;
 					case DIV:tokens[nr_token].type=DIV;nr_token++;break;
 					case LEFT:tokens[nr_token].type=LEFT;nr_token++;break;
@@ -206,7 +206,6 @@ uint32_t eval(int p,int q) {
     	cou++;	
     	}
     	val1=0;
-    	printf("%d\n",op_type);
 	if (op_type>5) val1 = eval(p, op - 1);
 	
 	val2 = eval(op + 1, q); 
@@ -217,7 +216,7 @@ uint32_t eval(int p,int q) {
 	    case MULT: return val1*val2;
 	    case DIV: return val1/val2;
 	    case DEREF:number_state=1;return swaddr_read(val2,1);
-	    case REG:number_state=2;printf("%s",tokens[op+1].str);return regfinder(tokens[op+1].str);
+	    case REG:number_state=2;return regfinder(tokens[op+1].str);
 	    case MOD:return val1%val2;
 	    case LESS:return (val1<val2);
 	    case GREATER:return (val1>val2);
