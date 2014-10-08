@@ -250,7 +250,7 @@ uint32_t expr(char *e, bool *success) {
     		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
 		tokens[i].type = DEREF;
 		if(tokens[i].type ==MINUS && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
-		tokens[i].type = IMPO;
+		{tokens[i].type = IMPO;printf("once\n");}
 	
     	}
 	/* TODO: Implement code to evaluate the expression. */
