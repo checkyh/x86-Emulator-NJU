@@ -68,6 +68,13 @@ uint32_t regfinder(char *q)
 	if(strcmp(q,"bp")==0) return reg_w(R_BP);
 	if(strcmp(q,"si")==0) return reg_w(R_SI);
 	if(strcmp(q,"di")==0) return reg_w(R_DI);
-	return 0;
-	
+	if(strcmp(q,"al")==0) return reg_b(R_AL);
+	if(strcmp(q,"cl")==0) return reg_b(R_CL);
+	if(strcmp(q,"dl")==0) return reg_b(R_DL);
+	if(strcmp(q,"bl")==0) return reg_b(R_BL);
+	if(strcmp(q,"ah")==0) return reg_b(R_AH);
+	if(strcmp(q,"ch")==0) return reg_b(R_CH);
+	if(strcmp(q,"dh")==0) return reg_b(R_DH);
+	if(strcmp(q,"bh")==0) return reg_b(R_BH);
+	return 0;	
 }
