@@ -176,7 +176,7 @@ bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	assert(1);judge=0;return 0;
+	assert(0);judge=0;return 0;
     }
     else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
@@ -231,7 +231,7 @@ uint32_t eval(int p,int q) {
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
 	    case IMPO:return (0-val2);
-	    default:judge=0;assert(0);return 0;
+	    default:judge=0;return 0;
 	}	
 	}
 }
