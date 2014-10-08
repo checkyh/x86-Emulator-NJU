@@ -7,8 +7,8 @@
 #include <regex.h>
 int number_state=0;
 enum {
-	NOTYPE = 256, MULT=22,DIV=21,ADD=24,MINUS=23,STRING=1,EQ=15,LEFT=-1,RIGHT=-2,DEREF=2,REG=3,MOD=20,LESS=19,GREATER=18,
-	LESSEQ=17,GREATEQ=16,NEQ=14,ALSO=13,ORSO=12,NOT=11,SHIFTL=10,SHIFTR=9,AND=8,OR=7,CRA=6,FAN=5
+	NOTYPE = 256, MULT=22,DIV=21,ADD=24,MINUS=23,STRING=1,EQ=15,LEFT=-1,RIGHT=-2,DEREF=3,REG=4,MOD=20,LESS=19,GREATER=18,
+	LESSEQ=17,GREATEQ=16,NEQ=14,ALSO=13,ORSO=12,NOT=11,SHIFTL=10,SHIFTR=9,AND=8,OR=7,CRA=6,FAN=5,IMPO=2
 
 	/* TODO: Add more token types */
 
@@ -93,10 +93,10 @@ static bool make_token(char *e) {
 		/* Try all rules one by one. */
 		for(i = 0; i < NR_REGEX; i ++) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-				char *substr_start=e +position;
+				//char *substr_start=e +position;
 				int substr_len = pmatch.rm_eo;
 
-				Log("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
+				//Log("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
 
 				position += substr_len;
 
@@ -176,7 +176,7 @@ bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     if(p > q) {
-	return 0;
+	judge=0;return 0;
     }
     else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
@@ -230,6 +230,7 @@ uint32_t eval(int p,int q) {
 	    case SHIFTR:return(val1>>val2);
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
+	    case IMPO:return -val2;
 	    default:judge=0;return 0;
 	}	
 	}
@@ -248,7 +249,8 @@ uint32_t expr(char *e, bool *success) {
 	 {
     		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
 		tokens[i].type = DEREF;
-	
+		if(tokens[i].type ==MINUS && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
+		tokens[i].type = IMPO;
 	
     	}
 	/* TODO: Implement code to evaluate the expression. */
