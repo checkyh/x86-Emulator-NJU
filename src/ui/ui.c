@@ -141,7 +141,7 @@ void main_loop() {
 			nemu_state=STOP;
 			q=strtok(NULL," ");
 			if (q!=NULL) 
-			{printf("%s\n",q);cpu_exec(expr(q,&suc));}
+			{q+=2;cpu_exec(sixteenstring(q,16));}
 			else 			
 			cpu_exec(1);
 		}
@@ -155,7 +155,7 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL," ");
-			uint32_t N=expr(q,&suc);			
+			uint32_t N=sixteenstring(q,10);			
 			q=strtok(NULL," ");
 			suc=true;
 			uint32_t addr=expr(q,&suc);	
