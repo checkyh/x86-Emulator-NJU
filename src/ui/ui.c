@@ -163,6 +163,7 @@ void main_loop() {
 			for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
+			printf("\n");
 			}		
 		}
 		else if (strcmp(p,"b")==0)			//b
