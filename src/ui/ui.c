@@ -140,6 +140,7 @@ void main_loop() {
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
+			printf("%s\n",q);
 			if (q!=NULL) 
 			cpu_exec(expr(q,&suc));
 			else 			
