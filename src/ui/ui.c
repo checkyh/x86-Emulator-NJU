@@ -156,10 +156,12 @@ void main_loop() {
 			suc=true;
 			char *q=strtok(NULL," ");
 			uint32_t N=expr(q,&suc);
+			printf("%d\n",N);
 			q=strtok(NULL," ");
 			suc=true;
 			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
+			printf("0x%x\n",addr);
 			for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
