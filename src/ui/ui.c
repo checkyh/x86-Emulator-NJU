@@ -140,9 +140,8 @@ void main_loop() {
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			printf("%s\n",q);
 			if (q!=NULL) 
-			cpu_exec(expr(q,&suc));
+			{printf("%d\n",expr(q,&suc));cpu_exec(expr(q,&suc));}
 			else 			
 			cpu_exec(1);
 		}
@@ -156,13 +155,11 @@ void main_loop() {
 		{
 			suc=true;
 			char *q=strtok(NULL," ");
-			uint32_t N=expr(q,&suc);
-			printf("%d\n",N);
+			uint32_t N=expr(q,&suc);			
 			q=strtok(NULL," ");
 			suc=true;
 			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
-			printf("0x%x\n",addr);
 			for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
