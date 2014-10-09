@@ -140,8 +140,10 @@ void main_loop() {
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
 			char *q=strtok(NULL," ");
-			uint32_t step=expr(q,&suc);			
-			cpu_exec(step);
+			if (q!=NULL) 
+			cpu_exec(expr(q,&suc));
+			else 			
+			cpu_exec(1);
 		}
 		else if (strcmp(p,"info")==0)			//info 
 		{
