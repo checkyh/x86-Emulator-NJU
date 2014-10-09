@@ -141,7 +141,7 @@ void main_loop() {
 			nemu_state=STOP;
 			q=strtok(NULL," ");
 			if (q!=NULL) 
-			{q+=2;cpu_exec(sixteenstring(q,16));}
+			cpu_exec(sixteenstring(q,10));
 			else 			
 			cpu_exec(1);
 		}
