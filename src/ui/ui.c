@@ -13,7 +13,6 @@ void cpu_exec(uint32_t);
 extern int number_state;
 void restart();
 extern void printreg();
-extern void free_all();
 extern void free_bp(int NO);
 extern BP *new_bp();
 extern void new_watch();
