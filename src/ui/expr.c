@@ -23,7 +23,7 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",NOTYPE},				// white space
+	{"^\\s",NOTYPE},				// white space
 	{"\\*",MULT},
 	{"\\+",ADD},					// plus
 	{"\\-",MINUS},
@@ -90,7 +90,6 @@ static bool make_token(char *e) {
 	nr_token = 0;
 	
 	while(e[position] != '\0') {
-		if (e[position]==' ') position++;
 		/* Try all rules one by one. */
 		for(i = 0; i < NR_REGEX; i ++) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
@@ -107,6 +106,7 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) 
 				{
+					case NOTYPE:break;
 					
 					case EQ:tokens[nr_token].type=EQ;nr_token++;break;
 					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
