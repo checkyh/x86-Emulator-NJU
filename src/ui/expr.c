@@ -88,8 +88,9 @@ static bool make_token(char *e) {
 	regmatch_t pmatch;
 	
 	nr_token = 0;
-	for(i = 0; i < NR_REGEX; i ++) { printf(" %d",rules[i].token_type);}
+	
 	while(e[position] != '\0') {
+		if (e[position]==' ') position++;
 		/* Try all rules one by one. */
 		for(i = 0; i < NR_REGEX; i ++) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
@@ -106,7 +107,7 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) 
 				{
-					case NOTYPE:position++;break;
+					
 					case EQ:tokens[nr_token].type=EQ;nr_token++;break;
 					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
 					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
