@@ -188,7 +188,7 @@ void main_loop() {
 		}	
 		else if(strcmp(p,"w")==0)
 		{
-			q=strtok(NULL," ");
+			q=strtok(NULL,"");
 			new_watch(q);	
 		}
 		/* TODO: Add more commands */
