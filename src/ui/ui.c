@@ -138,7 +138,7 @@ void main_loop() {
 			suc=true;
 			if (nemu_state==END) restart();
 			nemu_state=STOP;
-			q=strtok(NULL," ");
+			q=strtok(NULL,"");
 			if (q!=NULL) 
 			cpu_exec(sixteenstring(q,10));
 			else 			
@@ -146,7 +146,7 @@ void main_loop() {
 		}
 		else if (strcmp(p,"info")==0)			//info 
 		{
-			q=strtok(NULL," ");
+			q=strtok(NULL,"");
 			if(strcmp(q,"r")==0) printreg();
 			if(strcmp(q,"b")==0) printbreak();
 		}
@@ -155,7 +155,7 @@ void main_loop() {
 			suc=true;
 			q=strtok(NULL," ");
 			uint32_t N=sixteenstring(q,10);			
-			q=strtok(NULL," ");
+			q=strtok(NULL,"");
 			suc=true;
 			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
@@ -168,13 +168,13 @@ void main_loop() {
 		else if (strcmp(p,"b")==0)			//b
 		{
 			suc=true;
-			q=strtok(NULL," ");
+			q=strtok(NULL,"");
 			expr(q,&suc);
 			if (number_state==1) { int addr=expr(q+1,&suc); new_bp(addr);}	
 		}
 		else if (strcmp(p,"d")==0)
 		{
-			q=strtok(NULL," ");
+			q=strtok(NULL,"");
 			if(sixteenstring(q,10)<=32&&sixteenstring(q,10)>=0) free_bp(sixteenstring(q,16));
 			else printf("error NO\n");
 		}
@@ -189,7 +189,7 @@ void main_loop() {
 		}	
 		else if(strcmp(p,"w")==0)
 		{
-			q=strtok(NULL," ");
+			q=strtok(NULL,"");
 			new_watch(q);	
 		}
 		/* TODO: Add more commands */
