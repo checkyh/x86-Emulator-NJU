@@ -98,7 +98,7 @@ static bool make_token(char *e) {
 
 				Log("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
 
-				position += substr_len;printf("%d\n",position);
+				position += substr_len;
 
 
 				/* TODO: Now a new token is recognized with rules[i]. 
@@ -107,14 +107,14 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) 
 				{
-					case NOTYPE:break;
+					case NOTYPE:printf("OK\n");break;
 					case EQ:tokens[nr_token].type=EQ;nr_token++;break;
 					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
 					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
 					case STRING:tokens[nr_token].type=STRING;
 						int i=0;for (;i<substr_len;i++)
 						tokens[nr_token].str[i]=e[-substr_len+i+position];
-						nr_token++;break;
+						nr_token++; break;
 					case MULT:tokens[nr_token].type=MULT;nr_token++;break;
 					case DIV:tokens[nr_token].type=DIV;nr_token++;break;
 					case LEFT:tokens[nr_token].type=LEFT;nr_token++;break;
@@ -137,10 +137,9 @@ static bool make_token(char *e) {
 					case FAN:tokens[nr_token].type=FAN;nr_token++;break;
 					default: break;
 				}
-
 				break;
 			}
-			printf("%d\n",position);
+			
 		}
 		
 		if(i == NR_REGEX) {
