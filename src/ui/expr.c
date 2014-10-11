@@ -98,7 +98,7 @@ static bool make_token(char *e) {
 
 				Log("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
 
-				position += substr_len;
+				position += substr_len;printf("%d/n",position);
 
 
 				/* TODO: Now a new token is recognized with rules[i]. 
