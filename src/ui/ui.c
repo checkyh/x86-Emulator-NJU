@@ -182,13 +182,14 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL," ");
+			printf("%s",q);
 			expr(q,&suc);
 			if (number_state==2) printf("0x%08x\n",expr(q,&suc));
 			else printf("%d\n",expr(q,&suc));			
 		}	
 		else if(strcmp(p,"w")==0)
 		{
-			q=strtok(NULL,"");
+			q=strtok(NULL," ");
 			new_watch(q);	
 		}
 		/* TODO: Add more commands */
