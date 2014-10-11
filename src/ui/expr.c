@@ -88,7 +88,7 @@ static bool make_token(char *e) {
 	regmatch_t pmatch;
 	
 	nr_token = 0;
-
+	for(i = 0; i < NR_REGEX; i ++) { printf(" %d",rules[NR_REGEX].token_type);}
 	while(e[position] != '\0') {
 		/* Try all rules one by one. */
 		for(i = 0; i < NR_REGEX; i ++) {
