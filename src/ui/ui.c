@@ -182,7 +182,6 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL,"");
-			printf("%s",q);
 			expr(q,&suc);
 			if (number_state==2) printf("0x%08x\n",expr(q,&suc));
 			else printf("%d\n",expr(q,&suc));			
