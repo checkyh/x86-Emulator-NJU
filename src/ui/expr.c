@@ -23,7 +23,7 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{"\\s+",NOTYPE},				// white space
+	{" +",NOTYPE},				// white space
 	{"\\*",MULT},
 	{"\\+",ADD},					// plus
 	{"\\-",MINUS},
