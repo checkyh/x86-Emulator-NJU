@@ -111,7 +111,7 @@ static bool make_token(char *e) {
 					case EQ:tokens[nr_token].type=EQ;nr_token++;break;
 					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
 					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
-					case STRING:tokens[nr_token].type=STRING;tokens[nr_token].str[0]='\0';
+					case STRING:tokens[nr_token].type=STRING;memset(tokens[nr_token].str,0,32);
 						int i=0;printf("%d\n",substr_len);for (;i<substr_len;i++)
 						tokens[nr_token].str[i]=e[-substr_len+i+position];
 						nr_token++; break;
