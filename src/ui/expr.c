@@ -199,14 +199,12 @@ uint32_t eval(int p,int q) {
     			 cou++;
     			 if (cou>q) {judge=false;break;}
     			 if (tokens[cou].type==LEFT) count++;
-    			 if (tokens[cou].type==RIGHT) count--;
-    			 if (cou>q) judge=false; return 0;    			
+    			 if (tokens[cou].type==RIGHT) count--;			
     			}	
     		}
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
     	cou++;	
     	}
-printf("%d\n",op);
     	val1=0;
 	if (op_type>5) val1 = eval(p, op - 1);
 	
