@@ -269,7 +269,7 @@ uint32_t expr(char *e, bool *success) {
 			if (cou<0) {printf("more ) than (\n");judge=0;return 0;}
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
-	if (judge) return sult;
+	if (judge==1) return sult;
 	else {
 	printf("bad expression\n");
 	return 0;
