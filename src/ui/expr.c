@@ -198,7 +198,7 @@ uint32_t eval(int p,int q) {
     			while (count!=0) 
     			{
     			 cou++;
-    			 if (cou>q) {judge=false;break;}
+    			 if (cou>q) {assert(0);judge=false;break;}
     			 if (tokens[cou].type==LEFT) count++;
     			 if (tokens[cou].type==RIGHT) count--;		   	
     			}	
@@ -236,7 +236,7 @@ uint32_t eval(int p,int q) {
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
 	    case IMPO:return (0-val2);
-	    default:assert(0);judge=false;return 0;
+	    default:judge=false;return 0;
 	}	
 	}
 }
