@@ -179,11 +179,13 @@ uint32_t eval(int p,int q) {
 	judge=false;return 0;
     	}
    	 else if(p == q) { 
-    	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x'){
+    	if (tokens[p].type==STRING)
+{if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x'){
 		number_state=2;
     	return sixteenstring(&tokens[p].str[2],16);}
     	else
-    	return sixteenstring(tokens[p].str,10);
+    	return sixteenstring(tokens[p].str,10);}
+else {judge=false;return 0;}
     }
     else if(check_parentheses(p, q) == true) {
 	 return eval(p + 1, q - 1); 	
@@ -271,7 +273,7 @@ uint32_t expr(char *e, bool *success) {
 	uint32_t sult=eval(0,nr_token-1);
 Judg:
 	if (judge) return sult;
-
+	
 	if (judge==false){
 	printf("bad expression\n");
 	return 0;
