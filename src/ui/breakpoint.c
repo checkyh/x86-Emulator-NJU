@@ -83,7 +83,7 @@ void free_bp(int NO)
 				cirall->next=free_;
 				free_=cirall;
 			}
-			if (cirall->type==1) have_watch--;
+			if (cirall->type==1) {have_watch--;memset(cirall->watch_expr,0,32);}
 			return;
 		}
 		temp=cirall;
