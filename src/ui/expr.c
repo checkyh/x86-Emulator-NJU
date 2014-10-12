@@ -249,10 +249,9 @@ uint32_t expr(char *e, bool *success) {
 		return 0;
 	}
 	int i;
-	
 	for(i = 0; i < nr_token; i ++)
 	 {
-    		if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
+    	if(tokens[i].type ==MULT && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
 		tokens[i].type = DEREF;
 		if(tokens[i].type ==MINUS && (i == 0 || ((tokens[i - 1].type!=STRING)&&(tokens[i-1].type!=RIGHT))) )
 		tokens[i].type = IMPO;
@@ -264,9 +263,9 @@ uint32_t expr(char *e, bool *success) {
     			 if (tokens[cou].type==LEFT) count++;
     			 if (tokens[cou].type==RIGHT) count--;		   					cou++;	
     			}	
-			if (count>0) printf("more ( than )\n");judge=false;
-			if (count<0) printf("more ) than (\n");judge=false;
-		printf("%d",judge);
+			if (count>0) {printf("more ( than )\n");judge=false;}
+			if (count<0) {printf("more ) than (\n");judge=false;}
+	
 
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
