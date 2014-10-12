@@ -183,6 +183,7 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL,"");
+			printf("%d\n",judge);
 			int t=expr(q,&suc);
 			if (judge)
 			{if (number_state==2) printf("0x%08x\n",t);
