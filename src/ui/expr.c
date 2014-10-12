@@ -210,6 +210,7 @@ uint32_t eval(int p,int q) {
 	if (op_type>5) val1 = eval(p, op - 1);
 	
 	val2 = eval(op + 1, q); 
+	printf("%d\n",op);
 	switch(op_type) {
 	    case EQ:return (val1==val2);
 	    case ADD: return val1 + val2;
