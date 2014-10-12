@@ -206,11 +206,11 @@ uint32_t eval(int p,int q) {
     	if (tokens[cou].type>op_type) {op_type=tokens[cou].type;op=cou;}
     	cou++;	
     	}
+printf("%d\n",op);
     	val1=0;
 	if (op_type>5) val1 = eval(p, op - 1);
 	
 	val2 = eval(op + 1, q); 
-	printf("%d\n",op);
 	switch(op_type) {
 	    case EQ:return (val1==val2);
 	    case ADD: return val1 + val2;
