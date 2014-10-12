@@ -189,7 +189,7 @@ uint32_t eval(int p,int q) {
 	 return eval(p + 1, q - 1); 	
     }
     else {
-    	int cou,op_type=0,op=0;
+    	int cou=p,op_type=0,op=0;
     	for (cou=p;cou<=q;)
     	{	
     	if (tokens[cou].type==LEFT) 
@@ -258,6 +258,15 @@ uint32_t expr(char *e, bool *success) {
 		tokens[i].type = IMPO;
 	
     	}
+	int cou=0,count=0;
+			while (cou<=nr_token-1) 
+    			{
+    			 cou++;
+    			 if (tokens[cou].type==LEFT) count++;
+    			 if (tokens[cou].type==RIGHT) count--;		   	
+    			}
+			if (cou>0) {printf("more ( than )\n");judge=0;return 0;}
+			if (cou<0) {printf("more ) than (\n");judge=0;return 0;}
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
 	if (judge) return sult;
