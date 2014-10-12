@@ -261,9 +261,9 @@ uint32_t expr(char *e, bool *success) {
 	int cou=0,count=0;
 			while (cou<=nr_token-1) 
     			{
-    			 cou++;
+    			 
     			 if (tokens[cou].type==LEFT) count++;
-    			 if (tokens[cou].type==RIGHT) count--;		   	
+    			 if (tokens[cou].type==RIGHT) count--;		   					cou++;	
     			}
 			printf("%d\n",count);
 			if (count>0) {printf("more ( than )\n");judge=false;return 0;}
