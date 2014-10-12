@@ -270,6 +270,7 @@ uint32_t expr(char *e, bool *success) {
 			if (count<0) {printf("more ) than (\n");judge=false;return 0;}
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
+	printf("%d",judge);
 	if (judge) return sult;
 	if (judge==false){
 	printf("bad expression\n");
