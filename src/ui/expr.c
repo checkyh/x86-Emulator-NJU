@@ -176,7 +176,7 @@ bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     	if(p > q) {
-	judge=0;return 0;
+	judge=false;return 0;
     	}
    	 else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x'){
@@ -219,7 +219,7 @@ uint32_t eval(int p,int q) {
 	    case DEREF:number_state=1;return swaddr_read(val2,1);
 	    case REG:number_state=2;
 	    if(tokens[op+1].type==STRING) 
-	    return regfinder(tokens[op+1].str); else {judge=0;return 0;}
+	    return regfinder(tokens[op+1].str); else {judge=false;return 0;}
 	    case MOD:return val1%val2;
 	    case LESS:return (val1<val2);
 	    case GREATER:return (val1>val2);
@@ -236,7 +236,7 @@ uint32_t eval(int p,int q) {
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
 	    case IMPO:return (0-val2);
-	    default:judge=0;return 0;
+	    default:judge=false;return 0;
 	}	
 	}
 }
@@ -265,11 +265,11 @@ uint32_t expr(char *e, bool *success) {
     			 if (tokens[cou].type==LEFT) count++;
     			 if (tokens[cou].type==RIGHT) count--;		   	
     			}
-			if (cou>0) {printf("more ( than )\n");judge=0;return 0;}
-			if (cou<0) {printf("more ) than (\n");judge=0;return 0;}
+			if (count>0) {printf("more ( than )\n");judge=false;return 0;}
+			if (count<0) {printf("more ) than (\n");judge=false;return 0;}
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
-	if (judge==1) return sult;
+	if (judge) return sult;
 	else {
 	printf("bad expression\n");
 	return 0;
