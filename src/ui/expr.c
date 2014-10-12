@@ -176,7 +176,7 @@ bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     	if(p > q) {
-	judge=false;return 0;
+	judge=false;Log("%d %d",p,q);return 0;
     	}
    	 else if(p == q) { 
     	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x'){
@@ -198,7 +198,7 @@ uint32_t eval(int p,int q) {
     			while (count!=0) 
     			{
     			 cou++;
-    			 if (cou>q) {assert(0);judge=false;break;}
+    			 if (cou>q) {judge=false;break;}
     			 if (tokens[cou].type==LEFT) count++;
     			 if (tokens[cou].type==RIGHT) count--;		   	
     			}	
