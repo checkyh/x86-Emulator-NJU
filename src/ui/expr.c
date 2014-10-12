@@ -265,6 +265,7 @@ uint32_t expr(char *e, bool *success) {
     			 if (tokens[cou].type==LEFT) count++;
     			 if (tokens[cou].type==RIGHT) count--;		   					cou++;	
     			}
+	
 			if (count>0) {printf("more ( than )\n");judge=false;return 0;}
 			if (count<0) {printf("more ) than (\n");judge=false;return 0;}
 	/* TODO: Implement code to evaluate the expression. */

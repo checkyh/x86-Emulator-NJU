@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
+extern bool judge;
 int nemu_state = END;
 void cpu_exec(uint32_t);
 extern int number_state;
@@ -159,7 +159,7 @@ void main_loop() {
 			suc=true;
 			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
-			for (;cir_x<=N;cir_x++,addr++) {
+			if (judge) for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
 			}	
@@ -170,7 +170,7 @@ void main_loop() {
 			suc=true;
 			q=strtok(NULL,"");
 			expr(q,&suc);
-			if (number_state==1) { int addr=expr(q+1,&suc); new_bp(addr);}	
+			if (number_state==1) { int addr=expr(q+1,&suc); if (judge) new_bp(addr);}	
 			q=strtok(NULL,"");
 		}
 		else if (strcmp(p,"d")==0)
@@ -184,13 +184,16 @@ void main_loop() {
 			suc=true;
 			q=strtok(NULL,"");
 			int t=expr(q,&suc);
-			if (number_state==2) printf("0x%08x\n",t);
-			else printf("%d\n",t);			
+			if (judge)
+			{if (number_state==2) printf("0x%08x\n",t);
+			else printf("%d\n",t);}			
 		}	
 		else if(strcmp(p,"w")==0)
 		{
+			suc=true;
 			q=strtok(NULL,"");
-			new_watch(q);	
+			uint32_t a=expr(q,&suc);a=a-1;
+			if (judge) new_watch(q);	
 		}
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
