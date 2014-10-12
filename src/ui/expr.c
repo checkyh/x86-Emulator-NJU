@@ -236,7 +236,7 @@ uint32_t eval(int p,int q) {
 	    case CRA:return (val1^val2);
 	    case FAN:return(~val2);
 	    case IMPO:return (0-val2);
-	    default:judge=false;return 0;
+	    default:assert(0);judge=false;return 0;
 	}	
 	}
 }
