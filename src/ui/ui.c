@@ -182,9 +182,9 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL,"");
-			expr(q,&suc);
-			if (number_state==2) printf("0x%08x\n",expr(q,&suc));
-			else printf("%d\n",expr(q,&suc));			
+			int t=expr(q,&suc);
+			if (number_state==2) printf("0x%08x\n",t);
+			else printf("%d\n",t);			
 		}	
 		else if(strcmp(p,"w")==0)
 		{
