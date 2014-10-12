@@ -112,7 +112,7 @@ static bool make_token(char *e) {
 					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
 					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
 					case STRING:tokens[nr_token].type=STRING;
-						int i=0;for (;i<substr_len;i++)
+						int i=0;printf("%d\n",substr_len);for (;i<substr_len;i++)
 						tokens[nr_token].str[i]=e[-substr_len+i+position];
 						nr_token++; break;
 					case MULT:tokens[nr_token].type=MULT;nr_token++;break;

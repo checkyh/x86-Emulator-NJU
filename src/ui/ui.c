@@ -126,7 +126,7 @@ void main_loop() {
 	char *cmd;bool suc;
 	while(1) {
 		cmd = rl_gets();
-		char *p = strtok(cmd, " ");
+		char *p = strtok(cmd," ");
 		char *q=NULL;
 		if(p == NULL) { continue; }
 
@@ -171,6 +171,7 @@ void main_loop() {
 			q=strtok(NULL,"");
 			expr(q,&suc);
 			if (number_state==1) { int addr=expr(q+1,&suc); new_bp(addr);}	
+			q=strtok(NULL,"");
 		}
 		else if (strcmp(p,"d")==0)
 		{
