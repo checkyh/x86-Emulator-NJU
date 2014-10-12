@@ -271,8 +271,9 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Implement code to evaluate the expression. */
 	uint32_t sult=eval(0,nr_token-1);
 	if (judge) return sult;
-	else {
+	if (judge==false){
 	printf("bad expression\n");
 	return 0;
 	}
+	return 0;
 }
