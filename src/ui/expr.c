@@ -179,8 +179,9 @@ uint32_t eval(int p,int q) {
 	judge=0;return 0;
     	}
    	 else if(p == q) { 
-    	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
-    	return sixteenstring(&tokens[p].str[2],16);
+    	if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x'){
+		number_state=2;
+    	return sixteenstring(&tokens[p].str[2],16);}
     	else
     	return sixteenstring(tokens[p].str,10);
     }
