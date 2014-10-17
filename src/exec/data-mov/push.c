@@ -1,9 +1,11 @@
 #include "exec/helper.h"
 #include "cpu/reg.h"
 #include "memory.h"
+#include "cpu/modrm.h"
 make_helper(push_r_0) {
 	cpu.esp-=4;
 	swaddr_write(cpu.esp,4,cpu.eax);
+	print_asm("push %s","%eax");
 	return  1;
 }
 make_helper(push_r_1) {
@@ -29,6 +31,7 @@ make_helper(push_r_4) {
 make_helper(push_r_5) {
 	cpu.esp-=4;
 	swaddr_write(cpu.esp,4,cpu.ebp);
+	print_asm("push %s","%eax");
 	return  1;
 }
 make_helper(push_r_6) {
@@ -41,6 +44,5 @@ make_helper(push_r_7) {
 	swaddr_write(cpu.esp,4,cpu.edi);
 	return  1;
 }
-
 
 
