@@ -68,7 +68,7 @@ char* rl_gets() {
 	}
 	}	
 	else {if (line_read==0||*line_read==0) {pre=previous_history(); return (pre->line);}}
-	return 0;
+	return rl_line_buffer;
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
