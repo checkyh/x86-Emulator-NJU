@@ -58,13 +58,13 @@ char *temp=line;
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
+	printf("OK\n");
 	if (line_read) {
 		free(line_read);
 		line_read = NULL;
 	}
 
 	line_read = readline("(nemu) ");
-	printf("OK\n");
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
