@@ -130,7 +130,7 @@ void main_loop() {
 		else if (temp!=NULL) cmd=temp;
 		char *p = strtok(cmd," ");
 		char *q=NULL;
-		if(p == NULL) { return; }
+		if(p == NULL) { continue;}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }	//r
 		else if(strcmp(p, "q") == 0) { return; }	//q
