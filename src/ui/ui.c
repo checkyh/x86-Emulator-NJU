@@ -69,7 +69,7 @@ char* rl_gets() {
 	 printf("%s\n", rl_line_buffer);
 	  return  rl_line_buffer;
 	}	
-	else {pre=previous_history();printf("%s\n",pre->line ); return (pre->line);}
+	else {pre=previous_history(); return (rl_line_buffer);}
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
