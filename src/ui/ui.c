@@ -126,6 +126,8 @@ void main_loop() {
 	char *cmd;bool suc;char *temp=NULL;
 	while(1) {
 		cmd = rl_gets();
+		uint32_t len=strlen(cmd);
+		cmd[len+1]='\0';
 		if (cmd!=NULL) strcpy(temp,cmd); else if (temp!=NULL) strcpy(cmd,temp);
 		char *p = strtok(cmd," ");
 		char *q=NULL;
