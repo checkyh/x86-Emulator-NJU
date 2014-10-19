@@ -68,8 +68,7 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	printf("%d\n",*line_read );
-	if (line_read==NULL) temp=line_read;
+	if (line_read!=0) temp=line_read;
 	return line_read;
 }
 
