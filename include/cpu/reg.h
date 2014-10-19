@@ -31,11 +31,31 @@ typedef struct {
 			uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 		};
 	};
-
-
 	swaddr_t eip;
+	union{
+		struct 
+		 {
+		int CF:1;
+		int set1:1;
+		int PF:1;
+		int set3:1;
+		int AF:1;
+		int set4:1;
+		int ZF:1;
+		int SF:1;
+		int TF:1;
+		int IF:1;
+		int DF:1;
+		int OF:1;
+		int IOPL:2;
+		int NT:1;
+		int set15:1;
+		int RF:1;
+		int VM:1;
+		};
+	uint32_t EFLAGS;
+	};
 } CPU_state;
-
 extern CPU_state cpu;
 
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
