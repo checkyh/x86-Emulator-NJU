@@ -69,7 +69,7 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	if(*line_read!=0) sprintf(temp,"%-1000s",line_read);
+	if(*line_read!=0) sprintf(temp,"%s",line_read);
 	return line_read;
 }
 
@@ -129,7 +129,7 @@ void main_loop() {
 	while(1) {
 		cmd = rl_gets();
 		if (*cmd==0) cmd=temp;
-		printf("%s",cmd);
+		printf("%s",cmd+1);
 		char *p = strtok(cmd," ");
 		char *q=NULL;
 		if(p == NULL) { continue;}
