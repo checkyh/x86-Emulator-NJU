@@ -58,7 +58,7 @@ char *temp=line;
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
-
+	printf("OK\n");
 	if (line_read) {
 		free(line_read);
 		line_read = NULL;
@@ -128,7 +128,6 @@ void main_loop() {
 	char *cmd;bool suc;//char *temp=NULL;
 	while(1) {
 		cmd = rl_gets();
-		printf("OK\n");
 		if (*cmd==0) cmd=temp;
 		char *p = strtok(cmd," ");
 		char *q=NULL;
