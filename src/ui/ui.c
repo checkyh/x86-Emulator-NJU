@@ -67,9 +67,9 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	printf("%s\n",rl_line_buffer  );
-	if(*line_read!=0&&line_read) sprintf(temp,"%s",line_read);
-	return line_read;
+	printf("%s\n",rl_line_buffer);
+	if(*line_read!=0&&line_read) {sprintf(temp,"%s",line_read);return line_read;}
+	else return 0;
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
