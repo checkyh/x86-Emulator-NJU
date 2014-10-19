@@ -61,12 +61,14 @@ char* rl_gets() {
 		free(line_read);
 		line_read = NULL;
 	}
-	line_read = readline("(nemu) ");
+	if(readline("(nemu) "))
+	{
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	if (line_read==0||*line_read==0) {pre=previous_history(); return (pre->line);}
-	else return line_read;
+	}	
+	else {if (line_read==0||*line_read==0) {pre=previous_history(); return (pre->line);}}
+	return 0;
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
