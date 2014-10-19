@@ -68,7 +68,7 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	if(*line_read!=0) memcpy(temp,line_read,1000);
+	if(*line_read!=0) memcpy(temp,line_read,100);
 	return line_read;
 }
 
