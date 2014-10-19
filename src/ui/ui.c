@@ -131,6 +131,7 @@ void main_loop() {
 		if (temp!=0) cmd=temp;
 		char *p = strtok(cmd," ");
 		char *q=NULL;
+		printf("%s\n",temp );
 		if(p == NULL) { continue;}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }	//r
