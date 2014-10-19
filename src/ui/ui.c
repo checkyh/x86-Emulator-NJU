@@ -123,11 +123,10 @@ restart_:
 }
 
 void main_loop() {
-	char *cmd;bool suc;char *temp=NULL;
+	char *cmd;bool suc;char temp={0};
 	while(1) {
 		cmd = rl_gets();
-		if (cmd!=NULL) temp=cmd;
-		else if (temp!=NULL) cmd=temp;
+		if (cmd!=NULL) temp=*cmd; else if (temp!=0) cmd=&temp;
 		char *p = strtok(cmd," ");
 		char *q=NULL;
 		if(p == NULL) { continue;}
