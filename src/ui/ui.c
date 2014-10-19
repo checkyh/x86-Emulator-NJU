@@ -58,7 +58,6 @@ char *temp=line;
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
-	printf("OK\n");
 	if (line_read) {
 		free(line_read);
 		line_read = NULL;
@@ -69,6 +68,7 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
+	printf("%s\n",line_read);
 	if(*line_read!=0) sprintf(temp,"%s",line_read);
 	return line_read;
 }
