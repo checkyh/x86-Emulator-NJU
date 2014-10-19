@@ -19,7 +19,7 @@ make_helper(concat(test_i2r_, SUFFIX)) {
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	DATA_TYPE result=(REG(reg_code)&imm);
 	if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-	if (result>=1<<(8*DATA_BYTE-1)) cpu.SF=1;else cpu.SF=0;
+	if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 	PF_check(result);
 	cpu.OF=0;
 	cpu.CF=0;
@@ -35,7 +35,7 @@ make_helper(concat(test_i2rm_, SUFFIX)) {
 		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
 		DATA_TYPE result=(REG(m.R_M)&imm);
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (result>=1<<(8*DATA_BYTE-1)) cpu.SF=1;else cpu.SF=0;
+		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 		PF_check(result);
 		cpu.OF=0;
 		cpu.CF=0;	
@@ -48,7 +48,7 @@ make_helper(concat(test_i2rm_, SUFFIX)) {
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
 		DATA_TYPE result=(MEM_R(addr)&imm);
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (result>=1<<(8*DATA_BYTE-1)) cpu.SF=1;else cpu.SF=0;
+		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 		PF_check(result);
 		cpu.OF=0;
 		cpu.CF=0;
@@ -63,7 +63,7 @@ make_helper(concat(test_r2rm_, SUFFIX)) {
 	if(m.mod == 3) {
 		DATA_TYPE result=(REG(m.R_M)&REG(m.reg));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (result>=1<<(8*DATA_BYTE-1)) cpu.SF=1;else cpu.SF=0;
+		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 		PF_check(result);
 		cpu.OF=0;
 		cpu.CF=0;
@@ -75,7 +75,7 @@ make_helper(concat(test_r2rm_, SUFFIX)) {
 		int len = read_ModR_M(eip + 1, &addr);
 		DATA_TYPE result=(REG(m.reg)&MEM_R(addr));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (result>=1<<(8*DATA_BYTE-1)) cpu.SF=1;else cpu.SF=0;
+		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 		PF_check(result);
 		cpu.OF=0;
 		cpu.CF=0;
@@ -90,7 +90,7 @@ make_helper(concat(test_rm2r_, SUFFIX)) {
 	if(m.mod == 3) {
 		DATA_TYPE result=(REG(m.reg)&REG(m.R_M));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (result>=1<<(8*DATA_BYTE-1)) cpu.SF=1;else cpu.SF=0;
+		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 		PF_check(result);
 		cpu.OF=0;
 		cpu.CF=0;
@@ -102,7 +102,7 @@ make_helper(concat(test_rm2r_, SUFFIX)) {
 		int len = read_ModR_M(eip + 1, &addr);
 		DATA_TYPE result=(REG(m.reg)&MEM_R(addr));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (result>=1<<(8*DATA_BYTE-1)) cpu.SF=1;else cpu.SF=0;
+		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 		PF_check(result);
 		cpu.OF=0;
 		cpu.CF=0;
