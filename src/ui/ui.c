@@ -65,10 +65,11 @@ char* rl_gets() {
 	{
 	if (line_read && *line_read) {
 		add_history(line_read);
-	}
+	 }
+	return  rl_line_buffer;
 	}	
 	else {if (line_read==0||*line_read==0) {pre=previous_history(); return (pre->line);}}
-	return rl_line_buffer;
+	return 0;
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
