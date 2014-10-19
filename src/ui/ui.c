@@ -59,8 +59,8 @@ char *temp=line;
 char* rl_gets() {
 	static char *line_read = NULL;
 	if (line_read) {
-		free(line_read);
 		printf("OK\n");
+		free(line_read);
 		line_read = NULL;
 	}
 
