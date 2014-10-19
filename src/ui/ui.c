@@ -63,7 +63,7 @@ char* rl_gets() {
 		line_read = NULL;
 	}
 
-	line_read = readline("(nemu) ");
+	line_read = readline("(nemu)");
 	printf("OK\n");
 	if (line_read && *line_read) {
 		add_history(line_read);
