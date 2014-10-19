@@ -69,7 +69,7 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	if(*line_read!=0) sprintf(temp,"%s",line_read);
+	if(*line_read!=0) sprintf(temp,"%1000s",line_read);
 	return line_read;
 }
 
