@@ -129,7 +129,6 @@ void main_loop() {
 	while(1) {
 		cmd = rl_gets();
 		if (*cmd==0) cmd=temp;
-		printf("%s",cmd+1);
 		char *p = strtok(cmd," ");
 		char *q=NULL;
 		if(p == NULL) { continue;}
