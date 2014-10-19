@@ -128,9 +128,8 @@ void main_loop() {
 	char *cmd;bool suc;//char *temp=NULL;
 	while(1) {
 		cmd = rl_gets();
-		if (temp!=0) cmd=temp;
+		if (*cmd==0) cmd=temp;
 		char *p = strtok(cmd," ");
-		printf("OK\n" );
 		char *q=NULL;
 		if(p == NULL) { continue;}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
