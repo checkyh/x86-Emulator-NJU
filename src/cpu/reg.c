@@ -76,5 +76,12 @@ uint32_t regfinder(char *q)
 	if(strcmp(q,"ch")==0) return reg_b(R_CH);
 	if(strcmp(q,"dh")==0) return reg_b(R_DH);
 	if(strcmp(q,"bh")==0) return reg_b(R_BH);
+	if(strcmp(q,"CF")==0) return cpu.CF;
+	if(strcmp(q,"PF")==0) return cpu.PF;
+	if(strcmp(q,"ZF")==0) return cpu.ZF;
+	if(strcmp(q,"SF")==0) return cpu.SF;
+	if(strcmp(q,"IF")==0) return cpu.IF;
+	if(strcmp(q,"DF")==0) return cpu.DF;
+	if(strcmp(q,"OF")==0) return cpu.OF;
 	assert(0);	
 }
