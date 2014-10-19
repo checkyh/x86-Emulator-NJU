@@ -55,7 +55,6 @@ uint32_t  sixteenstring(char *q,int step)
 }
 char line[1000];
 char *temp=line;
-char m=0;
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -67,9 +66,8 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	printf("OK\n");
-	if(*line_read!=0&&line_read){sprintf(temp,"%s",line_read);return line_read;}
-	else return &m;
+	if(*line_read!=0&&line_read) sprintf(temp,"%s",line_read);
+	return line_read;
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
