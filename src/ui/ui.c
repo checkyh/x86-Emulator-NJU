@@ -53,7 +53,8 @@ uint32_t  sixteenstring(char *q,int step)
 	while (temp!=-1);	
 	return  addr;
 }
-char *temp=NULL;
+char line[1000];
+char *temp=line;
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -68,8 +69,8 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	assert(0);
 	printf("%s\n", line_read);
+	assert(0);
 	if(*line_read!=0) sprintf(temp,"%s",line_read);
 	return line_read;
 }
