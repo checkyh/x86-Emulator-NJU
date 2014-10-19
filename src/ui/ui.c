@@ -68,7 +68,7 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	if (line_read!=0) temp=line_read;
+	if (line_read!=0) {printf("OK");temp=line_read;}
 	return line_read;
 }
 
@@ -127,7 +127,7 @@ void main_loop() {
 	char *cmd;bool suc;//char *temp=NULL;
 	while(1) {
 		cmd = rl_gets();
-		if (temp!=NULL) cmd=temp;
+		if (temp!=0) cmd=temp;
 		char *p = strtok(cmd," ");
 		char *q=NULL;
 		if(p == NULL) { continue;}
