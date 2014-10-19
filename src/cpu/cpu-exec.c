@@ -33,7 +33,9 @@ void restart() {
 	setbreak();// 设置已存在的断点 src/ui/breakpoint.c
 	cpu.ebp=0;
 	cpu.esp=0x8000000;
+	cpu.EFLAGS=0x3;
 }
+
 
 static void print_bin_instr(swaddr_t eip, int len) {
 	int i;
