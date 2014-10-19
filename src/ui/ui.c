@@ -59,13 +59,13 @@ char *temp=line;
 char* rl_gets() {
 	static char *line_read = NULL;
 	if (line_read) {
-		printf("OK\n");
 		free(line_read);
 		line_read = NULL;
 	}
 
 	line_read = readline("(nemu) ");
 	if (line_read && *line_read) {
+		printf("OK\n");
 		add_history(line_read);
 	}
 	if(*line_read!=0&&line_read) sprintf(temp,"%s",line_read);
