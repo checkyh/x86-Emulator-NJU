@@ -64,11 +64,10 @@ char* rl_gets() {
 	}
 
 	line_read = readline("(nemu) ");
-
+	printf("OK\n");
 	if (line_read && *line_read) {
 		add_history(line_read);
 	}
-	printf("%s\n",line_read);
 	if(*line_read!=0&&line_read) sprintf(temp,"%s",line_read);
 	return line_read;
 }
