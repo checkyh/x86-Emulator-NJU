@@ -48,6 +48,13 @@ void printreg()
 	printf("esi\t\t0x%08x\t\t%d\n",cpu.esi,cpu.esi);
 	printf("edi\t\t0x%08x\t\t%d\n",cpu.edi,cpu.edi);
 	printf("eip\t\t0x%08x\t\t%d\n",cpu.eip,cpu.eip);
+	printf("CF\t\t0x%08x\t\t%d\n",cpu.CF,cpu.CF);
+	printf("PF\t\t0x%08x\t\t%d\n",cpu.PF,cpu.PF);
+	printf("ZF\t\t0x%08x\t\t%d\n",cpu.ZF,cpu.ZF);
+	printf("SF\t\t0x%08x\t\t%d\n",cpu.SF ,cpu.SF);
+	printf("IF  \t\t0x%08x\t\t%d\n",cpu.IF  ,cpu.IF  );
+	printf("DF\t\t0x%08x\t\t%d\n",cpu.DF,cpu.DF);
+	printf("OF\t\t0x%08x\t\t%d\n",cpu.OF,cpu.OF);
 }
 uint32_t regfinder(char *q)
 {
