@@ -123,13 +123,14 @@ restart_:
 }
 
 void main_loop() {
-	char *cmd;bool suc;
+	char *cmd;bool suc;char *temp=NULL;
 	while(1) {
 		cmd = rl_gets();
+		if (cmd!=NULL) temp=cmd;
+		else if (temp!=NULL) cmd=temp;
 		char *p = strtok(cmd," ");
 		char *q=NULL;
-		if(p == NULL) { continue; }
-
+		if(p == NULL) { return; }
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }	//r
 		else if(strcmp(p, "q") == 0) { return; }	//q
