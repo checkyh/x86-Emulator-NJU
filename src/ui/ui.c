@@ -130,7 +130,7 @@ void main_loop() {
 		cmd = rl_gets();
 		if (temp!=0) cmd=temp;
 		char *p = strtok(cmd," ");
-		assert(0);
+		printf("OK\n" );
 		char *q=NULL;
 		if(p == NULL) { continue;}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
