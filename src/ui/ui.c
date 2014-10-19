@@ -131,7 +131,6 @@ void main_loop() {
 		if (*cmd==0) cmd=temp;
 		printf("%s",cmd+1);
 		char *p = strtok(cmd," ");
-		assert(0);
 		char *q=NULL;
 		if(p == NULL) { continue;}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
@@ -173,9 +172,12 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL,"");
+			if (q!=NULL)
+			{
 			expr(q,&suc);
 			if (number_state==1) { int addr=expr(q+1,&suc); if (judge) new_bp(addr);}	
 			q=strtok(NULL,"");
+		}
 		}
 		else if (strcmp(p,"d")==0)
 		{
