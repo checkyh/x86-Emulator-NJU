@@ -13,7 +13,6 @@
 #undef DATA_BYTE
 
 extern char suffix;
-
 make_helper(test_i2r_v) {
 	return (suffix == 'l' ? test_i2r_l(eip) : test_i2r_w(eip));
 }
