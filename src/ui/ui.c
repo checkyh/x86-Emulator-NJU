@@ -70,6 +70,7 @@ char* rl_gets() {
 		 return rl_line_buffer;
 	}	
 	else {
+		printf("OK%s\n",temp );
 		return (temp);
 	}
 }
