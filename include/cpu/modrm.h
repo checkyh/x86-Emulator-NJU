@@ -22,7 +22,7 @@ typedef union {
 	struct {
 		uint8_t base	:3;
 		uint8_t index	:3;
-		uint8_t ss		:2;
+		uint8_t ss	:2;
 	};
 	uint8_t val;
 } SIB;
