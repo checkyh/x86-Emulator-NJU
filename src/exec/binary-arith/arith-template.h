@@ -15,7 +15,7 @@ make_helper(concat(arith_i2rm_, SUFFIX)) {
 	DATA_TYPE imm;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
-		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
+		imm = instr_fetch(eip + 2, DATA_BYTE);
 		REG(m.R_M) = imm;
 		print_asm("cmp" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
 		return 1 + DATA_BYTE + 1;
