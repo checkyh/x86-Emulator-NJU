@@ -6,14 +6,14 @@ make_helper (j_short)
 	int jump_ins = instr_fetch(eip, 1);
 	int lens=0;
 	char jump_type[5]={'j',0};
-	int short_addr=lens+=instr_fetch(eip+1,1);
+	int short_addr=instr_fetch(eip+1,1);
 	switch (jump_ins)
 	{
 		case (0x74):jump_type[1]='e';if(cpu.ZF==1) cpu.eip+=short_addr; break;//JE/JZ
 		default:break;
 	}
-	lens+=2;
 	print_asm("%s %x",jump_type,cpu.eip+2+short_addr);	
+	lens+=2;
 	printf("%d\n", lens);
 	return lens;
 }
