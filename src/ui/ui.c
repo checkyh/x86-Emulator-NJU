@@ -53,8 +53,9 @@ uint32_t  sixteenstring(char *q,int step)
 	while (temp!=-1);	
 	return  addr;
 }
-char tp[100];
-char *temp=tp;
+char tp[200];char backup[200];
+char *temp1=tp;char *temp2=backup;
+int readlinefun_state=0;
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -65,13 +66,17 @@ char* rl_gets() {
 	line_read=readline("(nemu) ");
 	
 	if (line_read && *line_read) {
+		readlinefun_state=0;
 		add_history(line_read);
-		sprintf(temp,"%s",rl_line_buffer);
-		 return rl_line_buffer;
+		sprintf(temp1,"%s",line_read);
+		 return line_read;
 	}	
 	else {
-		return (temp);
+		if (readlinefun_state==1) sprintf(temp1,"%s",temp2);
+		if (readlinefun_state==0) {sprintf(temp2,"%s",temp1);readlinefun_state=1;}
+		return (temp1);
 	}
+	
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
@@ -193,7 +198,6 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL,"");
-			printf("%s\n", cmd);
 			if (q!=NULL){
 			int t=expr(q,&suc);
 			if (judge)
