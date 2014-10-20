@@ -66,11 +66,13 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 		temp=current_history();
-		printf("OK%s\n", temp->line);
-	 
 	 return rl_line_buffer;
 	}	
-	else return (temp->line);
+	else {
+		printf("%s\n", temp->line);
+	 
+		return (temp->line);
+	}
 }
 
 /* This function will be called when you press <C-c>. And it will return to 
