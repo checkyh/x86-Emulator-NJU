@@ -70,7 +70,6 @@ char* rl_gets() {
 		 return rl_line_buffer;
 	}	
 	else {
-		printf("OK%s\n",temp );
 		return (temp);
 	}
 }
@@ -170,6 +169,7 @@ void main_loop() {
 			}	
 			if (cir_x<=4) printf("\n");
 		}
+		printf("%s\n", cmd);
 		}
 		else if (strcmp(p,"b")==0)			//b
 		{
