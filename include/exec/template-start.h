@@ -14,7 +14,6 @@
 #define DATA_TYPE_S int16_t
 
 #elif DATA_BYTE == 4
-
 #define SUFFIX l
 #define DATA_TYPE uint32_t
 #define DATA_TYPE_S int32_t
