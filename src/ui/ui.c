@@ -53,7 +53,8 @@ uint32_t  sixteenstring(char *q,int step)
 	while (temp!=-1);	
 	return  addr;
 }
-HIST_ENTRY *temp=NULL;
+char tp[100];
+char *temp=tp;
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -64,15 +65,12 @@ char* rl_gets() {
 	line_read=readline("(nemu) ");
 	
 	if (line_read && *line_read) {
-
 		add_history(line_read);
-		temp=current_history();
-	 return rl_line_buffer;
+		sprintf(temp,"%s",rl_line_buffer);
+		 return rl_line_buffer;
 	}	
 	else {
-		HISTORY_STATE *p=history_get_history_state();
-		printf("%d\n",p->length);
-		return (temp->line);
+		return (temp);
 	}
 }
 
@@ -151,8 +149,9 @@ void main_loop() {
 		else if (strcmp(p,"info")==0)			//info 
 		{
 			q=strtok(NULL,"");
+			if(q!=NULL){
 			if(strcmp(q,"r")==0) printreg();
-			if(strcmp(q,"b")==0) printbreak();
+			if(strcmp(q,"b")==0) printbreak();}
 		}
 		else if (strcmp(p,"x")==0)			//x
 		{
