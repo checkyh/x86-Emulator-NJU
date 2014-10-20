@@ -70,7 +70,8 @@ char* rl_gets() {
 	 return rl_line_buffer;
 	}	
 	else {
-		printf("%s\n",temp->timestamp);
+		HISTORY_STATE *p=history_get_history_state();
+		printf("%d\n",p->length);
 		return (temp->line);
 	}
 }
