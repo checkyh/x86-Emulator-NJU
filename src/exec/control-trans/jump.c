@@ -12,8 +12,7 @@ make_helper (j_short)
 		case (0x74):jump_type[1]='e';if(cpu.ZF==1) cpu.eip+=short_addr; break;//JE/JZ
 		default:break;
 	}
-	printf("%x\n",cpu.eip );
-	print_asm("%s %x",jump_type,cpu.eip+2);	
+	print_asm("%s0x%x",jump_type,cpu.eip+2);	
 	lens+=2;
 	return lens;
 }
