@@ -68,13 +68,12 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		readlinefun_state=0;
 		add_history(line_read);
-		sprintf(temp1,"%s",line_read);
 		 return line_read;
 	}	
 	else {
-		if (readlinefun_state==1) sprintf(temp1,"%s",temp2);
-		if (readlinefun_state==0) {sprintf(temp2,"%s",temp1);readlinefun_state=1;}
-		return (temp1);
+		if (readlinefun_state==1) sprintf(current_history()->line,"%s",temp2);
+		if (readlinefun_state==0) {sprintf(temp2,"%s",current_history()->line);readlinefun_state=1;}
+		return (current_history()->line);
 	}
 	
 }
