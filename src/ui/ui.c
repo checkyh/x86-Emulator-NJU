@@ -61,13 +61,13 @@ char* rl_gets() {
 		free(line_read);
 		line_read = NULL;
 	}
-	if(readline("(nemu) "))
-	{
+	line_read=readline("(nemu) ");
+	
 	if (line_read && *line_read) {
 		add_history(line_read);
 		temp=current_history();
-		printf("OK%s\n", temp->timestamp	);
-	 }
+		printf("OK%s\n", temp->line);
+	 
 	 return rl_line_buffer;
 	}	
 	else return (temp->line);
