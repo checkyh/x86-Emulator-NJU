@@ -66,7 +66,7 @@ char* rl_gets() {
 	if (line_read && *line_read) {
 		add_history(line_read);
 		temp=current_history();
-		printf("%s\n", temp->timestamp	);
+		printf("OK%s\n", temp->timestamp	);
 	 }
 	 return rl_line_buffer;
 	}	
