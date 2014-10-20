@@ -69,6 +69,7 @@ char* rl_gets() {
 	 return rl_line_buffer;
 	}	
 	else {
+		printf("%s\n",temp->line );
 		return (temp->line);
 	}
 }
