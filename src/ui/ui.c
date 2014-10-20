@@ -69,8 +69,6 @@ char* rl_gets() {
 	 return rl_line_buffer;
 	}	
 	else {
-		printf("%s\n", temp->line);
-	 
 		return (temp->line);
 	}
 }
@@ -157,6 +155,7 @@ void main_loop() {
 		{
 			suc=true;
 			q=strtok(NULL," ");
+			if (q!=NULL){
 			uint32_t N=sixteenstring(q,10);			
 			q=strtok(NULL,"");
 			suc=true;
@@ -166,7 +165,8 @@ void main_loop() {
 			printf("%02x ",swaddr_read(addr,1));	
 			if ((cir_x%5)==0) printf("\n");
 			}	
-			printf("\n");	
+			if (cir_x<=4) printf("\n");
+		}
 		}
 		else if (strcmp(p,"b")==0)			//b
 		{
@@ -182,24 +182,28 @@ void main_loop() {
 		else if (strcmp(p,"d")==0)
 		{
 			q=strtok(NULL,"");
-			if(sixteenstring(q,10)<=32&&sixteenstring(q,10)>=0) free_bp(sixteenstring(q,16));
+			if (q!=NULL)
+			{if(sixteenstring(q,10)<=32&&sixteenstring(q,10)>=0) free_bp(sixteenstring(q,16));
+			}
 			else printf("error NO\n");
 		}
 		else if(strcmp(p,"p")==0)			//si 
 		{
 			suc=true;
 			q=strtok(NULL,"");
+			if (q!=NULL){
 			int t=expr(q,&suc);
 			if (judge)
 			{if (number_state==2) printf("0x%08x\n",t);
-			else printf("%d\n",t);}			
+			else printf("%d\n",t);}	}		
 		}	
 		else if(strcmp(p,"w")==0)
 		{
 			suc=true;
 			q=strtok(NULL,"");
+			if (q!=NULL){
 			uint32_t a=expr(q,&suc);a=a-1;
-			if (judge) new_watch(q);	
+			if (judge) new_watch(q);}	
 		}
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
