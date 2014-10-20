@@ -9,7 +9,7 @@ make_helper (j_short)
 	int short_addr=lens+=instr_fetch(eip+1,1);
 	switch (jump_ins)
 	{
-		case (0x74):if(cpu.ZF==1){ jump_type[1]='e';lens+=short_addr; }break;//JE/JZ
+		case (0x74):if(cpu.ZF==1){ jump_type[1]='e';cpu.eip+=short_addr; }break;//JE/JZ
 		default:break;
 	}
 	lens+=2;
