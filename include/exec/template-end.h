@@ -8,3 +8,4 @@
 #undef MSB
 #undef EX_I
 #undef PF_check
+#undef OF_check

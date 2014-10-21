@@ -39,15 +39,17 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, 1);
 		DATA_TYPE src=0;
-		EX_I(src,imm);
+		EX_I(src,imm)
 		DATA_TYPE *dst=&REG(m.R_M);
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");
 				long result=*dst-src;
+				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 				if (result==0) cpu.ZF=0;
 				if (result<0) cpu.CF=0;
-				PF_check(result);
+				PF_check(result)
+				OF_check(result)
 				break;
 		}
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, src, REG_NAME(m.R_M));
@@ -61,9 +63,15 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		EX_I(src,imm)
 		switch(m.reg)
 		{
-			case 7:sprintf(ins_name,"%s","cmp");break;
+			case 7:sprintf(ins_name,"%s","cmp");
+				long result=MEM_R(addr)-src;
+				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
+				if (result==0) cpu.ZF=0;
+				if (result<0) cpu.CF=0;
+				PF_check(result)
+				OF_check(result)
+				break;
 		}
-		MEM_W(addr, src);
 		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name, src, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
