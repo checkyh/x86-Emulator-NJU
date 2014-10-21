@@ -44,8 +44,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");
-				long long result=*dst-src;
-				printf("%lld\n",result );
+				long result=*dst-src;
 				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 				if (result==0) cpu.ZF=0;
 				if (result<0) cpu.CF=0;
@@ -65,8 +64,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");
-				long long result=MEM_R(addr)-src;
-				printf("%lld\n",result );
+				long result=MEM_R(addr)-src;
 				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 				if (result==0) cpu.ZF=0;
 				if (result<0) cpu.CF=0;
