@@ -6,20 +6,20 @@ extern char ins_name[5];
 #define SUFFIX b
 #define DATA_TYPE uint8_t
 #define DATA_TYPE_S int8_t
-#define OF_check(result)  if((result<127UL&&result>-128UL)||result==0) cpu.OF=0;else cpu.OF=1;
+#define OF_check(result)  if((result<127UL&&result>-128UL)) cpu.OF=0;else cpu.OF=1;
 
 #elif DATA_BYTE == 2
 
 #define SUFFIX w
 #define DATA_TYPE uint16_t
 #define DATA_TYPE_S int16_t
-#define OF_check(result)  if((result<32767UL&&result>-32768UL)||result==0) cpu.OF=0;else cpu.OF=1;
+#define OF_check(result)  if((result<32767UL&&result>-32768UL)) cpu.OF=0;else cpu.OF=1;
 
 #elif DATA_BYTE == 4
 #define SUFFIX l
 #define DATA_TYPE uint32_t
 #define DATA_TYPE_S int32_t
-#define OF_check(result)  if((result<2147483647UL&&result>-2147483648UL)||result==0) cpu.OF=0;else cpu.OF=1;
+#define OF_check(result)  if((result<2147483647UL&&result>-2147483648UL)) cpu.OF=0;else cpu.OF=1;
 
 #else
 
