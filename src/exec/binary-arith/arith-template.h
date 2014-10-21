@@ -41,7 +41,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		DATA_TYPE src=0;
 		EX_I(src,imm)
 		DATA_TYPE *dst=&REG(m.R_M);
-		printf("%x\n",0x10&imm );
+		
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");
@@ -62,7 +62,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
 		DATA_TYPE src=0;
 		EX_I(src,imm)
-		printf("%x\n",imm );
+		
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");
