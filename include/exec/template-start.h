@@ -6,7 +6,7 @@ extern char ins_name[5];
 #define SUFFIX b
 #define DATA_TYPE uint8_t
 #define DATA_TYPE_S int8_t
-#define OF_check(result)  if(result<-128||result>127) cpu.OF=1;else cpu.OF=0;
+#define OF_check(result)  if(result<-128UL||result>127UL) cpu.OF=1;else cpu.OF=0;
 
 #elif DATA_BYTE == 2
 
