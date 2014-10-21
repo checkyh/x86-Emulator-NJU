@@ -37,8 +37,12 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, 1);
-		DATA_TYPE ex_imm=1;
+		DATA_TYPE ex_imm=0;
 		EX_I(ex_imm,imm);
+		switch(m.reg)
+		{
+			case 7:break;
+		}
 		REG(m.R_M) = ex_imm;
 		print_asm("arith" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
 		return 1 + 1 + 1;
@@ -47,7 +51,12 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
-		DATA_TYPE ex_imm=1;
+		DATA_TYPE ex_imm=0;
+		EX_I(ex_imm,imm);
+		switch(m.reg)
+		{
+			case 7:break;
+		}
 		MEM_W(addr, ex_imm);
 		print_asm("arith" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
