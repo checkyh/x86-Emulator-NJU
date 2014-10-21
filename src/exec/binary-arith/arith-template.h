@@ -47,6 +47,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 				long result=*dst-src;
 				if (result==0) cpu.ZF=0;
 				if (result<0) cpu.CF=0;
+				PF_check(result);
 				break;
 		}
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, src, REG_NAME(m.R_M));
