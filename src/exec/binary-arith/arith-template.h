@@ -61,6 +61,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
 		DATA_TYPE src=0;
 		EX_I(src,imm)
+		printf("%d\n%d",imm,src );
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");
