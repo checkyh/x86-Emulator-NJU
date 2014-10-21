@@ -13,13 +13,13 @@ extern char ins_name[5];
 #define SUFFIX w
 #define DATA_TYPE uint16_t
 #define DATA_TYPE_S int16_t
-#define OF_check(result)  if(result<-32768||result>32767) cpu.OF=1;else cpu.OF=0;
+#define OF_check(result)  if(result<-32768UL||result>32767UL) cpu.OF=1;else cpu.OF=0;
 
 #elif DATA_BYTE == 4
 #define SUFFIX l
 #define DATA_TYPE uint32_t
 #define DATA_TYPE_S int32_t
-#define OF_check(result)  if(result<-2147483648||result>-2147483647) cpu.OF=1;else cpu.OF=0;
+#define OF_check(result)  if(result<-2147483648UL||result>-2147483647UL) cpu.OF=1;else cpu.OF=0;
 
 #else
 

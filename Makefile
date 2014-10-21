@@ -45,7 +45,7 @@ test: nemu $(TEST_FILE_LIST)
 
 
 STU_ID=131220119
-SHARED_FOLDER=/mnt/hgfs/V/PA1
+SHARED_FOLDER=/mnt/hgfs/VOS2/PA2
 
 submit: clean
 	cd testcase && make clean
