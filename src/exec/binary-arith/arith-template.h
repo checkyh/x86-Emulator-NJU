@@ -32,6 +32,7 @@ make_helper(concat(arith_i2rm_, SUFFIX)) {
 }
 
 make_helper(concat(arith_ei2rm_, SUFFIX)) {
+	char ins_name[5]={0};
 	ModR_M m;
 	uint32_t imm;
 	m.val = instr_fetch(eip + 1, 1);
@@ -41,10 +42,10 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		EX_I(ex_imm,imm);
 		switch(m.reg)
 		{
-			case 7:break;
+			case 7:sprintf(ins_name,"%s","cmp"); break;
 		}
 		REG(m.R_M) = ex_imm;
-		print_asm("arith" str(SUFFIX) " $0x%x,%%%s", ex_imm, REG_NAME(m.R_M));
+		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, ex_imm, REG_NAME(m.R_M));
 		return 1 + 1 + 1;
 	}
 	else {
@@ -55,10 +56,10 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		EX_I(ex_imm,imm);
 		switch(m.reg)
 		{
-			case 7:break;
+			case 7:sprintf(ins_name,"%s","cmp");break;
 		}
 		MEM_W(addr, ex_imm);
-		print_asm("arith" str(SUFFIX) " $0x%x,%s", ex_imm, ModR_M_asm);
+		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name, ex_imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
 }
