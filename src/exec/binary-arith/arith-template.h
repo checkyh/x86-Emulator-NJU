@@ -44,7 +44,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 			case 7:break;
 		}
 		REG(m.R_M) = ex_imm;
-		print_asm("arith" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
+		print_asm("arith" str(SUFFIX) " $0x%x,%%%s", ex_imm, REG_NAME(m.R_M));
 		return 1 + 1 + 1;
 	}
 	else {
@@ -58,7 +58,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 			case 7:break;
 		}
 		MEM_W(addr, ex_imm);
-		print_asm("arith" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
+		print_asm("arith" str(SUFFIX) " $0x%x,%s", ex_imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
 }
