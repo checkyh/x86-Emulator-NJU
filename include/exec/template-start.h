@@ -31,6 +31,6 @@ extern char ins_name[5];
 #define REG_NAME(index) concat(regs, SUFFIX) [index]
 #define MEM_R(addr) swaddr_read(addr, DATA_BYTE)
 #define MEM_W(addr, data) swaddr_write(addr, DATA_BYTE, data)
-#define EX_I(src,imm)     {if ((imm) >> ((1 << 3) - 1)){if (DATA_BYTE==2) src=imm|0x1100;if (DATA_BYTE==4) src=imm|0x11110000;}else{if (DATA_BYTE==2);src=imm&0x0011;if(DATA_BYTE==4) {assert(1); src=imm&0x00001111;}}}
+#define EX_I(src,imm)     {if ((imm) >> ((1 << 3) - 1)){if (DATA_BYTE==2) src=imm|0x1100;if (DATA_BYTE==4) src=imm|0x11110000;}else{if (DATA_BYTE==2);src=imm&0x0011;if(DATA_BYTE==4) {assert(0); src=imm&0x00001111;}}}
 #define MSB(n) ((DATA_TYPE)(n) >> ((DATA_BYTE << 3) - 1))
 #define PF_check(result) {int i=0,count=0;for (;i<=7;i++){if(result%2==1) count++;result=result/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
