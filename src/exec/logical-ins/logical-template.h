@@ -1,26 +1,15 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-#ifndef _PF_CHECK_
-#define _PF_CHECK_
-	void PF_check(uint32_t res)
-{
-	int i=0,count=0;
-	for (;i<=7;i++)
-	{
-		if(res%2==1) count++;
-		res=res/2;
-	}
-	if (count%2==0) cpu.PF=1;else cpu.PF=0;
-}
-#endif
+
+	
 make_helper(concat(test_i2r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	DATA_TYPE result=(REG(reg_code)&imm);
 	if ( result==0) cpu.ZF=1;else cpu.ZF=0;
 	if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-	PF_check(result);
+	PF_check(result)
 	cpu.OF=0;
 	cpu.CF=0;
 	print_asm("test" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(reg_code));
@@ -36,7 +25,7 @@ make_helper(concat(test_i2rm_, SUFFIX)) {
 		DATA_TYPE result=(REG(m.R_M)&imm);
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
 		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result);
+		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;	
 		print_asm("test" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
@@ -49,7 +38,7 @@ make_helper(concat(test_i2rm_, SUFFIX)) {
 		DATA_TYPE result=(MEM_R(addr)&imm);
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
 		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result);
+		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
 		print_asm("test" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
@@ -64,7 +53,7 @@ make_helper(concat(test_r2rm_, SUFFIX)) {
 		DATA_TYPE result=(REG(m.R_M)&REG(m.reg));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
 		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result);
+		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
 		print_asm("test" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.reg), REG_NAME(m.R_M));
@@ -76,7 +65,7 @@ make_helper(concat(test_r2rm_, SUFFIX)) {
 		DATA_TYPE result=(REG(m.reg)&MEM_R(addr));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
 		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result);
+		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
 		print_asm("test" str(SUFFIX) " %%%s,%s", REG_NAME(m.reg), ModR_M_asm);
@@ -91,7 +80,7 @@ make_helper(concat(test_rm2r_, SUFFIX)) {
 		DATA_TYPE result=(REG(m.reg)&REG(m.R_M));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
 		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result);
+		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
 		print_asm("test" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
@@ -103,7 +92,7 @@ make_helper(concat(test_rm2r_, SUFFIX)) {
 		DATA_TYPE result=(REG(m.reg)&MEM_R(addr));
 		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
 		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result);
+		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
 		print_asm("test" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));

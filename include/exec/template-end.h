@@ -7,3 +7,4 @@
 #undef MEM_W
 #undef MSB
 #undef EX_I
+#undef PF_check

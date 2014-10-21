@@ -38,28 +38,32 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, 1);
-		DATA_TYPE ex_imm=0;
-		EX_I(ex_imm,imm);
+		DATA_TYPE src=0;
+		EX_I(src,imm);
+		DATA_TYPE *dst=&REG(m.R_M);
 		switch(m.reg)
 		{
-			case 7:sprintf(ins_name,"%s","cmp"); break;
+			case 7:sprintf(ins_name,"%s","cmp");
+				long result=*dst-src;
+				if (result==0) cpu.ZF=0;
+				if (result<0) cpu.CF=0;
+				break;
 		}
-		REG(m.R_M) = ex_imm;
-		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, ex_imm, REG_NAME(m.R_M));
+		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, src, REG_NAME(m.R_M));
 		return 1 + 1 + 1;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
-		DATA_TYPE ex_imm=0;
-		EX_I(ex_imm,imm);
+		DATA_TYPE src=0;
+		EX_I(src,imm)
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");break;
 		}
-		MEM_W(addr, ex_imm);
-		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name, ex_imm, ModR_M_asm);
+		MEM_W(addr, src);
+		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name, src, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
 }
