@@ -35,6 +35,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 	char ins_name[5]={0};
 	ModR_M m;
 	uint32_t imm;
+	long result;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, 1);
@@ -45,7 +46,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		switch(m.reg)
 		{
 			case 7:sprintf(ins_name,"%s","cmp");
-				long long result=*dst-src;
+				result=*dst-src;
 				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 				if (result==0) cpu.ZF=1;else cpu.ZF=0;
 				if (result<0) cpu.CF=0;
@@ -61,12 +62,20 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
 		DATA_TYPE src=0;
-		EX_I(src,imm)
-		
+		EX_I(src,imm)		
 		switch(m.reg)
 		{
+			case 0:sprintf(ins_name,"%s","add");
+				result=MEM_R(addr)-src;
+				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
+				if (result==0) cpu.ZF=1;else cpu.ZF=0;
+				if (result<0) cpu.CF=0;
+				PF_check(result)
+				OF_check(result)
+				MEM_W(addr,MEM_R(addr)+src);
+				break;
 			case 7:sprintf(ins_name,"%s","cmp");
-				long long result=MEM_R(addr)-src;
+				result=MEM_R(addr)-src;
 				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
 				if (result==0) cpu.ZF=1;else cpu.ZF=0;
 				if (result<0) cpu.CF=0;
