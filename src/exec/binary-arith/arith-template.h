@@ -4,6 +4,7 @@
 
 make_helper(concat(arith_i2r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
+	//long result;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	REG(reg_code) = imm;
 
@@ -14,6 +15,7 @@ make_helper(concat(arith_i2r_, SUFFIX)) {
 make_helper(concat(arith_i2rm_, SUFFIX)) {
 	ModR_M m;
 	DATA_TYPE imm;
+	long result;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
@@ -25,8 +27,20 @@ make_helper(concat(arith_i2rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
-		MEM_W(addr, imm);
-		print_asm("arith" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
+		DATA_TYPE src=imm;
+		DATA_TYPE *dst=&REG(m.R_M);
+		switch(m.reg)
+		{
+			case 7:sprintf(ins_name,"%s","cmp");
+				result=*dst-src;
+				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
+				if (result==0) cpu.ZF=1;else cpu.ZF=0;
+				if (result<0) cpu.CF=0;
+				PF_check(result)
+				OF_check(result)
+				break;
+		}
+		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, src, REG_NAME(m.R_M));
 		return len + DATA_BYTE + 1;
 	}
 }
@@ -42,9 +56,16 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		DATA_TYPE src=0;
 		EX_I(src,imm)
 		DATA_TYPE *dst=&REG(m.R_M);
-		
 		switch(m.reg)
-		{
+		{	case 0:sprintf(ins_name,"%s","add");
+				result=*dst-src;
+				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
+				if (result==0) cpu.ZF=1;else cpu.ZF=0;
+				if (result<0) cpu.CF=0;
+				PF_check(result)
+				OF_check(result)
+				*dst=*dst+src;
+				break;
 			case 7:sprintf(ins_name,"%s","cmp");
 				result=*dst-src;
 				if (MSB(result)) cpu.SF=1;else cpu.SF=0;
@@ -90,6 +111,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 make_helper(concat(arith_r2rm_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
+	//long result;
 	if(m.mod == 3) {
 		REG(m.R_M) = REG(m.reg);
 		print_asm("arith" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.reg), REG_NAME(m.R_M));
@@ -108,6 +130,7 @@ make_helper(concat(arith_r2rm_, SUFFIX)) {
 make_helper(concat(arith_rm2r_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
+	//long result;
 	if(m.mod == 3) {
 		REG(m.reg) = REG(m.R_M);
 		print_asm("arith" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
@@ -125,6 +148,7 @@ make_helper(concat(arith_rm2r_, SUFFIX)) {
 
 make_helper(concat(arith_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
+	//long result;
 	MEM_W(addr, REG(R_EAX));
 
 	print_asm("arith" str(SUFFIX) " %%%s,0x%x", REG_NAME(R_EAX), addr);
@@ -133,6 +157,7 @@ make_helper(concat(arith_a2moffs_, SUFFIX)) {
 
 make_helper(concat(arith_moffs2a_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
+	//long result;
 	REG(R_EAX) = MEM_R(addr);
 
 	print_asm("arith" str(SUFFIX) " 0x%x,%%%s", addr, REG_NAME(R_EAX));
