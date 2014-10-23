@@ -10,3 +10,4 @@
 #undef PF_check
 #undef OF_check
 #undef RESULT_check
+#undef MLSB
