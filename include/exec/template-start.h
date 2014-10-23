@@ -31,6 +31,7 @@ uint32_t result;
 #define MEM_W(addr, data) swaddr_write(addr, DATA_BYTE, data)
 #define EX_I(src,imm)     {if ((imm) >> ((1 << 3) - 1)){if (DATA_BYTE==2) src=imm|0xc;if (DATA_BYTE==4) src=imm|0xf0;}else{if (DATA_BYTE==2);src=imm;if(DATA_BYTE==4) src=imm;}}
 #define MSB(n) ((DATA_TYPE)(n) >> ((DATA_BYTE << 3) - 1))
-#define MLSB(n) ((((DATA_TYPE)(n)<<1)>>(DATA_BYTE<<3)-1))
+#define MLSB(n) (((DATA_TYPE)(n)<<1)>>((DATA_BYTE<<3)-1))
+#define OF_check(result)    {uint8_t temp=MSB(src)+MSB(*dst);temp=temp-((temp>>1)<<1); uint8_t temp1=MLSB(src)+MLSB(*dst);temp1=temp1-((temp1>>1)<<1);cpu.OF=(MSB(result)^(temp))^(MLSB(result)^temp1);}
+#define RESULT_check	if (MSB(result)) cpu.SF=1;else cpu.SF=0;if (result==0) cpu.ZF=1;else cpu.ZF=0;if (result<0) cpu.CF=0;   PF_check(result) OF_check(result)
 #define PF_check(result) {int i=0,count=0;for (;i<=7;i++){if(result%2==1) count++;result=result/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
-#define RESULT_check	if (MSB(result)) cpu.SF=1;else cpu.SF=0;if (result==0) cpu.ZF=1;else cpu.ZF=0;if (result<0) cpu.CF=0;PF_check(result) 
