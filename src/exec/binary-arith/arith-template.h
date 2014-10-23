@@ -53,15 +53,26 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		EX_I(src,imm)
 		DATA_TYPE *dst=&REG(m.R_M);
 		switch(m.reg)
-		{	case 2:sprintf(ins_name,"%s","adc");
-				result=*dst+src+cpu.SF;
-				RESULT_check
-				*dst=*dst+src;
-				break;
+		{
 			case 0:sprintf(ins_name,"%s","add");
 				result=*dst+src;
 				RESULT_check
 				*dst=*dst+src;
+				break;
+			case 2:sprintf(ins_name,"%s","adc");
+				result=*dst+src+cpu.CF;
+				RESULT_check
+				*dst=*dst+src;
+				break;
+			case 3:sprintf(ins_name,"%s","sbb");
+				result=*dst-(src+cpu.CF);
+				RESULT_check
+				*dst=*dst-(src+cpu.CF);
+				break;
+			case 5:sprintf(ins_name,"%s","sub");
+				result=*dst-src;
+				RESULT_check
+				*dst=*dst-src;
 				break;
 			case 7:sprintf(ins_name,"%s","cmp");
 				result=*dst-src;
