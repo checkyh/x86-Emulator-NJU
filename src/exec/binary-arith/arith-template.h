@@ -94,6 +94,21 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 				result=MEM_R(addr)-src;
 				RESULT_check
 				break;
+			case 2:sprintf(ins_name,"%s","adc");
+				result=MEM_R(addr)+src+cpu.CF;
+				RESULT_check
+				MEM_W(addr,MEM_R(addr)+src);
+				break;
+			case 3:sprintf(ins_name,"%s","sbb");
+				result=MEM_R(addr)-(src+cpu.CF);
+				RESULT_check
+				MEM_W(addr,MEM_R(addr)-(src+cpu.CF));
+				break;
+			case 5:sprintf(ins_name,"%s","sub");
+				result=MEM_R(addr)-src;
+				RESULT_check
+				MEM_W(addr,MEM_R(addr)-src);
+				break;
 			case 7:sprintf(ins_name,"%s","cmp");
 				result=MEM_R(addr)-src;
 				RESULT_check
