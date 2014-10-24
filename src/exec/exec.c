@@ -8,7 +8,7 @@ typedef int (*helper_fun)(swaddr_t);
 /* TODO: Add more instructions!!! */
 
 helper_fun opcode_table [256] = {
-/* 0x00 */	inv, inv, inv, inv, 
+/* 0x00 */	arith_r2rm_b, arith_r2rm_v,  arith_rm2r_b, arith_rm2r_v,
 /* 0x04 */	inv, inv, inv, inv, 
 /* 0x08 */	inv, inv, inv, inv, 
 /* 0x0c */	inv, inv, inv, inv, 
@@ -40,7 +40,7 @@ helper_fun opcode_table [256] = {
 /* 0x74 */	j_short, inv, inv, inv,
 /* 0x78 */	inv, inv, inv, inv, 
 /* 0x7c */	inv, inv, inv, inv, 
-/* 0x80 */	inv, inv, nemu_trap, arith_ei2rm_v, 
+/* 0x80 */	arith_i2rm_b, arith_i2rm_v, nemu_trap, arith_ei2rm_v, 
 /* 0x84 */	test_r2rm_b, test_r2rm_v, inv, inv, 
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
 /* 0x8c */	inv, inv, inv, inv, 
