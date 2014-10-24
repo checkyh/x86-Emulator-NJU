@@ -19,9 +19,6 @@ extern char suffix;
 make_helper(arith_ei2rm_v) {
 	return (suffix == 'l' ? arith_ei2rm_l(eip) : arith_ei2rm_w(eip));
 }
-make_helper(arith_i2r_v) {
-	return (suffix == 'l' ? arith_i2r_l(eip) : arith_i2r_w(eip));
-}
 
 make_helper(arith_i2rm_v) {
 	return (suffix == 'l' ? arith_i2rm_l(eip) : arith_i2rm_w(eip));

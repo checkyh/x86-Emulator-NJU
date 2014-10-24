@@ -6,7 +6,6 @@ make_helper(concat(mov_i2r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	REG(reg_code) = imm;
-
 	print_asm("mov" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(reg_code));
 	return DATA_BYTE + 1;
 }
