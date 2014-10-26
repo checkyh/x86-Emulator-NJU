@@ -23,9 +23,7 @@ make_helper(concat(push_rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		cpu.esp-=DATA_BYTE;
-		printf("OK1\n");
-		MEM_W(cpu.esp,MEM_R(addr) );
-		printf("OK2\n");
+		MEM_W(cpu.esp,addr );
 		print_asm("push" str(SUFFIX) " %s", ModR_M_asm);
 		return len + 1;
 	}
