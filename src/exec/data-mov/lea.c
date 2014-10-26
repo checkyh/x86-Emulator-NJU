@@ -1,9 +1,5 @@
 #include "exec/helper.h"
 
-#define DATA_BYTE 1
-#include "lea-template.h"
-#undef DATA_BYTE
-
 #define DATA_BYTE 2
 #include "lea-template.h"
 #undef DATA_BYTE
