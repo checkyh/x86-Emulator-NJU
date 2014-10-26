@@ -45,7 +45,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		r_r=m.reg;
 		switch_r
 		RESULT_check
-		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, imm, REG_NAME(m.R_M));
+		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,src, REG_NAME(m.R_M));
 		return 1 + 1 + 1;
 	}
 	else {
@@ -59,7 +59,7 @@ make_helper(concat(arith_ei2rm_, SUFFIX)) {
 		r_r=m.reg;
 		switch_r_m
 		RESULT_check
-		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name, imm, ModR_M_asm);
+		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name,src, ModR_M_asm);
 		return len + 1 + 1;
 	}
 }
