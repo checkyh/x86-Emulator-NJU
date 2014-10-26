@@ -8,7 +8,7 @@ make_helper (call)
 	int lens=0;
 	switch(call_ins)
 	{
-		case (0xe8):	call_addr=instr_fetch(eip+1,2);cpu.eip=call_addr;lens+=3;break;
+		case (0xe8):	call_addr=instr_fetch(eip+1,2);cpu.eip+=call_addr;lens+=3;break;
 	}
 	print_asm("call 0x%x",cpu.eip);	
 	return lens;
