@@ -1,6 +1,7 @@
 #include "exec/helper.h"
 #include "common.h"
 #include "memory.h"
+extern char suffix;
 make_helper (call)
 {
 	uint32_t call_addr;
@@ -15,5 +16,19 @@ make_helper (call)
 }
 make_helper(leave)
 {
+	/*IF StackAddrSize = 16
+	THEN
+ 	  SP <- BP;
+ELSE (* StackAddrSize = 32 *)
+   ESP <- EBP;
+FI;
+IF OperandSize = 16
+THEN
+   BP <- Pop();
+ELSE (* OperandSize = 32 *)
+   EBP <- Pop();
+FI;*/
+
+
 	return 1;
 }
