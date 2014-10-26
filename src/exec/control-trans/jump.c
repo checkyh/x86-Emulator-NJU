@@ -23,7 +23,7 @@ make_helper (j_short)
 		case (0x7e):jump_type[1]='l';jump_type[2]='e'; if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,short_addr,8) break;//JE/JZ
 		default:break;
 	}
-	print_asm("%s 0x%x",jump_type,temp_addr);
+	print_asm("%s 0x%x",jump_type,temp_addr+2);
 	return 2;
 }
 #include "trans-template-end.h"
