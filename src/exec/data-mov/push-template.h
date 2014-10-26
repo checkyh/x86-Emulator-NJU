@@ -14,14 +14,16 @@ make_helper(concat(push_rm_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
-		REG(m.reg) = REG(m.R_M);
-		print_asm("mov" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		cpu.esp-=DATA_BYTE;
+		MEM_W(cpu.esp,REG(m.R_M) );
+		print_asm("push" str(SUFFIX) " %%%s", REG_NAME(m.R_M));
 		return 2;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		REG(m.reg) = MEM_R(addr);
+		cpu.esp-=DATA_BYTE;
+		MEM_W(cpu.esp,MEM_R(addr) );
 		print_asm("push" str(SUFFIX) " %s", ModR_M_asm);
 		return len + 1;
 	}
