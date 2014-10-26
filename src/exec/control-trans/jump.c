@@ -7,7 +7,7 @@ make_helper (j_short)
 	int jump_ins = instr_fetch(eip, 1);
 	char jump_type[5]={'j',0};
 	uint8_t short_addr=instr_fetch(eip+1,1);
-	char temp_addr=eip;
+	char temp_addr=cpu.eip;
 	ADDR(temp_addr,short_addr,8)
 	switch (jump_ins)
 	{
