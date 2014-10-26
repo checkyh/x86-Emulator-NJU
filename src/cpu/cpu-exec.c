@@ -34,6 +34,8 @@ void restart() {
 	cpu.ebp=0;
 	cpu.esp=0x8000000;
 	cpu.EFLAGS=0x2;
+	cpu.ZF=1;
+	printf("%d\n",cpu.ZF );
 }
 
 
