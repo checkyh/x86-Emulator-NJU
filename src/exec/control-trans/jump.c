@@ -7,6 +7,7 @@ make_helper (j_short)
 	int lens=0;
 	char jump_type[5]={'j',0};
 	int short_addr=instr_fetch(eip+1,1);
+	if (short_addr>0x80) short_addr=-(short_addr-0x80);
 	switch (jump_ins)
 	{
 		case (0xeb):jump_type[1]='u';jump_type[2]='m';jump_type[3]='p';cpu.eip+=short_addr; //jump 8
