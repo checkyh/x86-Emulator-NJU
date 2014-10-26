@@ -13,3 +13,7 @@ make_helper (call)
 	print_asm("call 0x%x",cpu.eip+lens);	
 	return lens;
 }
+make_helper(leave)
+{
+	return 1;
+}
