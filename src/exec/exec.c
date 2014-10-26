@@ -37,7 +37,7 @@ helper_fun opcode_table [256] = {
 /* 0x68 */	inv, inv, inv, inv, 
 /* 0x6c */	inv, inv, inv, inv, 
 /* 0x70 */	inv, inv, inv, inv,
-/* 0x74 */	j_short, inv, inv, inv,
+/* 0x74 */	j_short, inv, j_short, inv,
 /* 0x78 */	inv, inv, inv, inv, 
 /* 0x7c */	inv, inv, inv, inv, 
 /* 0x80 */	arith_i2rm_b, arith_i2rm_v, nemu_trap, arith_ei2rm_v, 
