@@ -7,7 +7,7 @@ make_helper(concat(push_r_, SUFFIX)) {
 	cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,REG(reg_code) );
 	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(reg_code));
-	return DATA_BYTE + 1;
+	return 1;
 }
 
 make_helper(concat(push_rm_, SUFFIX)) {
