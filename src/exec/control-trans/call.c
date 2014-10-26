@@ -10,6 +10,6 @@ make_helper (call)
 	{
 		case (0xe8):	call_addr=instr_fetch(eip+1,4);lens+=5;cpu.eip+=call_addr;break;
 	}
-	print_asm("call 0x%x",cpu.eip);	
+	print_asm("call 0x%x",cpu.eip+lens);	
 	return lens;
 }
