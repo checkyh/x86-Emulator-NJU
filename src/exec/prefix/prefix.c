@@ -1,7 +1,6 @@
 #include "exec/helper.h"
 
 #include "nemu.h"
-
 int exec(swaddr_t);
 
 char suffix = 'l';

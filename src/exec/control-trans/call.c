@@ -8,10 +8,27 @@
 #undef DATA_BYTE
 
 extern char suffix;
-make_helper(call_v) {
-	return (suffix == 'l' ? call_l(eip) :call_w(eip));
+make_helper(call_rel_v) {
+	return (suffix == 'l' ? call_rel_l(eip) :call_rel_w(eip));
 }
-
+make_helper(call_rm_v) {
+	return (suffix == 'l' ? call_rm_l(eip) :call_rm_w(eip));
+}
 make_helper(leave_v) {
 	return (suffix == 'l' ? leave_l(eip) : leave_w(eip));
+}
+
+make_helper(ret)
+{
+	return 1;
+}
+make_helper(ff_switcher)
+{
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	switch(m.reg)
+	{
+		case 2:return call_rel_v(eip);
+		default:return 0;
+	}
 }
