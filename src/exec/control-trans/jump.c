@@ -22,6 +22,7 @@ make_helper (j_short)
 
 		case (0x7c):sprintf(jump_type,"%s","jl");
 				 if(cpu.SF!=cpu.OF){ ADDR(cpu.eip,short_addr,8)  break;}//Jl
+				 
 		case (0x7e):sprintf(jump_type,"%s","jle");
 				 if(cpu.ZF==1||cpu.SF!=cpu.OF){ ADDR(cpu.eip,short_addr,8)  break;}//Jle
 
