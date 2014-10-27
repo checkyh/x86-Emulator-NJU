@@ -19,7 +19,7 @@ make_helper(leave_v) {
 	return (suffix == 'l' ? leave_l(eip) : leave_w(eip));
 }
 
-make_helper(ret)
+make_helper(ret_v)
 {
-	return 1;
+	return (suffix == 'l' ? ret_l(eip) : ret_w(eip));
 }

@@ -34,6 +34,20 @@ make_helper(concat(leave_,SUFFIX))
 		cpu.ebp=MEM_R(cpu.esp);
 	}
 	print_asm("leave");
+	cpu.esp+=DATA_BYTE;
+	return 1;
+}
+make_helper(concat(ret_, SUFFIX)) {
+	if (DATA_BYTE==2)
+	{
+		cpu.eip=MEM_R(reg_w(R_SP))&0x0000ffff;
+	}
+	else	
+	{
+		cpu.eip=MEM_R(cpu.esp);
+	}
+	print_asm("ret");
+	cpu.esp+=DATA_BYTE;	
 	return 1;
 }
 #include "exec/template-end.h"
