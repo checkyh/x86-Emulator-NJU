@@ -9,14 +9,15 @@ make_helper (j_short)
 	char jump_type[5];
 	uint32_t short_addr=instr_fetch(eip+1,1);
 	uint32_t temp_addr=cpu.eip;
+	int lens=2;
 	switch (jump_ins)
 	{
 		case (0xeb):sprintf(jump_type,"%s","jump");
 				ADDR(temp_addr,short_addr,8)
 				ADDR(cpu.eip,short_addr,8) break;//jump 8
 		case (0xe9):sprintf(jump_type,"%s","jump");
-				if (suffix=='l') {ADDR(temp_addr,short_addr,32) ADDR(cpu.eip,short_addr,32) }
-					else {ADDR(temp_addr,short_addr,16) ADDR(cpu.eip,short_addr,16) } break;
+				if (suffix=='l') {ADDR(temp_addr,short_addr,32) ADDR(cpu.eip,short_addr,32) lens+=1;}
+					else {ADDR(temp_addr,short_addr,16) ADDR(cpu.eip,short_addr,16) lens+=3;} break;
 		case (0x74):sprintf(jump_type,"%s","je");
 				if(cpu.ZF==1) {ADDR(temp_addr,short_addr,8) ADDR(cpu.eip,short_addr,8) }break;//JE/JZ
 
@@ -31,7 +32,7 @@ make_helper (j_short)
 
 		default:break;
 	}
-	print_asm("%s 0x%x",jump_type,temp_addr+2);
-	return 2;
+	print_asm("%s 0x%x",jump_type,temp_addr+lens);
+	return lens;
 }
 #include "trans-template-end.h"
