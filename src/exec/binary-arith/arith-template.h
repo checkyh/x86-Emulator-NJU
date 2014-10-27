@@ -96,7 +96,7 @@ make_helper(concat(arith_rm2r_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		DATA_TYPE src=0;
-		src=REG(m.R_M);
+		src=MEM_R(REG(m.R_M));
 		DATA_TYPE *dst=&REG(m.reg);
 		r_r=m.reg;
 		switch_r
@@ -107,7 +107,7 @@ make_helper(concat(arith_rm2r_, SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		DATA_TYPE src=MEM_R(addr);
+		DATA_TYPE src= MEM_R(MEM_R(addr));
 		printf("%x\n",src );
 		DATA_TYPE *dst=&REG(m.reg);	
 		r_r=m.reg;
