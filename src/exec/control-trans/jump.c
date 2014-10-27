@@ -2,6 +2,7 @@
 #include "common.h"
 #include "memory.h"
 #include "trans-template-start.h"
+extern char suffix;
 make_helper (j_short)
 {
 	int jump_ins = instr_fetch(eip, 1);
@@ -12,8 +13,10 @@ make_helper (j_short)
 	switch (jump_ins)
 	{
 		case (0xeb):sprintf(jump_type,"%s","jump");
-				ADDR(cpu.eip,short_addr,8);break;//jump 8
-
+				ADDR(cpu.eip,short_addr,8) break;//jump 8
+		case (0xe9):sprintf(jump_type,"%s","jump");
+				if (suffix=='l') ADDR(cpu.eip,short_addr,32)
+					else ADDR(cpu.eip,short_addr,16) break;
 		case (0x74):sprintf(jump_type,"%s","je");
 				if(cpu.ZF==1) ADDR(cpu.eip,short_addr,8) break;//JE/JZ
 
