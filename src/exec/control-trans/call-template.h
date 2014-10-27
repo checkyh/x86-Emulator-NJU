@@ -35,7 +35,7 @@ make_helper(concat(leave_,SUFFIX))
 	}
 	print_asm("leave");
 	cpu.esp+=DATA_BYTE;
-	return 1;
+	return 0;
 }
 make_helper(concat(ret_, SUFFIX)) {
 	if (DATA_BYTE==2)
@@ -48,6 +48,6 @@ make_helper(concat(ret_, SUFFIX)) {
 	}
 	print_asm("ret");
 	cpu.esp+=DATA_BYTE;	
-	return 1;
+	return 0;
 }
 #include "exec/template-end.h"
