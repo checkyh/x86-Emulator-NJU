@@ -21,7 +21,7 @@ make_helper (j_short)
 				if(cpu.ZF==1||cpu.CF==1) ADDR(cpu.eip,short_addr,8) break;//Jbe
 
 		case (0x7e):sprintf(jump_type,"%s","jle");
-				 if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,short_addr,8) break;//Jle
+				 if(cpu.ZF==1||cpu.SF!=cpu.OF){ ADDR(printf("%x\n",short_addr ); cpu.eip,short_addr,8) break;}//Jle
 		default:break;
 	}
 	print_asm("%s 0x%x",jump_type,temp_addr+2);
