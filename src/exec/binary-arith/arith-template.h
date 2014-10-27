@@ -22,9 +22,9 @@ make_helper(concat(arith_i2rm_, SUFFIX)) {
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
 		DATA_TYPE src=0;
 		src=imm;
-		printf("%x\n",src );
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
+		printf("%x\n",dst_v);
 		r_r=m.reg;
 		switch_r_m
 		RESULT_check
