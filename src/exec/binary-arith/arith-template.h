@@ -24,10 +24,10 @@ make_helper(concat(arith_i2rm_, SUFFIX)) {
 		src=imm;
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
-		printf("%x\n",dst_v);
 		r_r=m.reg;
 		switch_r_m
 		RESULT_check
+		printf("%x\n",result);
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name, imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
