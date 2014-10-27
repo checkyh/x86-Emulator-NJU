@@ -22,6 +22,7 @@ make_helper(concat(leave_,SUFFIX))
 		cpu.esp=cpu.ebp;
 		cpu.ebp=MEM_R(cpu.esp);
 	}
+	print_asm("leave");
 	return 1;
 }
 #include "exec/template-end.h"
