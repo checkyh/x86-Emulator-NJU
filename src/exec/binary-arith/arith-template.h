@@ -112,7 +112,7 @@ make_helper(concat(arith_rm2r_, SUFFIX)) {
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;	
 		r_r=m.reg;
-		switch_r
+		switch_r_m
 		RESULT_check
 		print_asm("%s" str(SUFFIX) " %s,%%%s", ins_name, ModR_M_asm, REG_NAME(m.reg));
 		return len + 1;
