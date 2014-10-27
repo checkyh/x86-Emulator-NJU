@@ -1,34 +1,17 @@
 #include "exec/helper.h"
-#include "common.h"
-#include "memory.h"
+#define DATA_BYTE 2
+#include "call-template.h"
+#undef DATA_BYTE
+
+#define DATA_BYTE 4
+#include "call-template.h"
+#undef DATA_BYTE
+
 extern char suffix;
-make_helper (call)
-{
-	uint32_t call_addr;
-	int call_ins = instr_fetch(eip, 1);
-	int lens=0;
-	switch(call_ins)
-	{
-		case (0xe8):	call_addr=instr_fetch(eip+1,4);lens+=5;cpu.eip+=call_addr;break;
-	}
-	print_asm("call 0x%x",cpu.eip+lens);	
-	return lens;
+make_helper(call_v) {
+	return (suffix == 'l' ? call_l(eip) :call_w(eip));
 }
-make_helper(leave)
-{
-	/*IF StackAddrSize = 16
-	THEN
- 	  SP <- BP;
-ELSE (* StackAddrSize = 32 *)
-   ESP <- EBP;
-FI;
-IF OperandSize = 16
-THEN
-   BP <- Pop();
-ELSE (* OperandSize = 32 *)
-   EBP <- Pop();
-FI;*/
 
-
-	return 1;
+make_helper(leave_v) {
+	return (suffix == 'l' ? leave_l(eip) : leave_w(eip));
 }
