@@ -204,6 +204,15 @@ void main_loop() {
 			{if (number_state==2) printf("0x%08x\n",t);
 			else printf("%d\n",t);}	}		
 		}	
+		else if(strcmp(p,"p/x")==0)			//si 
+		{
+			suc=true;
+			q=strtok(NULL,"");
+			if (q!=NULL){
+			int t=expr(q,&suc);
+			if (judge)
+			 printf("0x%08x\n",t);}	
+		}	
 		else if(strcmp(p,"w")==0)
 		{
 			suc=true;
