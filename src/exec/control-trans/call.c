@@ -1,3 +1,4 @@
+
 #include "exec/helper.h"
 #define DATA_BYTE 2
 #include "call-template.h"
@@ -22,6 +23,7 @@ make_helper(ret)
 {
 	return 1;
 }
+extern make_helper(push_rm_v);
 make_helper(ff_switcher)
 {
 	ModR_M m;
@@ -29,6 +31,7 @@ make_helper(ff_switcher)
 	switch(m.reg)
 	{
 		case 2:return call_rel_v(eip);
+		case 6:return push_rm_v(eip);
 		default:return 0;
 	}
 }
