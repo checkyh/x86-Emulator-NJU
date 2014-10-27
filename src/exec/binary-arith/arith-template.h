@@ -108,6 +108,7 @@ make_helper(concat(arith_rm2r_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		DATA_TYPE src=MEM_R(addr);
+		printf("%x\n",src );
 		DATA_TYPE *dst=&REG(m.reg);	
 		r_r=m.reg;
 		switch_r
