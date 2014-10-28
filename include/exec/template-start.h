@@ -40,9 +40,9 @@ char ins_name[5];
 
 
 
- 
+
 #define switch_r switch(r_r)\
- {case 0:sprintf(ins_name,"%s","add");result=*dst+src;printf("%x\n",src); if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
+ {case 0:sprintf(ins_name,"%s","add");result=*dst+src; if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
  case 1:sprintf(ins_name,"%s","or");result=*dst|src;*dst=*dst|src;break;\
  case 2:sprintf(ins_name,"%s","adc");src+=cpu.CF;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;result=*dst+src;*dst=*dst+src;break;\
  case 3:sprintf(ins_name,"%s","sbb");src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+(~src);}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}break;\
