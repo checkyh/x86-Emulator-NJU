@@ -36,6 +36,22 @@ char ins_name[5];
 #define MLSB(n) (((DATA_TYPE)(n)<<1)>>((DATA_BYTE<<3)-1))
 #define OF_check(result)    {uint8_t temp=MSB(src)+MSB(*dst);temp=temp-((temp>>1)<<1); uint8_t temp1=MLSB(src)+MLSB(*dst);temp1=temp1-((temp1>>1)<<1);cpu.OF=(MSB(result)^(temp))^(MLSB(result)^temp1);}
 #define PF_check(result) {int i=0,count=0;for (;i<=7;i++){if(result%2==1) count++;result=result/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
-#define RESULT_check	if (MSB(result)) cpu.SF=1;else cpu.SF=0;if (result==0) cpu.ZF=1;else cpu.ZF=0;if (result<0) cpu.CF=0; PF_check(result) OF_check(result)
-#define switch_r switch(r_r){	case 0:sprintf(ins_name,"%s","add");result=*dst+src;*dst=*dst+src;break;case 1:sprintf(ins_name,"%s","or");result=*dst|src;*dst=*dst|src;break;case 2:sprintf(ins_name,"%s","adc");src+=cpu.CF;result=*dst+src;*dst=*dst+src;break;case 3:sprintf(ins_name,"%s","sbb");src+=cpu.CF;result=*dst-src;*dst=*dst-src;break;case 4:sprintf(ins_name,"%s","and");result=(*dst)&(src);*dst=(*dst)&(src);break;case 5:sprintf(ins_name,"%s","sub");result=*dst-src;*dst=*dst-src;break;case 6:sprintf(ins_name,"%s","xor");result=*dst^src;*dst=*dst^src;break;case 7:sprintf(ins_name,"%s","cmp");result=*dst-src;break;}
-#define switch_r_m switch(r_r){case 0:sprintf(ins_name,"%s","add");result=*dst+src;MEM_W(addr,*dst+src);break;case 1:sprintf(ins_name,"%s","or");result=*dst|src;MEM_W(addr,*dst|src);break;case 2:sprintf(ins_name,"%s","adc");src+=cpu.CF;result=*dst+src;MEM_W(addr,*dst+src);break;case 3:sprintf(ins_name,"%s","sbb");src+=cpu.CF;result=*dst-src;MEM_W(addr,*dst-src);break;case 4:sprintf(ins_name,"%s","and");result=(*dst)&(src);MEM_W(addr,*dst&src);break;case 5:sprintf(ins_name,"%s","sub");result=*dst-src;MEM_W(addr,*dst-src);break;case 6:sprintf(ins_name,"%s","xor");result=*dst^src;MEM_W(addr,*dst^src);break;case 7:sprintf(ins_name,"%s","cmp");result=*dst-src;break;}
+#define RESULT_check	{if (MSB(result)) cpu.SF=1;else cpu.SF=0;if (result==0) cpu.ZF=1;else cpu.ZF=0;PF_check(result) OF_check(result)}
+#define switch_r switch(r_r)\
+ {case 0:sprintf(ins_name,"%s","add");result=*dst+src;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
+ case 1:sprintf(ins_name,"%s","or");result=*dst|src;*dst=*dst|src;break;\
+ case 2:sprintf(ins_name,"%s","adc");src+=cpu.CF;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;result=*dst+src;*dst=*dst+src;break;\
+ case 3:sprintf(ins_name,"%s","sbb");src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+(~src);}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}break;\
+ case 4:sprintf(ins_name,"%s","and");result=(*dst)&(src);*dst=(*dst)&(src);break;\
+ case 5:sprintf(ins_name,"%s","sub");if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+~src;}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}break;\
+ case 6:sprintf(ins_name,"%s","xor");result=*dst^src;*dst=*dst^src;break;\
+ case 7:sprintf(ins_name,"%s","cmp");if(*dst<src) {result=*dst+(~src);cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}break;}
+#define switch_r_m switch(r_r)\
+{case 0:sprintf(ins_name,"%s","add");result=*dst+src;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;MEM_W(addr,*dst+src);break;\
+ case 1:sprintf(ins_name,"%s","or");result=*dst|src;MEM_W(addr,*dst|src);break;\
+ case 2:sprintf(ins_name,"%s","adc");src+=cpu.CF;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;result=*dst+src;MEM_W(addr,*dst+src);break;\
+ case 3:sprintf(ins_name,"%s","sbb");src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;MEM_W(addr,*dst+(~src));}else {result=*dst-src;cpu.CF=0;MEM_W(addr,*dst-src);}break;\
+ case 4:sprintf(ins_name,"%s","and");result=(*dst)&(src);MEM_W(addr,*dst&src);break;\
+ case 5:sprintf(ins_name,"%s","sub");if(*dst<src) {result=*dst+(~src);cpu.CF=1;MEM_W(addr,*dst+(~src));}else {result=*dst-src;cpu.CF=0;MEM_W(addr,*dst-src);}break;\
+ case 6:sprintf(ins_name,"%s","xor");result=*dst^src;MEM_W(addr,*dst^src);break;\
+ case 7:sprintf(ins_name,"%s","cmp");if(*dst<src) {result=*dst+(~src);cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}break;}
