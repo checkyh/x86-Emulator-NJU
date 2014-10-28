@@ -1,7 +1,25 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
+#ifndef _INS_START_
+#define _INS_START_
+void ins_give()
+{
+	switch(arith_chooser)
+	{
+		case 0:sprintf(ins_name,"%s","add");
+		case 1:sprintf(ins_name,"%s","or");
+		case 2:sprintf(ins_name,"%s","adc");
+		case 3:sprintf(ins_name,"%s","sbb");
+		case 4:sprintf(ins_name,"%s","and");
+		case 5:sprintf(ins_name,"%s","sub");
+		case 6:sprintf(ins_name,"%s","xor");
+		case 7:sprintf(ins_name,"%s","cmp");
+	}
+}
+#endif
 make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
+	ins_give();
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	REG(reg_code) = imm;
@@ -9,6 +27,7 @@ make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
 	return DATA_BYTE + 1;
 }
 make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
+	ins_give();
 	ModR_M m;
 	DATA_TYPE imm;
 	m.val = instr_fetch(eip + 1, 1);
@@ -28,6 +47,7 @@ make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
 	}
 }
 make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
+	ins_give();
 	ModR_M m;
 	DATA_TYPE imm;
 	m.val = instr_fetch(eip + 1, 1);
@@ -47,6 +67,7 @@ make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
 	}
 }
 make_helper(concat(concat(arith,_r2rm_), SUFFIX)) {
+	ins_give();
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
@@ -64,6 +85,7 @@ make_helper(concat(concat(arith,_r2rm_), SUFFIX)) {
 	}
 }
 make_helper(concat(concat(arith,_rm2r_), SUFFIX)) {
+	ins_give();
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
