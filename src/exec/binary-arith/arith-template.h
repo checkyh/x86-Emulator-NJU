@@ -98,8 +98,8 @@ make_helper(concat(arith_rm2r_, SUFFIX)) {
 	if(m.mod == 3) {
 		DATA_TYPE src=0;
 		src=MEM_R(REG(m.R_M));
-		printf("%x\n",REG(m.reg));
 		DATA_TYPE *dst=&REG(m.reg);
+		printf("%x\n",REG(m.reg));
 		r_r=m.reg;
 		switch_r
 		RESULT_check
