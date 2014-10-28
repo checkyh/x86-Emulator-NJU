@@ -99,7 +99,6 @@ make_helper(concat(arith_rm2r_, SUFFIX)) {
 		DATA_TYPE src=0;
 		src=MEM_R(REG(m.R_M));
 		DATA_TYPE *dst=&REG(m.reg);
-		printf("%x\n",REG(m.reg));
 		r_r=m.reg;
 		switch_r
 		RESULT_check
