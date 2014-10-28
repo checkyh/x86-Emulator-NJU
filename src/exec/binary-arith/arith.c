@@ -1,5 +1,6 @@
 #include "exec/helper.h"
 char ins_name[5]={};
+
 #define DATA_BYTE 1
 #include "arith-template.h"
 #undef DATA_BYTE
