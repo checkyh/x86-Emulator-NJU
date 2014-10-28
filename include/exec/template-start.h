@@ -38,7 +38,7 @@ char ins_name[5];
 #define PF_check(result) {int i=0,count=0;for (;i<=7;i++){if(result%2==1) count++;result=result/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
 #define RESULT_check	{if (MSB(result)) cpu.SF=1;else cpu.SF=0;if (result==0) cpu.ZF=1;else cpu.ZF=0;PF_check(result) OF_check(result)}
 #define switch_r switch(r_r)\
- {case 0:sprintf(ins_name,"%s","add");result=*dst+src;printf("%x\n",result ); if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;printf("OK\n");*dst=*dst+src;break;\
+ {case 0:sprintf(ins_name,"%s","add");result=*dst+src;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
  case 1:sprintf(ins_name,"%s","or");result=*dst|src;*dst=*dst|src;break;\
  case 2:sprintf(ins_name,"%s","adc");src+=cpu.CF;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;result=*dst+src;*dst=*dst+src;break;\
  case 3:sprintf(ins_name,"%s","sbb");src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+(~src);}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}break;\
