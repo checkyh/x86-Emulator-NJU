@@ -22,7 +22,7 @@ helper_fun opcode_table [256] = {
 /* 0x2c */	inv, inv, inv, inv, 
 /* 0x30 */	inv, inv, inv, inv, 
 /* 0x34 */	inv, inv, inv, inv,
-/* 0x38 */	inv, arith_rm2r_v, inv, arith_rm2r_v, 
+/* 0x38 */	inv, arith_rm2r_v,arith_r2rm_v, arith_r2rm_v,
 /* 0x3c */	inv, inv, inv, inv, 
 /* 0x40 */	inv, inv, inv, inv, 
 /* 0x44 */	inv, inv, inv, inv,
