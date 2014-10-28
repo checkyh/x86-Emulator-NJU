@@ -1,8 +1,6 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-#define a_pre_r {DATA_TYPE src=0;src=imm;DATA_TYPE *dst=&REG(m.R_M);}
-#define a_pre_rm {src=imm;DATA_TYPE dst_v=MEM_R(addr);DATA_TYPE *dst=&dst_v;}
 #define switch_r switch(arith_chooser)\
 {case 0:sprintf(ins_name,"%s","add");result=*dst+src; if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
  case 1:sprintf(ins_name,"%s","or");result=*dst|src;*dst=*dst|src;break;\
