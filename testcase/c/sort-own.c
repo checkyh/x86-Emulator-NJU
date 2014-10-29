@@ -1,8 +1,8 @@
 #include "trap.h"
 
-#define N 1
+#define N 2
 
-int a[N] = {1};
+int a[N] = {1,2};
 
 void bubble_sort() {
 	int i, j, t;
