@@ -75,7 +75,7 @@ make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
 }
 make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
 	ModR_M m;
-	DATA_TYPE imm;
+	uint8_t imm;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);

@@ -6,7 +6,6 @@ make_helper(concat(push_r_, SUFFIX)) {
 
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	cpu.esp-=DATA_BYTE;
-	printf("%x\n", cpu.esp);
 	MEM_W(cpu.esp,REG(reg_code));
 	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(reg_code));
 	return 1;
