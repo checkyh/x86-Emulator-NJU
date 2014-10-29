@@ -87,7 +87,7 @@ make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
 		switch_r
 		RESULT_check
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s", ins_name,src, REG_NAME(m.R_M));
-		return 1 +1;
+		return 2+1;
 	}
 	else {
 		swaddr_t addr;
@@ -102,7 +102,7 @@ make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
 		switch_r_m
 		RESULT_check
 		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name, src, ModR_M_asm);
-		return len +  1;
+		return len +  2;
 	}
 }
 make_helper(concat(concat(arith,_r2rm_), SUFFIX)) {
