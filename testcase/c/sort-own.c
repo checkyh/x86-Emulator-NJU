@@ -2,8 +2,8 @@
 
 
 int main() {
-	uint8_t x=0x10;uint8_t y=0x10;
-	uint8_t z=x+y;
+	short x=0x8000;short y=0x8000;
+	short z=x+y;
 	nemu_assert(z==0	);
 	HIT_GOOD_TRAP;
 
