@@ -34,6 +34,7 @@ make_helper (j_short)
 
 		default:break;
 	}
+	printf("%x\n",cpu.eip );
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return lens;
 }
