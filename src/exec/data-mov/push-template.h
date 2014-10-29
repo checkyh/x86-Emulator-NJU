@@ -3,10 +3,11 @@
 #include "cpu/modrm.h"
 
 make_helper(concat(push_r_, SUFFIX)) {
-	printf("%x\n",eip );
+
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	cpu.esp-=DATA_BYTE;
-	MEM_W(cpu.esp,REG(reg_code) );
+	printf("OK\n");
+	MEM_W(cpu.esp,REG(reg_code));
 	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(reg_code));
 	return 1;
 }
