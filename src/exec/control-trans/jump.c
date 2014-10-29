@@ -29,7 +29,8 @@ make_helper (j_short)
 
 		case (0x7c):sprintf(jump_type,"%s","jl");ADDR(temp_addr,short_addr,8)
 				 if(cpu.SF!=cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jl
-				 
+		case (0x7d):sprintf(jump_type,"%s","jge");ADDR(temp_addr,short_addr,8)
+				 if(cpu.SF==cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jge	 
 		case (0x7e):sprintf(jump_type,"%s","jle");ADDR(temp_addr,short_addr,8)
 				 if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jle
 		case (0x7f):sprintf(jump_type,"%s","jg");ADDR(temp_addr,short_addr,8)
