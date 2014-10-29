@@ -21,4 +21,10 @@ make_helper(push_rm_v) {
 	return (suffix == 'l' ? push_rm_l(eip) : push_rm_w(eip));
 }
 
+make_helper(pop_r_v) {
+	return (suffix == 'l' ? pop_r_l(eip) : pop_r_w(eip));
+}
 
+make_helper(pop_rm_v) {
+	return (suffix == 'l' ? pop_rm_l(eip) : pop_rm_w(eip));
+}
