@@ -16,6 +16,7 @@ make_helper(concat(push_rm_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		cpu.esp-=DATA_BYTE;
+	
 		MEM_W(cpu.esp,REG(m.R_M) );
 		print_asm("push" str(SUFFIX) " %%%s", REG_NAME(m.R_M));
 		return 2;
@@ -24,7 +25,8 @@ make_helper(concat(push_rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		cpu.esp-=DATA_BYTE;
-		MEM_W(cpu.esp,addr);
+		DATA_TYPE value=MEM_R(addr);
+		MEM_W(cpu.esp,value);
 		print_asm("push" str(SUFFIX) " %s", ModR_M_asm);
 		return len + 1;
 	}
