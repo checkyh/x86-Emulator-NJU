@@ -3,7 +3,6 @@
 #include "cpu/modrm.h"
 
 make_helper(concat(push_r_, SUFFIX)) {
-
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,REG(reg_code));
@@ -23,7 +22,6 @@ make_helper(concat(push_rm_, SUFFIX)) {
 }
 
 make_helper(concat(pop_r_, SUFFIX)) {
-
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	MEM_W(cpu.esp,REG(reg_code));
 	cpu.esp+=DATA_BYTE;
@@ -32,22 +30,12 @@ make_helper(concat(pop_r_, SUFFIX)) {
 }
 
 make_helper(concat(pop_rm_, SUFFIX)) {
-	ModR_M m;
-	m.val = instr_fetch(eip + 1, 1);
-	if(m.mod == 3) {
-		REG(m.R_M)=MEM_R(cpu.esp);
-		cpu.esp+=DATA_BYTE;
-		print_asm("pop" str(SUFFIX) " %%%s", REG_NAME(m.R_M));
-		return 2;
-	}
-	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		MEM_W(addr,MEM_R(cpu.esp));
 		cpu.esp+=DATA_BYTE;
 		print_asm("pop" str(SUFFIX) " %s", ModR_M_asm);
-		return len + 1;
-	}
+		return len + 1;	
 }
 
 
