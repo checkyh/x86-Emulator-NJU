@@ -3,6 +3,7 @@
 #include "cpu/modrm.h"
 
 make_helper(concat(push_r_, SUFFIX)) {
+	printf("OK\n");
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,REG(reg_code) );
