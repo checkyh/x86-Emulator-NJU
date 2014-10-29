@@ -21,7 +21,7 @@ make_helper (j_short)
 		case (0x74):sprintf(jump_type,"%s","je");
 				if(cpu.ZF==1) {ADDR(temp_addr,short_addr,8) ADDR(cpu.eip,short_addr,8) }break;//JE/JZ
 		case (0x75):sprintf(jump_type,"%s","jne");
-				if(cpu.ZF!=1) {ADDR(temp_addr,short_addr,8) ADDR(cpu.eip,short_addr,8) }break;//JE/JZ
+				if(cpu.ZF==0) {ADDR(temp_addr,short_addr,8) ADDR(cpu.eip,short_addr,8) }break;//JNE
 
 		case (0x76):sprintf(jump_type,"%s","jbe");
 				if(cpu.ZF==1||cpu.CF==1) {ADDR(temp_addr,short_addr,8) ADDR(cpu.eip,short_addr,8)} break;//Jbe
