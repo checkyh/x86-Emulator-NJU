@@ -32,10 +32,11 @@ make_helper (j_short)
 				 
 		case (0x7e):sprintf(jump_type,"%s","jle");ADDR(temp_addr,short_addr,8)
 				 if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jle
+		case (0x7f):sprintf(jump_type,"%s","jg");ADDR(temp_addr,short_addr,8)
+				 if(cpu.ZF==0 &&cpu.SF==cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jle
 
 		default:break;
 	}
-	printf("%x\n",cpu.eip );
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return lens;
 }
