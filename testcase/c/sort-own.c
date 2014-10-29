@@ -2,7 +2,7 @@
 
 #define N 4
 
-int a[N] = {2, 3, 5, 6};
+int a[N] = {2, 3, 1,4};
 
 void bubble_sort() {
 	int i, j, t;
