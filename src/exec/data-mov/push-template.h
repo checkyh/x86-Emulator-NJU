@@ -8,7 +8,7 @@ make_helper(concat(push_i_, SUFFIX)) {
 	cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,imm);
 	print_asm("push" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(reg_code));
-	return 1;
+	return 1+DATA_BYTE;
 }
 make_helper(concat(push_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
