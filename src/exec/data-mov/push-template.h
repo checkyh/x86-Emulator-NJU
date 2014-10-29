@@ -34,7 +34,7 @@ make_helper(concat(pop_r_, SUFFIX)) {
 
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	MEM_W(cpu.esp,REG(reg_code));
-		cpu.esp+=DATA_BYTE;
+	cpu.esp+=DATA_BYTE;
 	print_asm("pop" str(SUFFIX) " %%%s", REG_NAME(reg_code));
 	return 1;
 }
