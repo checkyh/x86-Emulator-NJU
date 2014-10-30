@@ -29,7 +29,7 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 	}
 }
 	
-#if (logical,_chooser==0)||(logical_chooser==4)
+#if (logical,_chooser==0)||(logical_chooser==5)
 #include "logical-complex.h"
 #endif
 
