@@ -1,7 +1,14 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-
+#define logical_give switch(logical_chooser)\
+{case 0:sprintf(ins_name,"%s","test");break;\
+case 2:sprintf(ins_name,"%s","not");break;\
+case 3:sprintf(ins_name,"%s","neg");break;\
+case 4:sprintf(ins_name,"%s","mul");break;\
+case 5:sprintf(ins_name,"%s","imul");break;\
+case 6:sprintf(ins_name,"%s","div");break;\
+case 7:sprintf(ins_name,"%s","idiv");break;}
 make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 	ModR_M m;
 	DATA_TYPE imm;
@@ -9,12 +16,9 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
 		DATA_TYPE result=(REG(m.R_M)&imm);
-		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result)
-		cpu.OF=0;
-		cpu.CF=0;	
-		print_asm("logical" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
+		logical_give
+		PF_check(result) 
+		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
 		return 1 + DATA_BYTE + 1;
 	}
 	else {
@@ -22,12 +26,9 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
 		DATA_TYPE result=(MEM_R(addr)&imm);
-		if ( result==0) cpu.ZF=1;else cpu.ZF=0;
-		if (MSB(result)) cpu.SF=1;else cpu.SF=0;
-		PF_check(result)
-		cpu.OF=0;
-		cpu.CF=0;
-		print_asm("logical" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
+		logical_give
+		PF_check(result) 
+		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name,imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
 }
