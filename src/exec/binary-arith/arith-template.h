@@ -9,8 +9,7 @@ case 3:sprintf(ins_name,"%s","sbb");break;\
 case 4:sprintf(ins_name,"%s","and");break;\
 case 5:sprintf(ins_name,"%s","sub");break;\
 case 6:sprintf(ins_name,"%s","xor");break;\
-case 7:sprintf(ins_name,"%s","cmp");break;\
-}
+case 7:sprintf(ins_name,"%s","cmp");break;}
 #define switch_r switch(arith_chooser)\
 {case 0:result=*dst+src; if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
  case 1:result=*dst|src;*dst=*dst|src;break;\

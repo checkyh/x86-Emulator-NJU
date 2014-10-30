@@ -33,4 +33,3 @@ char ins_name[4]={};
 #define arith_chooser 7
 #include "arith-head.h"
 #undef arith_chooser
-/* for instruction encoding overloading */
