@@ -1,4 +1,5 @@
 make_helper(concat(concat(logical,_i2r_), SUFFIX)) {
+	logical_give
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	DATA_TYPE result=(REG(reg_code)&imm);
@@ -7,11 +8,12 @@ make_helper(concat(concat(logical,_i2r_), SUFFIX)) {
 	PF_check(result)
 	cpu.OF=0;
 	cpu.CF=0;
-	print_asm("logical" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(reg_code));
+	print_asm("%s"str(SUFFIX) " $0x%x,%%%s",ins_name, imm, REG_NAME(reg_code));
 	return DATA_BYTE + 1;
 }
 
 make_helper(concat(concat(logical,_r2rm_), SUFFIX)) {
+	logical_give
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
@@ -21,7 +23,7 @@ make_helper(concat(concat(logical,_r2rm_), SUFFIX)) {
 		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
-		print_asm("logical" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.reg), REG_NAME(m.R_M));
+		print_asm("%s"str(SUFFIX) " %%%s,%%%s",ins_name, REG_NAME(m.reg), REG_NAME(m.R_M));
 		return 2;
 	}
 	else {
@@ -33,12 +35,13 @@ make_helper(concat(concat(logical,_r2rm_), SUFFIX)) {
 		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
-		print_asm("logical" str(SUFFIX) " %%%s,%s", REG_NAME(m.reg), ModR_M_asm);
+		print_asm("%s"str(SUFFIX) " %%%s,%s",ins_name, REG_NAME(m.reg), ModR_M_asm);
 		return len + 1;
 	}
 }
 #if logical_chooser==4	
 make_helper(concat(concat(logical,_ei2rm_),SUFFIX)) {
+	logical_give
 	ModR_M m;
 	DATA_TYPE imm;
 	m.val = instr_fetch(eip + 1, 1);
@@ -50,7 +53,7 @@ make_helper(concat(concat(logical,_ei2rm_),SUFFIX)) {
 		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;	
-		print_asm("logical" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
+		print_asm("%s"str(SUFFIX) " $0x%x,%%%s",ins_name, imm, REG_NAME(m.R_M));
 		return 1 + DATA_BYTE + 1;
 	}
 	else {
@@ -63,12 +66,13 @@ make_helper(concat(concat(logical,_ei2rm_),SUFFIX)) {
 		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
-		print_asm("logical" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
+		print_asm("%s"str(SUFFIX) " $0x%x,%s", ins_name,imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
 }
 
 make_helper(concat(concat(logical,_rm2r_), SUFFIX)) {
+	logical_give
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
@@ -78,7 +82,7 @@ make_helper(concat(concat(logical,_rm2r_), SUFFIX)) {
 		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
-		print_asm("logical" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		print_asm("%s"str(SUFFIX) " %%%s,%%%s",ins_name, REG_NAME(m.R_M), REG_NAME(m.reg));
 		return 2;
 	}
 	else {
@@ -90,7 +94,7 @@ make_helper(concat(concat(logical,_rm2r_), SUFFIX)) {
 		PF_check(result)
 		cpu.OF=0;
 		cpu.CF=0;
-		print_asm("logical" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		print_asm("%s"str(SUFFIX) " %s,%%%s",ins_name, ModR_M_asm, REG_NAME(m.reg));
 		return len + 1;
 	}
 }	
