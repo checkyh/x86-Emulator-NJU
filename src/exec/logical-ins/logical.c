@@ -14,6 +14,7 @@ static void logical_give(int logical_chooser)
 		case 7:sprintf(ins_name,"%s","idiv");break;
 	}
 }
+#define Unused(val) {result=result+(-val+val);}
 #define logical_chooser 0
 #include "logical-head.h"
 #undef logical_chooser
@@ -55,3 +56,4 @@ make_helper(concat(test,_r2rm_v)) {
 make_helper(concat(imul,_i2r_v)) {
 	return (suffix == 'l' ? concat(imul,_i2r_l)(eip) : concat(imul,_i2r_w)(eip));
 }
+#undef Unused
