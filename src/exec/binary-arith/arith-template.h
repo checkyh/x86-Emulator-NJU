@@ -3,7 +3,7 @@
 #include "cpu/modrm.h"
 #include "arith-run.h"
 
-#define RESULT_check	{SF_check(result) SF_check(result) PF_check(result) OF_check(result)}
+#define RESULT_check	{ZF_check(result) SF_check(result) PF_check(result) OF_check(result)}
 make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
 	arith_give(arith_chooser);
 	int reg_code = instr_fetch(eip, 1) & 0x7;
