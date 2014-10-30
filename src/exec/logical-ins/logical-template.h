@@ -4,6 +4,8 @@
 
 #define switch_r switch(logical_chooser)\
 {case 0:result=src&(*dst);*dst=src&*dst;cpu.CF=0;cpu.OF=0;PF_check(result)  break;}
+#define switch_rm switch(logical_chooser)\
+{case 0:result=src&(*dst);MEM_W(addr,src&*dst);cpu.CF=0;cpu.OF=0;PF_check(result)  break;}
 make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 	logical_give(logical_chooser);
 	ModR_M m;
