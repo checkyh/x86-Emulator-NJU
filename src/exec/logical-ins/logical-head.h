@@ -11,11 +11,11 @@
 #endif
 
 #if logical_chooser == 4 
-#define logical imul
+#define logical mul
 #endif
 
 #if logical_chooser == 5 
-#define logical mul
+#define logical imul
 #endif
 
 #if logical_chooser == 6 
