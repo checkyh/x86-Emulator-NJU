@@ -4,7 +4,7 @@
 
 #elif logical_chooser==2//not
 #define switch_r *dst=~src;Unused(result)
- #define switch_rm MEM_W(addr,~src);Unused(result) Unused(*dst) 
+ #define switch_rm MEM_W(addr,~src);Unused(*dst) 
 
  #elif logical_chooser==3
  #define switch_r src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+(~src);}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}
