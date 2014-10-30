@@ -155,3 +155,5 @@ make_helper(concat(concat(arith,_rm2r_), SUFFIX)) {
 	}
 }
 #include "exec/template-end.h"
+#undef switch_r
+#undef switch_r_m
