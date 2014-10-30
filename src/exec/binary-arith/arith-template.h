@@ -1,15 +1,6 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-#define ins_give switch(arith_chooser)\
-{case 0:sprintf(ins_name,"%s","add");break;\
-case 1:sprintf(ins_name,"%s","or");break;\
-case 2:sprintf(ins_name,"%s","adc");break;\
-case 3:sprintf(ins_name,"%s","sbb");break;\
-case 4:sprintf(ins_name,"%s","and");break;\
-case 5:sprintf(ins_name,"%s","sub");break;\
-case 6:sprintf(ins_name,"%s","xor");break;\
-case 7:sprintf(ins_name,"%s","cmp");break;}
 #define switch_r switch(arith_chooser)\
 {case 0:result=*dst+src; if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
  case 1:result=*dst|src;*dst=*dst|src;break;\
@@ -32,7 +23,7 @@ case 7:sprintf(ins_name,"%s","cmp");break;}
 
 
 make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
-	ins_give
+	arith_give(arith_chooser);
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	DATA_TYPE result=0;
@@ -44,7 +35,7 @@ make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
 	return DATA_BYTE + 1;
 }
 make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
-	ins_give
+	arith_give(arith_chooser);
 	ModR_M m;
 	DATA_TYPE imm;
 	m.val = instr_fetch(eip + 1, 1);
@@ -73,7 +64,7 @@ make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
 	}
 }
 make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
-	ins_give
+	arith_give(arith_chooser);
 	ModR_M m;
 	uint8_t imm;
 	m.val = instr_fetch(eip + 1, 1);
@@ -104,7 +95,7 @@ make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
 	}
 }
 make_helper(concat(concat(arith,_r2rm_), SUFFIX)) {
-	ins_give
+	arith_give(arith_chooser);
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
@@ -130,7 +121,7 @@ make_helper(concat(concat(arith,_r2rm_), SUFFIX)) {
 	}
 }
 make_helper(concat(concat(arith,_rm2r_), SUFFIX)) {
-	ins_give
+	arith_give(arith_chooser);
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
@@ -155,7 +146,6 @@ make_helper(concat(concat(arith,_rm2r_), SUFFIX)) {
 	}
 }
 #include "exec/template-end.h"
-#undef ins_give
 #undef switch_r
 #undef switch_r_m
 #undef RESULT_check

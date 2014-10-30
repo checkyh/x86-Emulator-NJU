@@ -1,5 +1,5 @@
 make_helper(concat(concat(logical,_i2r_), SUFFIX)) {
-	logical_give
+	logical_give(logical_chooser);
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	DATA_TYPE result=(REG(reg_code)&imm);
@@ -13,7 +13,7 @@ make_helper(concat(concat(logical,_i2r_), SUFFIX)) {
 }
 
 make_helper(concat(concat(logical,_r2rm_), SUFFIX)) {
-	logical_give
+	logical_give(logical_chooser);
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
@@ -41,7 +41,7 @@ make_helper(concat(concat(logical,_r2rm_), SUFFIX)) {
 }
 #if logical_chooser==4	
 make_helper(concat(concat(logical,_ei2rm_),SUFFIX)) {
-	logical_give
+	logical_give(logical_chooser);
 	ModR_M m;
 	DATA_TYPE imm;
 	m.val = instr_fetch(eip + 1, 1);
@@ -72,7 +72,7 @@ make_helper(concat(concat(logical,_ei2rm_),SUFFIX)) {
 }
 
 make_helper(concat(concat(logical,_rm2r_), SUFFIX)) {
-	logical_give
+	logical_give(logical_chooser);
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
