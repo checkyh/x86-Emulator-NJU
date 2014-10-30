@@ -36,4 +36,4 @@
 #define PF_check(result) {int i=0,count=0;for (;i<=7;i++){if(result%2==1) count++;result=result/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
 #define ZF_check(result) {if (result==0) cpu.ZF=1;else cpu.ZF=0;}
 #define SF_check(result) {if (MSB(result)) cpu.SF=1;else cpu.SF=0;}
-#define Unused(val) {result=result+val;result-=val;}
+#define Unused(val) {result=result+(-val+val);}
