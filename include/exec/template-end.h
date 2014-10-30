@@ -9,5 +9,6 @@
 #undef EX_I
 #undef PF_check
 #undef OF_check
-#undef RESULT_check
+#undef SF_check
+#undef ZF_check
 #undef MLSB

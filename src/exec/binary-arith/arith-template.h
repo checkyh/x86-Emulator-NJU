@@ -28,7 +28,7 @@ case 7:sprintf(ins_name,"%s","cmp");break;}
  case 5:if(*dst<src) {result=*dst+(~src);cpu.CF=1;MEM_W(addr,*dst+(~src));}else {result=*dst-src;cpu.CF=0;MEM_W(addr,*dst-src);}break;\
  case 6:result=*dst^src;MEM_W(addr,*dst^src);break;\
  case 7:if(*dst<src) {result=*dst+(~src);cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}break;}
-#define RESULT_check	{if (MSB(result)) cpu.SF=1;else cpu.SF=0;if (result==0) cpu.ZF=1;else cpu.ZF=0;PF_check(result) OF_check(result)}
+#define RESULT_check	{SF_check(result) SF_check(result) PF_check(result) OF_check(result)}
 
 
 make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
@@ -158,3 +158,4 @@ make_helper(concat(concat(arith,_rm2r_), SUFFIX)) {
 #undef ins_give
 #undef switch_r
 #undef switch_r_m
+#undef RESULT_check

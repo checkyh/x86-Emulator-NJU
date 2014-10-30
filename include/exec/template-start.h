@@ -34,3 +34,5 @@
 #define MLSB(n) (((DATA_TYPE)(n)<<1)>>((DATA_BYTE<<3)-1))
 #define OF_check(result)    {uint8_t temp=MSB(src)+MSB(*dst);temp=temp-((temp>>1)<<1); uint8_t temp1=MLSB(src)+MLSB(*dst);temp1=temp1-((temp1>>1)<<1);cpu.OF=(MSB(result)^(temp))^(MLSB(result)^temp1);}
 #define PF_check(result) {int i=0,count=0;for (;i<=7;i++){if(result%2==1) count++;result=result/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
+#define ZF_check(result) {if (result==0) cpu.ZF=1;else cpu.ZF=0;}
+#define SF_check(result) {if (MSB(result)) cpu.SF=1;else cpu.SF=0;}
