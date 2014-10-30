@@ -1,27 +1,8 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-#define switch_r switch(arith_chooser)\
-{case 0:result=*dst+src; if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;*dst=*dst+src;break;\
- case 1:result=*dst|src;*dst=*dst|src;break;\
- case 2:src+=cpu.CF;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;result=*dst+src;*dst=*dst+src;break;\
- case 3:src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+(~src);}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}break;\
- case 4:result=(*dst)&(src);*dst=(*dst)&(src);break;\
- case 5:if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+~src;}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}break;\
- case 6:result=*dst^src;*dst=*dst^src;break;\
- case 7:if(*dst<src) {result=*dst+(~src);cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}break;}
-#define switch_r_m switch(arith_chooser)\
-{case 0:result=*dst+src;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;MEM_W(addr,*dst+src);break;\
- case 1:result=*dst|src;MEM_W(addr,*dst|src);break;\
- case 2:src+=cpu.CF;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;result=*dst+src;MEM_W(addr,*dst+src);break;\
- case 3:src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;MEM_W(addr,*dst+(~src));}else {result=*dst-src;cpu.CF=0;MEM_W(addr,*dst-src);}break;\
- case 4:result=(*dst)&(src);MEM_W(addr,*dst&src);break;\
- case 5:if(*dst<src) {result=*dst+(~src);cpu.CF=1;MEM_W(addr,*dst+(~src));}else {result=*dst-src;cpu.CF=0;MEM_W(addr,*dst-src);}break;\
- case 6:result=*dst^src;MEM_W(addr,*dst^src);break;\
- case 7:if(*dst<src) {result=*dst+(~src);cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}break;}
+#include "arith-run.h"
 #define RESULT_check	{SF_check(result) SF_check(result) PF_check(result) OF_check(result)}
-
-
 make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
 	arith_give(arith_chooser);
 	int reg_code = instr_fetch(eip, 1) & 0x7;
@@ -57,7 +38,7 @@ make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
 		DATA_TYPE src=imm;
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
-		switch_r_m
+		switch_rm
 		RESULT_check
 		print_asm( "%s" str(SUFFIX) " $0x%x,%s", ins_name,imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
@@ -88,7 +69,7 @@ make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
 		EX_I(src,imm)
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
-		switch_r_m
+		switch_rm
 		RESULT_check
 		print_asm( "%s" str(SUFFIX) " $0x%x,%s",ins_name, src, ModR_M_asm);
 		return len +  2;
@@ -114,7 +95,7 @@ make_helper(concat(concat(arith,_r2rm_), SUFFIX)) {
 		DATA_TYPE src=REG(m.reg);
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
-		switch_r_m
+		switch_rm
 		RESULT_check
 		print_asm( "%s" str(SUFFIX) " %%%s,%s", ins_name,REG_NAME(m.reg), ModR_M_asm);
 		return len + 1;
@@ -147,5 +128,5 @@ make_helper(concat(concat(arith,_rm2r_), SUFFIX)) {
 }
 #include "exec/template-end.h"
 #undef switch_r
-#undef switch_r_m
+#undef switch_rm
 #undef RESULT_check
