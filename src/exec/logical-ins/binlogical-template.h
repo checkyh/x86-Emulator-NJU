@@ -16,7 +16,7 @@ make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 		DATA_TYPE *dst=&REG(m.R_M);		
 		switch_r
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
-		return 1 + DATA_BYTE+1;
+		return 1 + 1+1;
 	}
 	else {
 		swaddr_t addr;
@@ -27,7 +27,7 @@ make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 		DATA_TYPE *dst=&dst_v;
 		switch_rm
 		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name,imm, ModR_M_asm);
-		return 1+DATA_BYTE + len;
+		return 1+1 + len;
 	}
 }
 #include "exec/template-end.h"
