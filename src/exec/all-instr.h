@@ -4,6 +4,7 @@
 #include "data-mov/push.h"
 #include "misc/misc.h"
 #include "logical-ins/logical.h"
+#include "logical-ins/binlogical.h"
 #include "control-trans/jump.h"
 #include  "binary-arith/arith.h"
 #include "control-trans/call.h"
