@@ -54,7 +54,7 @@ make_helper(concat(test,_r2rm_v)) {
 	return (suffix == 'l' ? concat(test,_r2rm_l)(eip) : concat(test,_r2rm_w)(eip));
 }
 
-make_helper(concat(imul,_i2r_v)) {
-	return (suffix == 'l' ? concat(imul,_i2r_l)(eip) : concat(imul,_i2r_w)(eip));
+make_helper(concat(imul,_ei2rm_v)) {
+	return (suffix == 'l' ? concat(imul,_ei2rm_l)(eip) : concat(imul,_ei2rm_w)(eip));
 }
 #undef Unused
