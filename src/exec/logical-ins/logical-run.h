@@ -17,7 +17,7 @@
  #define switch_rm switch_r
 
  #elif logical_chooser==5//imul
- #define switch_r {if (REG(0)*src>>((DATA_BYTE<<3)-1)) {cpu.CF=1;cpu.OF=1;}else {cpu.CF=0;cpu.OF=0;}REG(0)=REG(0)*src;Unused(*dst)}
+ #define switch_r {if ((REG(0)*src>>((DATA_BYTE<<3)-1))&0xfffffff0) {cpu.CF=1;cpu.OF=1;}else {cpu.CF=0;cpu.OF=0;}REG(0)=REG(0)*src;Unused(*dst)}
  #define switch_rm switch_r
 
  #elif logical_chooser==6
