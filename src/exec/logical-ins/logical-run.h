@@ -1,5 +1,3 @@
-#define EX_re(result,low,BYTE) if(MSB(result))  {if (DATA_BYTE==1) result=result|0xff00;if (DATA_BYTE==2) result=result|0xffffff00;}else{if (DATA_BYTE==1);result=result;if(DATA_BYTE==4) result-result;}}
-
 #if logical_chooser==0//test 
 #define switch_r {result=*dst&src; *dst=*dst&src;cpu.CF=0;cpu.OF=0;PF_check(result) ZF_check(result) SF_check(result)} 
 #define switch_rm {result=*dst&src;MEM_W(addr,*dst&src); cpu.CF=0;cpu.OF=0;PF_check(result) ZF_check(result) SF_check(result)}

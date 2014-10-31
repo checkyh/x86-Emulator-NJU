@@ -2,6 +2,11 @@
 #include "all-instr.h"
 #include "cpu/modrm.h"
 #include "common.h"
+#define binlogical_change(intype) switch(m.reg)\
+		{case 4:return concat(sal,intype)(eip);\
+ 		case 5:return concat(shr,intype)(eip);\
+ 		case 7:return concat(sar,intype)(eip);\
+ 		default:assert(0);}
 #define arith_change(intype) switch(m.reg)\
 		{case 0:return concat(add,intype)(eip);\
  		case 1:return concat(or,intype)(eip);\
@@ -19,7 +24,8 @@
  		case 5:return concat(imul,intype)(eip);\
  		case 6:return concat(div,intype)(eip);\
  		case 7:return concat(idiv,intype)(eip);\
- 		default:return 1;}
+ 		default:assert(0);}
+
 make_helper(xff_switcher)
 {
 	ModR_M m;
@@ -61,3 +67,18 @@ make_helper(xf7_switcher)//logical
 	m.val = instr_fetch(eip + 1, 1);
 	logical_change(_i2rm_v)
 }
+make_helper(xc1_switcher)//bin-logcial imm
+{
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+		binlogical_change(_i2rm_v)
+}
+make_helper(xc0_switcher)//bin-logcial imm
+{
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	binlogical_change(_i2rm_v)
+}
+#undef arith_change
+#undef logical_change
+#undef binlogical_change

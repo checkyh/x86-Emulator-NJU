@@ -1,7 +1,7 @@
 #include "exec/helper.h"
 extern char suffix;
 extern char ins_name[4];
-static void logical_give(int logical_chooser)
+void logical_give(int logical_chooser)
 {
 	switch(logical_chooser)
 	{
@@ -15,6 +15,7 @@ static void logical_give(int logical_chooser)
 	}
 }
 #define Unused(val) {result=result+(-val+val);}
+
 #define logical_chooser 0
 #include "logical-head.h"
 #undef logical_chooser
