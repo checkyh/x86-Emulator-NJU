@@ -11,7 +11,7 @@ make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result=0;
 	if(m.mod == 3) {
-		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
+		imm = instr_fetch(eip + 1 + 1, 1);
 		src=imm;
 		DATA_TYPE *dst=&REG(m.R_M);		
 		switch_r
@@ -21,7 +21,7 @@ make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
+		imm = instr_fetch(eip + 1 + 1, 1);
 		src=imm;
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
