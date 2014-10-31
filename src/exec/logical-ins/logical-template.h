@@ -10,17 +10,21 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 	 DATA_TYPE src=0;
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result=0;
+	int lens=1;
 	if(m.mod == 3) {
 		if (logical_chooser==0)
 		{
 			imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
 			src=imm;
+			lens++;
 		}
 		else src=REG(m.R_M);
 		DATA_TYPE *dst=&REG(m.R_M);		
 		switch_r
+		if (logical_chooser==0)
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
-		return 1 + DATA_BYTE + 1;
+		else print_asm("%s" str(SUFFIX) "%%%s",ins_name,REG_NAME(m.R_M));
+		return 1 + lens;
 	}
 	else {
 		swaddr_t addr;
@@ -29,13 +33,16 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 		{
 			imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
 			src=imm;
+			len++;
 		}
 		else src=MEM_R(addr);
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
 		switch_rm
+		if (logical_chooser==0)
 		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name,imm, ModR_M_asm);
-		return len + DATA_BYTE + 1;
+		else  print_asm("%s" str(SUFFIX) "%%%s",ins_name,ModR_M_asm);
+		return len + 1 ;
 	}
 }
 	

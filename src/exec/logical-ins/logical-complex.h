@@ -39,7 +39,7 @@ make_helper(concat(concat(logical,_r2rm_), SUFFIX)) {
 		return len + 1;
 	}
 }
-#if logical_chooser==4	
+#if logical_chooser==5	
 make_helper(concat(concat(logical,_ei2rm_),SUFFIX)) {
 	logical_give(logical_chooser);
 	ModR_M m;
