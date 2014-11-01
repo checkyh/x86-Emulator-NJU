@@ -29,7 +29,7 @@
 #define REG_NAME(index) concat(regs, SUFFIX) [index]
 #define MEM_R(addr) swaddr_read(addr, DATA_BYTE)
 #define MEM_W(addr, data) swaddr_write(addr, DATA_BYTE, data)
-#define EX_I(src,imm)     {if ((imm) >> ((1 << 3) - 1)){ if (DATA_BYTE==2) src=imm|0xff00;if (DATA_BYTE==4) src=imm|0xffffff00;}else{if (DATA_BYTE==2);src=imm;if(DATA_BYTE==4) src=imm;}}
+#define EX_I(src,imm)     {if (((imm) >> ((1 << 3) - 1)&0x1)){ if (DATA_BYTE==2) src=imm|0xff00;if (DATA_BYTE==4) src=imm|0xffffff00;}else{if (DATA_BYTE==2);src=imm;if(DATA_BYTE==4) src=imm;}}
 #define MSB(n) ((DATA_TYPE)(n) >> ((DATA_BYTE << 3) - 1))
 #define MLSB(n) (((DATA_TYPE)(n)<<1)>>((DATA_BYTE<<3)-1))
 #define OF_check(result)    {uint8_t temp=MSB(src)+MSB(*dst);temp=temp-((temp>>1)<<1); uint8_t temp1=MLSB(src)+MLSB(*dst);temp1=temp1-((temp1>>1)<<1);cpu.OF=(MSB(result)^(temp))^(MLSB(result)^temp1);}
