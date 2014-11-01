@@ -68,6 +68,10 @@ make_helper(j_near)
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return  lens;
 }
+make_helper(jumpff)
+{
+	return 1;
+}
 
 
 #include "trans-template-end.h"

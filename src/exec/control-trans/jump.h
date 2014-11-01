@@ -3,6 +3,6 @@
 
 make_helper(j_short);
 make_helper(j_near);
-
+make_helper(jumpff);
 
 #endif
