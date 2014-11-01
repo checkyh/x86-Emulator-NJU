@@ -213,6 +213,15 @@ void main_loop() {
 			if (judge)
 			 printf("0x%08x\n",t);}	
 		}	
+		else if(strcmp(p,"p/d")==0)			//si 
+		{
+			suc=true;
+			q=strtok(NULL,"");
+			if (q!=NULL){
+			int t=expr(q,&suc);
+			if (judge)
+			 printf("%d\n",t);}	
+		}	
 		else if(strcmp(p,"w")==0)
 		{
 			suc=true;
