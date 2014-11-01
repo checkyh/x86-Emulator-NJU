@@ -6,14 +6,13 @@
 #define RESULT_check	{ZF_check(result) SF_check(result) PF_check(result) OF_check(result)}
 make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
 	arith_give(arith_chooser);
-	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	DATA_TYPE result=0;
 	DATA_TYPE src=imm;
-	DATA_TYPE *dst=&REG(reg_code);
+	DATA_TYPE *dst=&REG(0);
 	switch_r
 	RESULT_check
-	print_asm( "%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(reg_code));
+	print_asm( "%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(0));
 	return DATA_BYTE + 1;
 }
 make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
