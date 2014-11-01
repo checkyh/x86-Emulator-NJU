@@ -11,8 +11,8 @@
 #define switch_rm {src+=cpu.CF;if(result<*dst||result<src) cpu.CF=1;else cpu.CF=0;result=*dst+src;MEM_W(addr,*dst+src);}
 
 #elif arith_chooser==3//sbb
-#define switch_r {src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;*dst=*dst+(~src);}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}}
-#define switch_rm {src+=cpu.CF;if(*dst<src) {result=*dst+(~src);cpu.CF=1;MEM_W(addr,*dst+(~src));}else {result=*dst-src;cpu.CF=0;MEM_W(addr,*dst-src);}}
+#define switch_r {src+=cpu.CF;if(*dst<src) {result=*dst+(~src)+1;cpu.CF=1;*dst=*dst+(~src)+1;}else {result=*dst-src;cpu.CF=0;*dst=*dst-src;}}
+#define switch_rm {src+=cpu.CF;if(*dst<src) {result=*dst+(~src)+1;cpu.CF=1;MEM_W(addr,*dst+(~src)+1);}else {result=*dst-src;cpu.CF=0;MEM_W(addr,*dst-src);}}
 
 #elif arith_chooser==4//and
 #define switch_r {result=(*dst)&(src);*dst=(*dst)&(src);}
