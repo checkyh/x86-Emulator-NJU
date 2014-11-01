@@ -89,7 +89,8 @@ make_helper(x0f_switcher)//2 byte escape
 	 switch(ins_type)
 	 {
 	 	case (0xaf):return 1+imul_rm2r_v(eip+1);
-	 	case (0xbe):return 1+movsx_b_v(eip+1);
+	 	case (0xbe):return 1+movsb_v(eip+1);
+	 	case(0xb6):return 1+movzb_v(eip+1);
 	 }
 	 return 1;
 	}
