@@ -23,7 +23,7 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 		switch_r
 		if (logical_chooser==0)
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
-		else print_asm("%s" str(SUFFIX) "%%%s",ins_name,REG_NAME(m.R_M));
+		else print_asm("%s" str(SUFFIX) " %%%s",ins_name,REG_NAME(m.R_M));
 		return 1 + lens;
 	}
 	else {

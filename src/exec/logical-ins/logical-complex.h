@@ -3,6 +3,7 @@ make_helper(concat(test_i2r_,SUFFIX)) {
 	return 0;
 }
 #endif
+
 #if (logical_chooser==5)//imul  	i*rm->r 	ei*rm->rm
 make_helper(concat(imul_i2r_, SUFFIX)) {
 	logical_give(logical_chooser);
