@@ -3,8 +3,8 @@
 
 
 int main() {
-	int n=1890;
-	nemu_assert(((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0))==0);
+	int n=1892;
+	nemu_assert(((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0))==1);
 	HIT_GOOD_TRAP;
 
 	return 0;
