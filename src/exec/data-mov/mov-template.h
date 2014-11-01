@@ -119,4 +119,9 @@ make_helper(concat(movzb_, SUFFIX)) {
 	}
 }
 #endif
+make_helper(concat(movs_, SUFFIX)) {
+	MEM_W(REG(7),MEM_R(REG(6)));
+	print_asm("movs" str(SUFFIX) " %%%s,%%%s", REG_NAME(6), REG_NAME(7));
+	return 1;
+}	
 #include "exec/template-end.h"

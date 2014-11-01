@@ -47,3 +47,6 @@ make_helper(movsb_v) {
 make_helper(movzb_v) {
 	return (suffix == 'l' ? movzb_l(eip) : movzb_w(eip));
 }
+make_helper(movs_v) {
+	return (suffix == 'l' ? movs_l(eip) : movs_w(eip));
+}
