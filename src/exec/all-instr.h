@@ -9,3 +9,4 @@
 #include  "binary-arith/arith.h"
 #include "control-trans/call.h"
 #include "data-mov/lea.h"
+#include "data-mov/cwd.h"
