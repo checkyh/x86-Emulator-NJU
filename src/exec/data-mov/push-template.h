@@ -6,10 +6,7 @@ make_helper(concat(push_i_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	cpu.esp-=DATA_BYTE;
-	DATA_TYPE value=0;
-	if (imm<0x8000000)
-	value=imm;
-	MEM_W(cpu.esp,value);
+	MEM_W(cpu.esp,imm);
 	print_asm("push" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(reg_code));
 	return 1+DATA_BYTE;
 }
@@ -17,10 +14,7 @@ make_helper(concat(push_i_, SUFFIX)) {
 make_helper(concat(push_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	cpu.esp-=DATA_BYTE;
-	DATA_TYPE value=0;
-	if (REG(reg_code)<0x8000000)
-	value=REG(reg_code);
-	MEM_W(cpu.esp,value);
+	MEM_W(cpu.esp,REG(reg_code));
 	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(reg_code));
 	return 1;
 }
