@@ -16,8 +16,9 @@ make_helper (j_short)
 				ADDR(temp_addr,short_addr,8)
 				ADDR(cpu.eip,short_addr,8) break;//jump 8
 		case (0xe9):sprintf(jump_type,"%s","jump");
-				if (suffix=='l') {ADDR(temp_addr,short_addr,32) ADDR(cpu.eip,short_addr,32) lens+=3;}
-					else {ADDR(temp_addr,short_addr,16) ADDR(cpu.eip,short_addr,16) lens+=1;} break;
+				if (suffix=='l') { short_addr=instr_fetch(eip+1,4);
+					ADDR(temp_addr,short_addr,32) ADDR(cpu.eip,short_addr,32) lens+=3;}
+					else { short_addr=instr_fetch(eip+1,2);ADDR(temp_addr,short_addr,16) ADDR(cpu.eip,short_addr,16) lens+=1;} break;
 		case (0x74):sprintf(jump_type,"%s","je");
 				ADDR(temp_addr,short_addr,8) 
 				if(cpu.ZF==1) ADDR(cpu.eip,short_addr,8)  break;//JE/JZ
@@ -41,4 +42,30 @@ make_helper (j_short)
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return lens;
 }
+make_helper(j_near)
+{
+	uint32_t temp_addr=cpu.eip;
+	uint32_t addr=0;
+	int jump_ins = instr_fetch(eip+1, 1);
+	int lens=3;
+	char jump_type[5];
+	if (suffix=='l') {
+		 addr=instr_fetch(eip+2,4);
+		ADDR(temp_addr,addr,32)  lens+=3;
+	}
+	else { 
+		addr=instr_fetch(eip+2,2);
+		ADDR(temp_addr,addr,16)
+		lens+=1;
+	}
+	int byte=(lens==4)?16:32;
+	switch (jump_ins)
+	{
+		case (0x8e):sprintf(jump_type,"%s","jg");if(cpu.ZF==0 &&cpu.SF==cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
+
+	}
+	return  lens;
+}
+
+
 #include "trans-template-end.h"
