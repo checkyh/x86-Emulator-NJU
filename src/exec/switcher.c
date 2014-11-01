@@ -79,6 +79,20 @@ make_helper(xc0_switcher)//bin-logcial imm
 	m.val = instr_fetch(eip + 1, 1);
 	binlogical_change(_i2rm_v)
 }
+make_helper(x0f_switcher)//2 byte escape
+{
+	 uint8_t ins_type=instr_fetch(eip + 1, 1);
+	 if (ins_type>=0x80&&ins_type<=0x8f) return 1+j_near(eip+1);
+	 else
+	 {
+
+	 switch(ins_type)
+	 {
+	 	case (0xaf):return 1+imul_rm2r_v(eip+1);
+	 }
+	 return 1;
+	}
+}
 #undef arith_change
 #undef logical_change
 #undef binlogical_change

@@ -11,7 +11,7 @@ helper_fun opcode_table [256] = {
 /* 0x00 */	add_r2rm_b, add_r2rm_v, add_rm2r_b, add_rm2r_v,
 /* 0x04 */	add_i2r_b, add_i2r_v, inv, inv, 
 /* 0x08 */	or_r2rm_b, or_r2rm_v, or_rm2r_b, or_rm2r_v, 
-/* 0x0c */	or_i2r_b, or_i2r_v,inv, j_near, 
+/* 0x0c */	or_i2r_b, or_i2r_v,inv, x0f_switcher, 
 /* 0x10 */	adc_r2rm_b, adc_r2rm_v, adc_rm2r_b, adc_rm2r_v, 
 /* 0x14 */	adc_i2r_b, adc_i2r_v, inv, inv, 
 /* 0x18 */	sbb_r2rm_b, sbb_r2rm_v,sbb_rm2r_b, sbb_rm2r_v, 

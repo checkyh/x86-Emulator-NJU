@@ -46,15 +46,15 @@ make_helper(j_near)
 {
 	uint32_t temp_addr=cpu.eip;
 	uint32_t addr=0;
-	int jump_ins = instr_fetch(eip+1, 1);
-	int lens=3;
+	int jump_ins = instr_fetch(eip, 1);
+	int lens=2;
 	char jump_type[5];
 	if (suffix=='l') {
-		 addr=instr_fetch(eip+2,4);
+		 addr=instr_fetch(eip+1,4);
 		ADDR(temp_addr,addr,32)  lens+=3;
 	}
 	else { 
-		addr=instr_fetch(eip+2,2);
+		addr=instr_fetch(eip+1,2);
 		ADDR(temp_addr,addr,16)
 		lens+=1;
 	}
