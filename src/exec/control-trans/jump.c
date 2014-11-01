@@ -61,8 +61,8 @@ make_helper(j_near)
 	int byte=(lens==4)?16:32;
 	switch (jump_ins)
 	{
-		case (0x8e):sprintf(jump_type,"%s","jg");if(cpu.ZF==0 &&cpu.SF==cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
-
+		case (0x8f):sprintf(jump_type,"%s","jg");if(cpu.ZF==0 &&cpu.SF==cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
+		case(0x8e):sprintf(jump_type,"%s","jle"); if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
 	}
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return  lens;
