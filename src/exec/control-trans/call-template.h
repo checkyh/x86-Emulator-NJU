@@ -50,4 +50,13 @@ make_helper(concat(ret_, SUFFIX)) {
 	cpu.esp+=DATA_BYTE;	
 	return 1;
 }
+#if DATA_BYTE==2
+make_helper(concat(ret_i_, SUFFIX)) {	
+	cpu.eip=MEM_R(cpu.esp)-3;
+	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
+	ADDR(cpu.esp,imm,16)	
+	print_asm("ret $0x%x",imm);
+	return 3;
+}
+#endif
 #include "exec/template-end.h"

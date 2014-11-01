@@ -12,3 +12,4 @@
 #undef SF_check
 #undef ZF_check
 #undef MLSB
+#undef ADDR
