@@ -11,8 +11,9 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
+	if (addr!=0x8000000) {
 	assert(len == 1 || len == 2 || len == 4);
-	dram_write(addr, len, data);
+	dram_write(addr, len, data);}
 }
 
 uint32_t swaddr_read(swaddr_t addr, size_t len) {
