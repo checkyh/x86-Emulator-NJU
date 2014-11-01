@@ -64,23 +64,23 @@ make_helper(concat(imul_ei2rm_,SUFFIX)) {				//x6b /r ib
 	DATA_TYPE imm,src=0,result=0;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
-		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
+		imm = instr_fetch(eip + 1 + 1, 1);
 		EX_I(src,imm)
 		DATA_TYPE *dst=&REG(m.reg);
 		concat(imul,DATA_BYTE)(dst,src,REG(m.R_M));
 		Unused(result)
-		print_asm("%s"str(SUFFIX) "  $0x%x,%%%s,%%%s",ins_name,imm,REG_NAME(m.R_M),REG_NAME(m.reg));
+		print_asm("%s"str(SUFFIX) "  $0x%x,%%%s,%%%s",ins_name,src,REG_NAME(m.R_M),REG_NAME(m.reg));
 		return 1 + 1 + 1;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
+		imm = instr_fetch(eip + 1 + len, 1);
 		EX_I(src,imm)
 		DATA_TYPE *dst=&REG(m.reg);
 		concat(imul,DATA_BYTE)(dst,src,MEM_R(addr));
 		Unused(result)
-		print_asm("%s"str(SUFFIX) "  $0x%x,%s,%%%s",ins_name,imm, ModR_M_asm,REG_NAME(m.reg));
+		print_asm("%s"str(SUFFIX) "  $0x%x,%s,%%%s",ins_name,src, ModR_M_asm,REG_NAME(m.reg));
 		return len + 1 + 1;
 	}
 }
