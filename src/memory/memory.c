@@ -26,7 +26,7 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
 }
 
 static uint32_t hwaddr_read_instr(hwaddr_t addr, size_t len) {
-	if (addr==0x80000000) return 0;
+	if (addr==0x8000000) return 0;
 	assert(len == 1 || len == 2 || len == 4);
 	return dram_read(addr, len);
 }
