@@ -29,7 +29,7 @@ static struct rule {
 	{"\\-",MINUS},
 	{"==",EQ},			
 		// equal
-	{"[a-zA-Z0-9]+",STRING},
+	{"[a-zA-Z0-9_]+",STRING},
 	{"\\/",DIV},
 	{"\\(",LEFT},
 	{"\\)",RIGHT},
