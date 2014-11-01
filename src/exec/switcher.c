@@ -102,6 +102,11 @@ make_helper(x0f_switcher)//2 byte escape
 	 return 1;
 	}
 }
+make_helper(nop)
+{
+	print_asm("nop");
+	return 1;
+}
 #undef arith_change
 #undef logical_change
 #undef binlogical_change
