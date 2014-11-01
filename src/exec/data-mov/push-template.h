@@ -13,6 +13,7 @@ make_helper(concat(push_i_, SUFFIX)) {
 	print_asm("push" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(reg_code));
 	return 1+DATA_BYTE;
 }
+
 make_helper(concat(push_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	cpu.esp-=DATA_BYTE;
@@ -23,7 +24,7 @@ make_helper(concat(push_r_, SUFFIX)) {
 	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(reg_code));
 	return 1;
 }
-
+#if DATA_BYTE!=1
 make_helper(concat(push_rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
@@ -36,7 +37,7 @@ make_helper(concat(push_rm_, SUFFIX)) {
 		return len + 1;
 	
 }
-
+#endif
 make_helper(concat(pop_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	REG(reg_code)=MEM_R(cpu.esp);
