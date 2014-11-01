@@ -149,13 +149,15 @@ bool findwatch()
 	bool find=0;
 	while(cirall!=NULL)
 	{
-		if (cirall->type) { 
+		if (cirall->type) 
+		{ 
 		uint32_t now_val=expr(cirall->watch_expr,&suc);
 		if (cirall->watch_value!=now_val) 
 		{	find=1;
 			printf("%s\tpre value=%d\n\tnow value=%d\n",cirall->watch_expr,cirall->watch_value,now_val);
 		
-			cirall->watch_value=now_val;}
+			cirall->watch_value=now_val;
+		}
 		}
 		cirall=cirall->next;
 	}
