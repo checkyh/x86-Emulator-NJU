@@ -1,17 +1,10 @@
 #include "trap.h"
 
-int add(int a, int b) {
-	int c = a + b;
-	return c;
-}
 
-int test_data[] = {1,2,45};
-int main()
-{
-	nemu_assert(add(test_data[0],test_data[1]) == 3);
 
-	nemu_assert(add(test_data[1],test_data[2]) == 47);
-
+int main() {
+	int n=1890;
+	nemu_assert((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)==1)
 	HIT_GOOD_TRAP;
 
 	return 0;
