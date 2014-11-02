@@ -27,7 +27,7 @@
 #define switch_rm {result=*dst^src;MEM_W(addr,*dst^src);}
 
 #elif arith_chooser==7//cmp
-#define switch_r {if(*dst<src) {result=*dst+(~src);cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}}
-#define switch_rm {if(*dst<src) {result=*dst+(~src);cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}}
+#define switch_r {if(*dst<src) {result=*dst+(~src)+1;cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}}
+#define switch_rm {if(*dst<src) {result=*dst+(~src)+1;cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}}
 
 #endif
