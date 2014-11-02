@@ -26,7 +26,7 @@
 		     for (i=1;i<=32;i++) {if (temp2>=2) {sum+=temp2>>1;temp2=temp2&1; }\
 		     		         if (MSB(temp)) {temp2++;temp=temp&0x7fffffff;printf("%x\n", temp2);} \
 		     		         if ((src<<(32-i))>>31) {temp+=REG(0)<<(i-1); temp2+=(REG(0)>>(32-i));}}\
-		    REG(2)=sum;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
+		    REG(2)=sum;REG(0)=result;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
 void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2) 
 {
 	int i=DATA_BYTE*8-1;
