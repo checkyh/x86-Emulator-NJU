@@ -19,10 +19,10 @@
 
  #elif logical_chooser==5//imul
  #define switch_rm switch_r	     
- #define switch_r    {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src; if (	( (MSB(REG(0))&&(reg_w(0)&0xff00))==0xff00 )	||	( (MSB(REG(0))!=0)	&&	((reg_w(0)&0xff00)==0)	)	){cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
-		     if (DATA_BYTE==2) {REG(0)=REG(0)*src; REG(1)=REG(0)*src>>16; if(	( (MSB(REG(0))	&&	(REG(1)&0xffff))==0xffff )||(( MSB(REG(0))!=0)	&&	(REG(1)&0xffff)==0) 	) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
+ #define switch_r    {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src; if (( (MSB(REG(0))&&(reg_w(0)&0xff00))==0xff00 )||( (MSB(REG(0))!=0)&&((reg_w(0)&0xff00)==0))){cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
+		     if (DATA_BYTE==2) {REG(0)=REG(0)*src; REG(1)=REG(0)*src>>16; if(	( (MSB(REG(0))	&&(REG(1)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(1)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==4) {REG(0)=((REG(0)&0xffff)*(src&0xffff))&0xffff;REG(1)=(((REG(0)&0xffff)*(src&0xffff)>>16)+(REG(0)>>16)*(src>>16));\
-		     if(	( (MSB(REG(0))&&(REG(1)&0xffffffff)==0xffffffff) )		||	(( (MSB(REG(0))!=0)&&(REG(1)&0xffffffff)==0) ) 	) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst) }
+		     if(( (MSB(REG(0))&&(REG(1)&0xffffffff)==0xffffffff) )	||(( (MSB(REG(0))!=0)&&(REG(1)&0xffffffff)==0) ) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst) }
 
 void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2) 
 {

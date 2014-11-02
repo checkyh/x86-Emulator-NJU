@@ -54,9 +54,7 @@ make_helper(concat(concat(arith,_ei2rm_), SUFFIX)) {
 		DATA_TYPE result=0;
 		DATA_TYPE src=0;
 		EX_I(src,imm)
-
 		DATA_TYPE *dst=&REG(m.R_M);
-		printf("%x\n%x\n",src,*dst );
 		switch_r
 		RESULT_check
 		print_asm( "%s" str(SUFFIX) " $0x%x,%%%s", ins_name,src, REG_NAME(m.R_M));
