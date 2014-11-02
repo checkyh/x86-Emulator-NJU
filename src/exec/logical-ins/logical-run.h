@@ -1,3 +1,4 @@
+
 #if logical_chooser==0//test 
 #define switch_r {result=*dst&src; *dst=*dst&src;cpu.CF=0;cpu.OF=0;PF_check(result) ZF_check(result) SF_check(result)} 
 #define switch_rm {result=*dst&src;MEM_W(addr,*dst&src); cpu.CF=0;cpu.OF=0;PF_check(result) ZF_check(result) SF_check(result)}
