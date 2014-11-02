@@ -15,15 +15,18 @@
  #define switch_rm switch_r
  #define switch_r {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src;if ((reg_w(0)&0xff00)==0) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==2) {result=REG(0)*src; REG(1)=REG(0)*src>>16; if(REG(1)) {cpu.CF=1;cpu.OF=1;}else{cpu.CF=0;cpu.OF=0;}}\
-		     if (DATA_BYTE==4) {result=((REG(0))*(src&0xffff));REG(1)=(((REG(0))*(src&0xffff)>>16)+(REG(0)>>16)*(src>>16));\
-		     	REG(0)=result;\
+		     if (DATA_BYTE==4) {result=(REG(0)&0xffff)*(src&0xffff);result+=(((src&0xffff)*(REG(0)>>16))<<16);\
+		     	result+=((REG(0)&0xffff)*(src>>16))<<16;\
+		     	REG(1)=(REG(0)>>16)*(src>>16)+(((src&0xffff)*(REG(0)>>16))>>16)+(((REG(0)&0xffff)*(src>>16))>>16);\
 		     	if(( (MSB(REG(0))&&(REG(1)&0xffffffff)==0xffffffff) )	||(( (MSB(REG(0))!=0)&&(REG(1)&0xffffffff)==0) ) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
 
  #elif logical_chooser==5//imul
  #define switch_rm switch_r	     
  #define switch_r    {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src; if (( (MSB(REG(0))&&(reg_w(0)&0xff00))==0xff00 )||( (MSB(REG(0))!=0)&&((reg_w(0)&0xff00)==0))){cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==2) {result=REG(0)*src; REG(1)=REG(0)*src>>16; REG(0)=result;if(	( (MSB(REG(0))	&&(REG(1)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(1)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
-		     if (DATA_BYTE==4) {result=((REG(0))*(src&0xffff));REG(1)=(((REG(0))*(src&0xffff)>>16)+(REG(0)>>16)*(src>>16));REG(0)=result;\
+		     if (DATA_BYTE==4) {result=(REG(0)&0xffff)*(src&0xffff);result+=(((src&0xffff)*(REG(0)>>16))<<16);\
+		     	result+=((REG(0)&0xffff)*(src>>16))<<16;\
+		     	REG(1)=(REG(0)>>16)*(src>>16)+(((src&0xffff)*(REG(0)>>16))>>16)+(((REG(0)&0xffff)*(src>>16))>>16);\
 		     if(( (MSB(REG(0))&&(REG(1)&0xffffffff)==0xffffffff) )	||(( (MSB(REG(0))!=0)&&(REG(1)&0xffffffff)==0) ) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst) }
 
 void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2) 
@@ -33,7 +36,8 @@ void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2)
 	int j=DATA_BYTE*8-1;
 	for (;i>=1;i--) if(src>>j!=0) break;
 	if(i+j+2<=DATA_BYTE*8) {cpu.CF=0;cpu.OF=0;}
-	 else {cpu.CF=1;cpu.OF=1;} *dst=src*src2;
+	 else {cpu.CF=1;cpu.OF=1;} 
+	 *dst=src*src2;
 }
 
  #elif logical_chooser==6//div
