@@ -22,8 +22,8 @@
  #define switch_rm switch_r	     
  #define switch_r    {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src; if (( (MSB(REG(0))&&(reg_w(0)&0xff00))==0xff00 )||( (MSB(REG(0))!=0)&&((reg_w(0)&0xff00)==0))){cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==2) {result=REG(0)*src; REG(2)=REG(0)*src>>16; REG(0)=result;if(( (MSB(REG(0))	&&(REG(2)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(2)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
-		     if (DATA_BYTE==4) {result=REG(0)*src;long long sum=(REG(0)*src/2)>>31;\
-		    REG(2)=sum;REG(0)=result;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
+		     if (DATA_BYTE==4) {result=REG(0)*src;long long sum=(REG(0)*src);\
+		    REG(2)=(sum/2)>>31;REG(0)=result;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
 void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2) 
 {
 	int i=DATA_BYTE*8-1;
