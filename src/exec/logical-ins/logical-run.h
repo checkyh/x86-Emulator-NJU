@@ -7,8 +7,8 @@
  #define switch_rm {MEM_W(addr,~src);Unused(*dst) }
 
  #elif logical_chooser==3//neg
- #define switch_r { if (src==0) cpu.CF=0;else cpu.CF=1;result=-src;*dst=-src;OF_check(result) SF_check(result) ZF_check(result) PF_check(result)}
- #define switch_rm {if (src==0) cpu.CF=0;else cpu.CF=1;result=-src;MEM_W(addr,-src);OF_check(result) SF_check(result) ZF_check(result) PF_check(result) Unused(*dst) }
+ #define switch_r { if (src==0) cpu.CF=0;else cpu.CF=1;result=-src;*dst=-src;SF_check(result) ZF_check(result) PF_check(result)}
+ #define switch_rm {if (src==0) cpu.CF=0;else cpu.CF=1;result=-src;MEM_W(addr,-src);SF_check(result) ZF_check(result) PF_check(result) Unused(*dst) }
 
  #elif logical_chooser==4//mul
  #define switch_rm switch_r
