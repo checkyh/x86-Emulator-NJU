@@ -15,15 +15,16 @@
  #define switch_rm switch_r
  #define switch_r {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src;if ((reg_w(0)&0xff00)==0) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==2) {result=REG(0)*src; REG(2)=REG(0)*src>>16; if(REG(2)) {cpu.CF=1;cpu.OF=1;}else{cpu.CF=0;cpu.OF=0;}}\
-		     if (DATA_BYTE==4){result=REG(0)*src;REG(2)=REG(0)/65536UL*src/65536UL;REG(0)=result;\
-		     	if( (MSB(REG(0))&&(REG(2)==0xffffffff) )	||(( (MSB(REG(0))!=0)&&REG(2)==0) ) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
-
+		      if (DATA_BYTE==4) {result=REG(0)*src;int i=1;uint32_t sum=0,temp=0,temp2=0;\
+		     for (i=1;i<=32;i++) {if (temp2>>1) {sum+=temp2;temp2=temp2&1;}if (MSB(temp)) {temp2++;temp=temp|0x7fffffff;} if ((src<<(32-i))>>31) temp+=REG(0)<<(i-1); }\
+		     REG(2)=sum;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
  #elif logical_chooser==5//imul
  #define switch_rm switch_r	     
  #define switch_r    {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src; if (( (MSB(REG(0))&&(reg_w(0)&0xff00))==0xff00 )||( (MSB(REG(0))!=0)&&((reg_w(0)&0xff00)==0))){cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==2) {result=REG(0)*src; REG(2)=REG(0)*src>>16; REG(0)=result;if(( (MSB(REG(0))	&&(REG(2)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(2)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
-		     if (DATA_BYTE==4) {result=REG(0)*src;REG(2)=REG(0)/65536UL*src/65536UL;\
-		     	REG(0)=result;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
+		     if (DATA_BYTE==4) {result=REG(0)*src;int i=1;uint32_t sum=0,temp=0,temp2=0;\
+		     for (i=1;i<=32;i++) {if (temp2>>1) {sum+=temp2;temp2=temp2&1;}if (MSB(temp)) {temp2++;temp=temp|0x7fffffff;} if ((src<<(32-i))>>31) temp+=REG(0)<<(i-1); }\
+		     REG(2)=sum;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
 void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2) 
 {
 	int i=DATA_BYTE*8-1;
