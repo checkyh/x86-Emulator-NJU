@@ -10,7 +10,6 @@ make_helper(concat(concat(arith,_i2r_), SUFFIX)) {
 	DATA_TYPE result=0;
 	DATA_TYPE src=imm;
 	DATA_TYPE *dst=&REG(0);
-	printf("%x\n%x\n",src,*dst );
 	switch_r
 	RESULT_check
 	print_asm( "%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(0));
@@ -26,6 +25,7 @@ make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
 		DATA_TYPE result=0;
 		DATA_TYPE src=imm;
 		DATA_TYPE *dst=&REG(m.R_M);
+		printf("%x\n%x\n",src,*dst );
 		switch_r
 		RESULT_check
 		print_asm( "%s" str(SUFFIX) " $0x%x,%%%s",ins_name, imm, REG_NAME(m.R_M));
