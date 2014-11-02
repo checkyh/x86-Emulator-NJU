@@ -38,13 +38,13 @@ void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2)
  #define switch_r {if (src==0) assert(0);\
 		     if(DATA_BYTE==1)  {if(result/src>0xffff) assert(0);result=reg_w(0);REG(0)=result/src;reg_w(0)=(reg_w(0)&0xff)+((result%src)<<8);}\
 		    if (DATA_BYTE==2) {if(result/src>0xffffffff) assert(0);result=REG(0)+(REG(2)<<16);REG(0)=result/src; REG(1)=result%src;}\
-		    if (DATA_BYTE==4) {result=REG(0);REG(0)=(REG(2)%src*(4294967296UL/src)+REG(0))/src;REG(2)=REG(2)*4294967296UL-REG(0)*src;}\
+		    if (DATA_BYTE==4) { if((REG(2)%src*(4294967296UL/src)+REG(0))/src<=0xffffffff) assert(0);result=REG(0);REG(0)=(REG(2)%src*(4294967296UL/src)+REG(0))/src;REG(2)=REG(2)*4294967296UL-REG(0)*src;}\
 		     Unused(*dst)}
  #elif logical_chooser==7//idiv
  #define switch_rm switch_r
  #define switch_r {if (src==0) assert(0);\
 		     if(DATA_BYTE==1)  {if(result/src>0xffff) assert(0);result=reg_w(0);REG(0)=result/src;reg_w(0)=(reg_w(0)&0xff)+((result%src)<<8);}\
 		   if (DATA_BYTE==2) {if(result/src>0xffffffff) assert(0);result=REG(0)+(REG(2)<<16);REG(0)=result/src; REG(1)=result%src;}\
-		     if (DATA_BYTE==4) {result=REG(0); REG(0)=(REG(2)%src*(4294967296UL/src)+REG(0))/src;REG(2)=REG(2)*4294967296UL-REG(0)*src;}\
+		     if (DATA_BYTE==4) { if((REG(2)%src*(4294967296UL/src)+REG(0))/src<=0xffffffff) assert(0);result=REG(0); REG(0)=(REG(2)%src*(4294967296UL/src)+REG(0))/src;REG(2)=REG(2)*4294967296UL-REG(0)*src;}\
 		     Unused(*dst)}
 #endif
