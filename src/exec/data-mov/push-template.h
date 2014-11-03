@@ -3,13 +3,15 @@
 #include "cpu/modrm.h"
 
 make_helper(concat(push_i_, SUFFIX)) {
-	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
-	if (DATA_BYTE==1)  cpu.esp-=4;
-	else cpu.esp-=DATA_BYTE;
+	int len=0;DATA_TYPE imm=0;
+	uint8_t ins=instr_fetch(eip,1);
+	if (ins==0x6a)
+	{ imm= instr_fetch(eip+1,1);len=1;}
+	else {imm = instr_fetch(eip + 1, DATA_BYTE);len=DATA_BYTE;}
+	cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,imm);
-	printf("%x\n",cpu.esp );
 	print_asm("push" str(SUFFIX) " $0x%x", imm);
-	return 1+DATA_BYTE;
+	return 1+len;
 }
 
 make_helper(concat(push_r_, SUFFIX)) {
