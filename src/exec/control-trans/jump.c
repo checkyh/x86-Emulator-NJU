@@ -71,13 +71,4 @@ make_helper(j_near)
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return  lens;
 }
-make_helper(jumpff)
-{
-	printf("OK1\n");
-	return 1;
-}
-make_helper(jumpff_ad)
-{
-	printf("OK2\n");
-	return 1;
-}
+#undef ADDR

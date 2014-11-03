@@ -33,8 +33,8 @@ make_helper(xff_switcher)
 	switch(m.reg)
 	{
 		case 2:return call_rel_v(eip);
-		case 4:return 1+jumpff(eip+1);
-		case 5:return 1+jumpff_ad(eip+1);
+		case 4:return 1+jumpff_v(eip+1);
+		case 5:return 1+jumpff_ad_v(eip+1);
 		case 6:return push_rm_v(eip);
 		default:return 0;
 	}
