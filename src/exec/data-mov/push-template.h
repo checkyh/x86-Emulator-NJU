@@ -27,7 +27,7 @@ make_helper(concat(push_rm_, SUFFIX)) {
 		MEM_W(cpu.esp,MEM_R(addr));
 		else MEM_W(cpu.esp,0);
 		print_asm("push" str(SUFFIX) " %s", ModR_M_asm);
-		return len + 1;
+		return len + 1+1;
 }
 #endif
 make_helper(concat(pop_r_, SUFFIX)) {
