@@ -4,7 +4,8 @@
 
 make_helper(concat(push_i_, SUFFIX)) {
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
-	cpu.esp-=DATA_BYTE;
+	if (DATA_BYTE==1)  cpu.esp-=2;
+	else cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,imm);
 	printf("%x\n",cpu.esp );
 	print_asm("push" str(SUFFIX) " $0x%x", imm);
