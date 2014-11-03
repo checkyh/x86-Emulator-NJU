@@ -73,6 +73,11 @@ make_helper(j_near)
 }
 make_helper(jumpff)
 {
+	printf("OK1\n");
 	return 1;
 }
-
+make_helper(jumpff_ad)
+{
+	printf("OK2\n");
+	return 1;
+}
