@@ -33,9 +33,9 @@
 #define switch_rm {result=*dst^src;MEM_W(addr,*dst^src);}
 
 #elif arith_chooser==7//cmp
-#define switch_r {if(*dst<src) {result=*dst+(~src)+1;cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}\
-	if((MSB(src)&&MSB(*dst)==0&&MSB(result))||(MSB(src)==0&&MSB(*dst)&&MSB(result)==0))cpu.OF=1;else cpu.OF=0;}
-#define switch_rm {if(*dst<src) {result=*dst+(~src)+1;cpu.CF=1;}else {result=*dst-src;cpu.CF=0;}\
-	if((MSB(src)&&MSB(*dst)==0&&MSB(result))||(MSB(src)==0&&MSB(*dst)&&MSB(result)==0))cpu.OF=1;else cpu.OF=0;}
+#define switch_r {if(*dst>src) {result=~(*dst)+src+1;cpu.CF=1;}else {result=src-*dst;cpu.CF=0;}\
+	if((MSB(src)&&MSB(*dst)==0&&MSB(result)==0)||(MSB(src)==0&&MSB(*dst)&&MSB(result)))cpu.OF=1;else cpu.OF=0;}
+#define switch_rm {if(*dst<src) {result=~(*dst)+src+1;cpu.CF=1;}else {result=src-*dst;cpu.CF=0;}\
+	if((MSB(src)&&MSB(*dst)==0&&MSB(result)==0)||(MSB(src)==0&&MSB(*dst)&&MSB(result)))cpu.OF=1;else cpu.OF=0;}
 
 #endif
