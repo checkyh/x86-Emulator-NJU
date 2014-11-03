@@ -51,7 +51,7 @@ make_helper(concat(ret_, SUFFIX)) {
 }
 #if DATA_BYTE==2
 make_helper(concat(ret_i_, SUFFIX)) {	
-	cpu.eip=(MEM_R(cpu.esp)&0x1000ffff)-3;
+	cpu.eip=(MEM_R(cpu.esp)|0x10000000)-3;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
 	cpu.esp+=2+imm;
 
