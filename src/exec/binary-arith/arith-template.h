@@ -120,6 +120,7 @@ make_helper(concat(concat(arith,_rm2r_), SUFFIX)) {
 		DATA_TYPE result=0;
 		DATA_TYPE src=MEM_R(addr);
 		DATA_TYPE *dst=&REG(m.reg);
+		printf("%x %x\n",*dst,src );
 		switch_r
 		RESULT_check		
 		print_asm( "%s" str(SUFFIX) " %s,%%%s",ins_name, ModR_M_asm, REG_NAME(m.reg));
