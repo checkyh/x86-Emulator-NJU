@@ -21,13 +21,13 @@ make_helper(concat(push_r_, SUFFIX)) {
 #if DATA_BYTE!=1
 make_helper(concat(push_rm_, SUFFIX)) {
 		swaddr_t addr;
-		int len = read_ModR_M(eip + 2, &addr);
+		int len = read_ModR_M(eip + 1, &addr);
 		cpu.esp-=DATA_BYTE;
 		if (addr<0x8000000)
 		MEM_W(cpu.esp,MEM_R(addr));
 		else MEM_W(cpu.esp,0);
 		print_asm("push" str(SUFFIX) " %s", ModR_M_asm);
-		return len + 2;
+		return len + 1;
 }
 #endif
 make_helper(concat(pop_r_, SUFFIX)) {
