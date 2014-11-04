@@ -6,28 +6,30 @@
 make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 	binlogical_give(binlogical_chooser);
 	ModR_M m;
-	DATA_TYPE imm=0;
-	 DATA_TYPE src=0;
+	DATA_TYPE imm=1;
+	 DATA_TYPE src=1;
+	 int len_i=0;
+	int instes=instr_fetch(eip,1);
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result=0;
 	if(m.mod == 3) {
-		imm = instr_fetch(eip + 1 + 1, 1);
+		if (instes!=0xd1&&instes!=0xd0) {imm = instr_fetch(eip + 1 + 1, 1);len_i++;}
 		src=imm;
 		DATA_TYPE *dst=&REG(m.R_M);		
 		switch_r
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
-		return 1 + 1+1;
+		return 1 + len_i+1;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		imm = instr_fetch(eip + 1 + 1, 1);
+		if (instes!=0xd1&&instes!=0xd0) {imm = instr_fetch(eip + 1 + 1, 1);len_i++;}
 		src=imm;
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
 		switch_rm
 		print_asm("%s" str(SUFFIX) " $0x%x,%s",ins_name,imm, ModR_M_asm);
-		return 1+1 + len;
+		return 1+len_i + len;
 	}
 }
 #include "exec/template-end.h"
