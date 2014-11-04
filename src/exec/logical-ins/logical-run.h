@@ -14,20 +14,21 @@
  #elif logical_chooser==4//mul
  #define switch_rm switch_r
  #define switch_r {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src; if (( (MSB(REG(0))&&(reg_w(0)&0xff00))==0xff00 )||( (MSB(REG(0))!=0)&&((reg_w(0)&0xff00)==0))){cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
-		     if (DATA_BYTE==2) {result=REG(0)*src; REG(2)=(REG(0)*src)>>16; REG(0)=result;if(( (MSB(REG(0))	&&(REG(2)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(2)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
+		     if (DATA_BYTE==2) {result=REG(0)*src; REG(2)=REG(0)*src>>16; REG(0)=result;if(( (MSB(REG(0))	&&(REG(2)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(2)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==4) {result=REG(0)*src; int i;uint32_t sum=0,temp=0,temp2=0;for (i=1;i<=32;i++) {if (((src<<(32-i))>>31)==1) {temp+=(REG(0)<<(i-1))&0x7fffffff;temp2+=(temp>>31)+MSB(REG(0)<<(i-1));temp=temp&0x7fffffff;temp2+=REG(0)>>(32-i);}\
 		     if (temp2>=2) { sum+=temp2>>1;temp2=temp2&1;}}\
 		    REG(2)=sum;REG(0)=result;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
  #elif logical_chooser==5//imul
  #define switch_rm switch_r	     
- #define switch_r   printf("%d %d\n",*dst,src );if(MSB(REG(0))) {if (DATA_BYTE==1) reg_w(0)=reg_w(0)|0xff00;if (DATA_BYTE==2) reg_l(0)=reg_l(0)|0xffff0000;}\
+ #define switch_r   if(MSB(REG(0))) {if (DATA_BYTE==1) reg_w(0)=reg_w(0)|0xff00;if (DATA_BYTE==2) reg_l(0)=reg_l(0)|0xffff0000;}\
  		  {if(DATA_BYTE==1)  {reg_w(0)=REG(0)*src; if (( (MSB(REG(0))&&(reg_w(0)&0xff00))==0xff00 )||( (MSB(REG(0))!=0)&&((reg_w(0)&0xff00)==0))){cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
-		     if (DATA_BYTE==2) {result=REG(0)*src; REG(2)=(REG(0)*src)>>16; REG(0)=result;if(( (MSB(REG(0))	&&(REG(2)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(2)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
+		     if (DATA_BYTE==2) {result=REG(0)*src; REG(2)=REG(0)*src>>16; REG(0)=result;if(( (MSB(REG(0))	&&(REG(2)&0xffff))==0xffff )||(( MSB(REG(0))!=0)&&(REG(2)&0xffff)==0) ) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}\
 		     if (DATA_BYTE==4) {result=REG(0)*src; int i;uint32_t sum=0,temp=0,temp2=0;for (i=1;i<=32;i++) {if (((src<<(32-i))>>31)==1) {temp+=(REG(0)<<(i-1))&0x7fffffff;temp2+=(temp>>31)+MSB(REG(0)<<(i-1));temp=temp&0x7fffffff;temp2+=REG(0)>>(32-i);}\
 		     if (temp2>=2) { sum+=temp2>>1;temp2=temp2&1;}}\
 		    REG(2)=sum;REG(0)=result;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
 void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2) 
 {
+	printf("%d %d %d\n",src,src2,*dst );
 	int i=DATA_BYTE*8-1;
 	for (;i>=1;i--) if(src2>>i!=0) break;
 	int j=DATA_BYTE*8-1;
