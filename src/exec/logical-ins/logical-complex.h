@@ -104,6 +104,7 @@ make_helper(concat(imul_rm2r_,SUFFIX)) {				//x6b /r ib
 		DATA_TYPE *dst=&REG(m.reg);
 		concat(imul,DATA_BYTE)(dst,src,MEM_R(addr));
 		Unused(result)
+		printf("%x %x\n",REG(0),REG(2) );
 		print_asm("%s"str(SUFFIX) "  %s,%%%s",ins_name,ModR_M_asm,REG_NAME(m.reg));
 		return len + 1 ;
 	}
