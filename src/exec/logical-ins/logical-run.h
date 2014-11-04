@@ -28,7 +28,6 @@
 		    REG(2)=sum;REG(0)=result;if( (MSB(REG(0))&&(REG(2)==0xffffffff))||(((MSB(REG(0))!=0)&&REG(2)==0))) {cpu.CF=0;cpu.OF=0;}else{cpu.CF=1;cpu.OF=1;}}Unused(*dst)}
 void concat(imul,DATA_BYTE)(DATA_TYPE *dst,DATA_TYPE src,DATA_TYPE src2) 
 {
-	printf("%d %d %d\n",src,src2,*dst );
 	int i=DATA_BYTE*8-1;
 	for (;i>=1;i--) if(src2>>i!=0) break;
 	int j=DATA_BYTE*8-1;
