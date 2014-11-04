@@ -4,15 +4,16 @@
 make_helper(concat(rep_,SUFFIX))
 {
 	int ins = instr_fetch(eip+1, 1);
-	int IncDec=0;
 	while (REG(1)!=0)
 	{
 		switch (ins)
 		{
-		case (0xa4):	MEM_W(REG(7),MEM_R(REG(6)));
-				if(cpu.DF==0) IncDec=DATA_BYTE;else IncDec=-DATA_BYTE;
-				REG(7)+=IncDec;
-				REG(6)+=IncDec;break;
+		case (0xa5):MEM_W(REG(7),MEM_R(REG(6)));
+			if(cpu.DF==0) {REG(7)+=DATA_BYTE;REG(6)+=DATA_BYTE;}else 
+			{REG(7)-=DATA_BYTE;REG(6)-=DATA_BYTE;}break;
+		case (0xa4):MEM_W(REG(7),MEM_R(REG(6)));
+			if(cpu.DF==0) {REG(7)+=DATA_BYTE;REG(6)+=DATA_BYTE;}else 
+			{REG(7)-=DATA_BYTE;REG(6)-=DATA_BYTE;}break;
 
 		}
 		REG(1)-=1;

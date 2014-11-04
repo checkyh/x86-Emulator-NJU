@@ -120,11 +120,9 @@ make_helper(concat(movzb_, SUFFIX)) {
 }
 #endif
 make_helper(concat(movs_, SUFFIX)) {
-	int IncDec=0;
 	MEM_W(REG(7),MEM_R(REG(6)));
-	if(cpu.DF==0) IncDec=DATA_BYTE;else IncDec=-DATA_BYTE;
-	REG(7)+=IncDec;
-	REG(6)+=IncDec;
+	if(cpu.DF==0) {REG(7)+=DATA_BYTE;REG(6)+=DATA_BYTE;}else 
+	{REG(7)-=DATA_BYTE;REG(6)-=DATA_BYTE;}
 	print_asm("movs" str(SUFFIX) " %%%s,%%%s", REG_NAME(6), REG_NAME(7));
 	return 1;
 }	
