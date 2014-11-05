@@ -136,3 +136,10 @@ uint32_t symvalue(int num)
 {
 	return symtab[num].st_value;
 }
+char *find_fun_name(uint32_t addr)
+{
+	int i=1;
+	for (i=1;i<=nr_symtab_entry;i++)
+	if (symtab[i].st_value==addr) return (strtab+symtab[i].st_name);
+	return 0;
+}
