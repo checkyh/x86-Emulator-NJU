@@ -8,7 +8,7 @@ uint32_t addr = cpu.eip;
 uint32_t ebp = cpu.ebp;
 char *fun_name=NULL;
 while(ebp>0 ) {
-	if (ebp>=0x8000000||addr>=0x8000000) {ebp=-1;break;}
+	if (ebp>=0x8000000||addr>=0x8000000) {goto EXIT_;}
 	fun_name=find_fun_name(addr);
 	printf("#%d\t 0x%x in %s()\n",num,addr,fun_name);
 	addr = swaddr_read(ebp+8,4);
@@ -17,4 +17,6 @@ while(ebp>0 ) {
 	printf("ebp%x\n",ebp );
 	num++;
 }
+EXIT_:
+	printf("OK\n");
 }
