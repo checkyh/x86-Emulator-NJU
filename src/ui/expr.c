@@ -185,6 +185,7 @@ uint32_t eval(int p,int q) {
   		int num=symmatch(tokens[p].str);
   		if(num!=-1)
 		{
+			printf("%d\n",num );
 			return symvalue(num);
 		}
 		if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
