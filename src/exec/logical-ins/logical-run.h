@@ -9,10 +9,10 @@
 	{	for (;i<=32;i++)
 		{
 			if ((x>>(i-1))&1)
-			a[i+j-1]+=((y>>(j-1))&1);
+			{a[i+j-1]+=((y>>(j-1))&1);printf("%d \n",i+j-1);}
 		}
 	}
-	for (j=1;j<=64;j++) if (a[j]>=2) {a[j+1]+=a[j]>>1;a[j]=a[j]&1;}
+	for (;j<=64;j++) if (a[i+j-1]>=2) {a[i+j]+=a[i+j-1]>>1;a[i+j-1]=a[i+j-1]&1;}
 	uint32_t result=0,temp=1;
 	for (i=1;i<=32;i++)
 	{
@@ -20,7 +20,6 @@
 		for (j=1;j<=i-1;j++) temp=temp*2;
 		result+=a[i+32]*temp;
 	}
-	printf("%x\n",result );
 	return result;
 }
 #endif
