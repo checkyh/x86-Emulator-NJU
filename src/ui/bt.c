@@ -15,6 +15,6 @@ while(ebp>0 ) {
 	ebp = swaddr_read(ebp+4,4);
 	printf("ebp%x\n",ebp );
 	num++;
-	if (ebp>=0x8000000||addr>=0x8000000) break;
+	if (ebp>=0x8000000||addr>=0x8000000) ebp=-1;
 }
 }
