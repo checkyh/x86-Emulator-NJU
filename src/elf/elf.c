@@ -8,9 +8,9 @@ static int main_argc;
 static char **main_argv;
 static char *exec_file;
 
-static char *strtab = NULL;
-static Elf32_Sym *symtab = NULL;
-static int nr_symtab_entry;
+static char *strtab = NULL;//字符串表
+static Elf32_Sym *symtab = NULL;//符号表
+static int nr_symtab_entry;//符号表的表项
 
 void set_main_args(int argc, char *argv[]) {
 	main_argc = argc;
@@ -102,3 +102,7 @@ void load_prog() {
 	fclose(fp);
 }
 
+char *read_strtab(uint32_t lens)
+{
+	return strtab+lens;
+}
