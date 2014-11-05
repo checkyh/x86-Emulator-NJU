@@ -1,5 +1,5 @@
 extern bool judge;
-extern char *read_strtab(uint32_t lens);
+extern int read_strtab(uint32_t lens);
 void cpu_exec(uint32_t);
 void restart();
 extern void printreg();

@@ -112,7 +112,7 @@ void load_prog() {
 	fclose(fp);
 }
 
-char read_strtab(uint32_t lens)
+int read_strtab(uint32_t lens)
 {
 	return (symtab[lens].st_info);
 }
