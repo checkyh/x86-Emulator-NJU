@@ -13,6 +13,7 @@
 	uint32_t result=0,temp=1;
 	for (i=1;i<=32;i++)
 	{
+		temp=1;
 		for (j=1;j<=i-1;j++) temp=temp*2;
 		result+=a[i+32]*temp;
 	}
