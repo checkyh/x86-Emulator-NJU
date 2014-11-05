@@ -8,6 +8,7 @@ uint32_t addr = cpu.eip;
 uint32_t ebp = cpu.ebp;
 char *fun_name=NULL;
 while( ebp>0 ) {
+	if (ebp>=0x8000000) break;
 	fun_name=find_fun_name(addr);
 	printf("#%d/t/t 0x%x in %s()\n",num,addr,fun_name);
 	addr = swaddr_read(ebp-8,4);
