@@ -163,7 +163,7 @@ void main_loop() {
 			{if (number_state==2) printf("0x%08x\n",t);
 			else printf("%d\n",t);}	}		
 		}	
-		else if(strcmp(p,"p/x")==0)			//si 
+		else if(strcmp(p,"p/x")==0)			//p x
 		{
 			suc=true;
 			q=strtok(NULL,"");
@@ -172,7 +172,7 @@ void main_loop() {
 			if (judge)
 			 printf("0x%08x\n",t);}	
 		}	
-		else if(strcmp(p,"p/d")==0)			//si 
+		else if(strcmp(p,"p/d")==0)			//p d
 		{
 			suc=true;
 			q=strtok(NULL,"");
@@ -189,12 +189,19 @@ void main_loop() {
 			uint32_t a=expr(q,&suc);a=a-1;
 			if (judge) new_watch(q);}	
 		}
-		else if(strcmp(p,"relf")==0)			//si 
+		else if(strcmp(p,"relf")==0)			//read elf symtab
 		{
 			suc=true;
 			q=strtok(NULL,"");
 			if (q!=NULL)
 			read_symtab(sixteenstring(q,10)); 
+				
+		}
+		else if(strcmp(p,"bt")==0)			//bt
+		{
+	
+			
+			printbt(); 
 				
 		}
 		/* TODO: Add more commands */
