@@ -122,3 +122,17 @@ int read_symtab(uint32_t lens)
 	 printf("st_shndx:%x\n", symtab[lens].st_shndx);
 	return 1;
 }
+int symmatch(char *expr)
+{
+	int i=1;
+	for (i=1;i<=nr_symtab_entry;i++)
+	{
+
+		if(symtab[i].st_info==12||symtab[i].st_info==13)if (strcmp(expr,strtab+symtab[i].st_name)==0) return i;
+	}
+	return -1;
+}
+uint32_t symvalue(int num)
+{
+	return symtab[num].st_value;
+}

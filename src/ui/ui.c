@@ -189,7 +189,7 @@ void main_loop() {
 			uint32_t a=expr(q,&suc);a=a-1;
 			if (judge) new_watch(q);}	
 		}
-		else if(strcmp(p,"re")==0)			//si 
+		else if(strcmp(p,"relf")==0)			//si 
 		{
 			suc=true;
 			q=strtok(NULL,"");

@@ -141,7 +141,6 @@ static bool make_token(char *e) {
 			}
 			
 		}
-		
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
@@ -172,20 +171,30 @@ bool check_parentheses(int p,int q)
 extern uint32_t regfinder(char *q);
 extern uint32_t sixteenstring(char *q,int step);
 extern uint32_t swaddr_read(swaddr_t addr, size_t len);
+extern int symmatch(char *expr);
+extern uint32_t symvalue(int num);
 bool judge=true;
 uint32_t eval(int p,int q) {
 	uint32_t val1,val2;
     	if(p > q) {
 	judge=false;return 0;
     	}
-   	 else if(p == q) { 
+   	else if(p == q) { 
     	if (tokens[p].type==STRING)
-{if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x'){
-		number_state=2;
-    	return sixteenstring(&tokens[p].str[2],16);}
-    	else
-    	return sixteenstring(tokens[p].str,10);}
-else {judge=false;return 0;}
+  	{
+  		int num=symmatch(tokens[p].str);
+  		if(num!=-1)
+		{
+			return symvalue(num);
+		}
+		if (tokens[p].str[0]=='0'&&tokens[p].str[1]=='x')
+		{
+			number_state=2;
+    			return sixteenstring(&tokens[p].str[2],16);
+    		}
+    		else return sixteenstring(tokens[p].str,10);
+    	}
+	else {judge=false;return 0;}
     }
     else if(check_parentheses(p, q) == true) {
 	 return eval(p + 1, q - 1); 	
@@ -243,13 +252,16 @@ else {judge=false;return 0;}
 	}
 }
 
+
 uint32_t expr(char *e, bool *success) {
 	number_state=0;
 	judge=true;
+	
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
+
 	int i;
 	for(i = 0; i < nr_token; i ++)
 	 {
