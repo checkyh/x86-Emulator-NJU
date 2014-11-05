@@ -1,3 +1,13 @@
+/*
+typedef struct{
+ Elf32_Word st_name;
+ Elf32_Addr st_value;
+ Elf32_Word st_size;
+ Unsigned char st_info;
+ Unsigned char st_other;
+ Elf32_Half st_shndx;
+ }Elf32_Sym;
+*/
 #include "memory.h"
 
 #include <stdlib.h>
@@ -102,7 +112,7 @@ void load_prog() {
 	fclose(fp);
 }
 
-char *read_strtab(uint32_t lens)
+char read_strtab(uint32_t lens)
 {
-	return strtab+lens;
+	return (symtab[lens].st_info);
 }
