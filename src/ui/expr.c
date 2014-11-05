@@ -183,7 +183,6 @@ uint32_t eval(int p,int q) {
     	if (tokens[p].type==STRING)
   	{
   		int num=symmatch(tokens[p].str);
-  		printf("%d\n",num );
   		if(num!=-1)
 		{
 			return symvalue(num);
@@ -276,7 +275,7 @@ uint32_t expr(char *e, bool *success) {
     			{
     			 
     			 if (tokens[cou].type==LEFT) count++;
-    			 if (tokens[cou].type==RIGHT) count--;		   					cou++;	
+    			 if (tokens[cou].type==RIGHT) count--;cou++;	
     			}	
 			if (count>0) {printf("more ( than )\n");judge=false;goto Judg;}
 			if (count<0) {printf("more ) than (\n");judge=false;goto Judg;}
