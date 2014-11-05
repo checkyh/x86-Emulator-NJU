@@ -194,7 +194,7 @@ void main_loop() {
 			suc=true;
 			q=strtok(NULL,"");
 			if (q!=NULL)
-			 printf("%d\n",read_strtab(sixteenstring(q,10))); 
+			read_symtab(sixteenstring(q,10)); 
 				
 		}
 		/* TODO: Add more commands */

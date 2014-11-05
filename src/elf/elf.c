@@ -112,7 +112,13 @@ void load_prog() {
 	fclose(fp);
 }
 
-int read_strtab(uint32_t lens)
+int read_symtab(uint32_t lens)
 {
-	return (symtab[lens].st_info);
+	 printf("st_name:%x\n", symtab[lens].st_name);
+	 printf("st_value:%x\n", symtab[lens].st_value);
+	 printf("st_size:%d\n", symtab[lens].st_size);
+	 printf("st_info:%x\n", symtab[lens].st_info);
+	 printf("st_other:%d\n", symtab[lens].st_other);
+	 printf("st_shndx:%x\n", symtab[lens].st_shndx);
+	return 1;
 }
