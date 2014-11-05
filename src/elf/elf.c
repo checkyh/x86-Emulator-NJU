@@ -127,6 +127,7 @@ int symmatch(char *expr)
 	int i=1;
 	for (i=1;i<=nr_symtab_entry;i++)
 	{
+		printf("%s\n",strtab+symtab[i].st_name );
 
 		if(symtab[i].st_info==12||symtab[i].st_info==13)if (strcmp(expr,strtab+symtab[i].st_name)==0) return i;
 	}
