@@ -12,11 +12,9 @@ while(ebp>0 ) {
 	fun_name=find_fun_name(addr);
 	printf("#%d\t 0x%x in %s()\n",num,addr,fun_name);
 	addr = swaddr_read(ebp+8,4);
-	printf("addr%x\n",addr );
 	ebp = swaddr_read(ebp+4,4);
-	printf("ebp%x\n",ebp );
 	num++;
 }
 EXIT_:
-	printf("OK\n");
+	num=0;
 }
