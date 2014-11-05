@@ -14,8 +14,9 @@
 	for (i=1;i<=32;i++)
 	{
 		for (j=1;j<=i-1;j++) temp=temp*2;
-		result=a[i+32]*temp;
+		result+=a[i+32]*temp;
 	}
+	printf("%x\n",result );
 	return result;
 }
 #endif
