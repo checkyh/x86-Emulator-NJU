@@ -2,7 +2,23 @@
 #define _MUL_HIGH_
 	uint32_t mul_high(uint32_t x,uint32_t y)
 {	
-	
+	unsigned a[65]={0};
+	int i=1,j=1;
+	for (;j<=32;j++)
+	{	for (;i<=32;i++)
+		{
+			if ((x>>(i-1))&1)
+			a[i+j-1]+=((y>>(j-1))&1);
+		}
+	}
+	for (;j<=64;j++) if (a[i+j-1]>=2) {a[i+j]+=a[i+j-1]>>1;a[i+j-1]=a[i+j-1]&1;}
+	uint32_t result=0,temp=1;
+	for (i=1;i<=32;i++)
+	{
+		temp=1;
+		for (j=1;j<=i-1;j++) temp=temp*2;
+		result+=a[i+32]*temp;
+	}
 	return 1;
 }
 #endif
