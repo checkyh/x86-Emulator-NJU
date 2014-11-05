@@ -129,7 +129,7 @@ int symmatch(char *expr)
 	{
 		printf("%s\n",strtab+symtab[i].st_name );
 
-		if(symtab[i].st_info==12||symtab[i].st_info==13) {printf("%s",strtab+symtab[i].st_name); if (strcmp(expr,strtab+symtab[i].st_name)==0) return i;}
+		if(symtab[i].st_info==12||symtab[i].st_info==13) {printf("OK%s",strtab+symtab[i].st_name); if (strcmp(expr,strtab+symtab[i].st_name)==0) return i;}
 	}
 	return -1;
 }
