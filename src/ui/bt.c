@@ -9,7 +9,7 @@ char *fun_name=NULL;
 while( ebp>=0 ) {
 	fun_name=find_fun_name(addr);
 	printf("%s\n",fun_name);
-	addr = swaddr_read(addr,4);
-	ebp = swaddr_read(ebp,4);
+	addr = swaddr_read(ebp-8,4);
+	ebp = swaddr_read(ebp-4,4);
 }
 }
