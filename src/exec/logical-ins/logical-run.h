@@ -2,6 +2,7 @@
 #define _MUL_HIGH_
 	uint32_t mul_high(uint32_t x,uint32_t y)
 {	
+	printf("%x  %x\n",x,y );
 	unsigned a[65]={0};
 	int i=1,j=1;
 	for (;i<=32;i++)
