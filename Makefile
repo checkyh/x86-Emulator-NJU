@@ -29,9 +29,11 @@ nemu: $(OBJS)
 $(TEST_FILE_LIST):
 	cd `dirname $@` && make
 
-loader: $(TESTFILE)
-	objcopy -S -O binary $(TESTFILE) loader
-	xxd -i loader > src/elf/loader.c
+LOADER_DIR = myloader
+loader:
+	cd $(LOADER_DIR) && make
+	objcopy -S -O binary $(LOADER_DIR)/loader loader
+	xxd -i loader > src/elf/loader.c  			#xxd 命令用于用二进制或十六进制显示文件的内容
 	rm loader
 
 run: nemu $(TESTFILE)

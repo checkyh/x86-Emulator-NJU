@@ -17,10 +17,10 @@ static void process_args(int argc, char *argv[]) {
 	int opt;
 	while( (opt = getopt(argc, argv, "dq")) != -1) {
 		switch(opt) {
-			case 'd':
+			case 'd'://调试模式
 				enable_debug = true;
 				break;
-			case 'q':
+			case 'q'://安静模式
 				quiet = true;
 				break;
 			default:

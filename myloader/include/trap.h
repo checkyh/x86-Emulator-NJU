@@ -1,8 +1,6 @@
 #ifndef __TRAP_H__
 #define __TRAP_H__
 
-#define concat_temp(x, y) x ## y
-#define concat(x, y) concat_temp(x, y)
 
 #ifndef __ASSEMBLER__
 int main() __attribute__((section(".main")));
