@@ -43,7 +43,6 @@ typedef struct elf32_phdr{
 */
 #include <elf.h>
 #include <string.h>
-#include<stdio.h>
 #include "trap.h"
  #define PT_LOAD 1
 
@@ -53,7 +52,6 @@ void loader() {
 	Elf32_Phdr *ph =(void *)elf+elf->e_ehsize;
 	int ph_num=elf->e_phnum;
  	int i=1;
- 	printf("%x\n",ph );
  	for (i=1;i<=ph_num;i++)
  	{
 		/* Scan the program header table, load each segment into memory */
