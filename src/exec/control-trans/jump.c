@@ -23,6 +23,9 @@ make_helper (j_short)
 				if (suffix=='l') { short_addr=instr_fetch(eip+1,4);
 					ADDR(temp_addr,short_addr,32) ADDR(cpu.eip,short_addr,32) lens+=3;}
 					else { short_addr=instr_fetch(eip+1,2);ADDR(temp_addr,short_addr,16) ADDR(cpu.eip,short_addr,16) lens+=1;} break;
+		case (0x73):sprintf(jump_type,"%s","jae");
+				ADDR(temp_addr,short_addr,8) 
+				if(cpu.CF==0) ADDR(cpu.eip,short_addr,8)  break;//JAE
 		case (0x74):sprintf(jump_type,"%s","je");
 				ADDR(temp_addr,short_addr,8) 
 				if(cpu.ZF==1) ADDR(cpu.eip,short_addr,8)  break;//JE/JZ
@@ -40,7 +43,6 @@ make_helper (j_short)
 				 if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jle
 		case (0x7f):sprintf(jump_type,"%s","jg");ADDR(temp_addr,short_addr,8)
 				 if(cpu.ZF==0 &&cpu.SF==cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jle
-
 		default:break;
 	}
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
