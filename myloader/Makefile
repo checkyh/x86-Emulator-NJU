@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -m32  -Wall -Werror -fno-builtin
+CFLAGS = -m32 -O -Wall -Werror -fno-builtin
 CFLAGS += -I./include
  # TODO: Add an option here to add the directory
                     # "myloader/include" to search for header files.
