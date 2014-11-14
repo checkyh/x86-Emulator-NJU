@@ -42,36 +42,34 @@ typedef struct elf32_phdr{
 并将[VirtAddr + FileSiz, VirtAddr + MemSiz)对应的物理区间清零. 
 */
 #include <elf.h>
-#include <string.h>
 #include "trap.h"
  #define PT_LOAD 1
 
 void loader() {
 	/* The ELF file is located at memory address 0 */
 	Elf32_Ehdr *elf = (void *)0;
-	Elf32_Phdr *ph =(void *)elf+elf->e_ehsize;
-	int ph_num=elf->e_phnum;
- 	int i=1;
- 	for (i=1;i<=ph_num;i++)
+	Elf32_Phdr *ph =(void *)elf+elf->e_phoff;
+	Elf32_Phdr *eph=ph+elf->e_phnum;
+	uint32_t *pa,*i;
+ 	unsigned int j=1;
+ 	for (;ph<eph;ph++)
  	{
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
-		memcpy(((void(*)(void)) ph->p_vaddr),((void(*)(void)) ph->p_offset),ph->p_memsz);
-		
+		pa=(void *)ph->p_vaddr;		
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
- 	
- 		memset(((void(*)(void)) (ph->p_vaddr+ph->p_filesz)),0,ph->p_memsz-ph->p_filesz);
+ 		for (j=0;j<(ph->p_filesz+3)/4;j++)pa[j]=((uint32_t *)ph->p_offset)[j];
  			
 
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
- 		}
- 
-		
+ 		for (i=(void *)pa+ph->p_filesz;i<pa+ph->p_memsz;i++) i=0;
+ 	}
 	}
+
 	/* Here we go! */
 	((void(*)(void)) elf->e_entry) ();
 	/* When returning from the program, it is executed successfully */
