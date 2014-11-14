@@ -11,3 +11,4 @@
 #include "data-mov/lea.h"
 #include "data-mov/cwd.h"
 #include "string-trans/rep.h"
+#include "flag-control/cld.h"

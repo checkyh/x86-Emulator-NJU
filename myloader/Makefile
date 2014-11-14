@@ -6,6 +6,7 @@ CFLAGS += -I./include
 ASFLAGS = -m32
  
 CSRC = $(shell find src/ -name "*.c")  
+SFILES	= $(shell find src/ -name "*.S")
 # TODO: Find all .c files under the "myloader/src" directory.
 OBJS = $(CSRC:.c=.o)
   # TODO: Convert the suffix of all string in $(CSRC) into ".o".
