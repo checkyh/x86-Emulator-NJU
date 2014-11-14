@@ -29,7 +29,6 @@ void loader() {
 
 	/* Here we go! */
 	((void(*)(void)) elf->e_entry) ();
-	HIT_GOOD_TRAP;
 	/* When returning from the program, it is executed successfully */
 
 }
