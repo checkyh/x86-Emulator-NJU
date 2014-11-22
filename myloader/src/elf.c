@@ -1,4 +1,4 @@
-#include <elf.h>
+#include "elf.h"
 #include "trap.h"
 
 void memcpy(void *dest, void *src, int size) {
