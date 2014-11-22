@@ -9,6 +9,14 @@ void memcpy(void *dest, void *src, int size) {
 		i=i+1;
 	}
 }
+void memset(void *dest, void *src, int size) {
+	int i=0;
+	while (i<size)
+	{
+		*((uint32_t *)dest+i)=0;
+		i=i+1;
+	}
+}
 void loader() {
 	Elf32_Ehdr *elf = (void *)0;
 
@@ -19,7 +27,7 @@ void loader() {
 	for(; i < elf->e_phnum; i ++) {
 		if(ph[i].p_type == PT_LOAD) {
 			memcpy((void *)ph[i].p_vaddr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
-			memcpy((void *)(ph[i].p_vaddr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
+			memset((void *)(ph[i].p_vaddr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
 		}
 	}
 
