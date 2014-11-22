@@ -2,15 +2,13 @@
 #include "trap.h"
 
 void memcpy(void *dest, void *src, int size) {
-	asm volatile("cld");
-	asm volatile("rep movsl" : : "D"(dest), "S"(src), "c"(size));
+	int i=0;
+	while (i<size)
+	{
+		*((uint32_t *)dest+i)=*((uint32_t *)src+i);
+		i=i+1;
+	}
 }
-
-void memset(void *dest, int value, int size) {
-	asm volatile("cld");
-	asm volatile("rep stosl" : : "D"(dest), "a"(value), "c"(size));
-}
-
 void loader() {
 	Elf32_Ehdr *elf = (void *)0;
 
