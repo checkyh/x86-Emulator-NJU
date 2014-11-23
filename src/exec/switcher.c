@@ -34,7 +34,7 @@ make_helper(xff_switcher)
 	switch(m.reg)
 	{
 		case 0:return inc_rm_v(eip);
-		case 2:return call_rel_v(eip);
+		case 2:return call_rm_v(eip);
 		case 4:return jumpff_v(eip);
 		case 5:return jumpff_ad_v(eip);
 		case 6:return push_rm_v(eip);
