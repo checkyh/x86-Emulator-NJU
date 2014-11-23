@@ -14,10 +14,14 @@ make_helper (j_short)
 	uint32_t temp_addr=cpu.eip;
 	int lens=2;
 	switch (jump_ins)
-	{	case (0x77):sprintf(jump_type,"%s","ja");ADDR(temp_addr,short_addr,8)  
-				if(cpu.CF==0&&cpu.ZF==0) ADDR(cpu.eip,short_addr,8)  break;//ja
-		case (0xeb):sprintf(jump_type,"%s","jump");
-				ADDR(temp_addr,short_addr,8)
+	{	case (0xe3):
+		if (suffix=='l')   {  sprintf(jump_type,"%s","jecx");
+				ADDR(temp_addr,short_addr,8) 
+				if(cpu.ecx==1) ADDR(cpu.eip,short_addr,8) }
+		else {	sprintf(jump_type,"%s","jcx");
+			ADDR(temp_addr,short_addr,8) 
+			if(reg_w(1)==1) ADDR(cpu.eip,short_addr,8)}
+		case (0xeb):sprintf(jump_type,"%s","jump");ADDR(temp_addr,short_addr,8)
 				ADDR(cpu.eip,short_addr,8) break;//jump 8
 		case (0xe9):sprintf(jump_type,"%s","jump");
 				if (suffix=='l') { short_addr=instr_fetch(eip+1,4);
@@ -31,10 +35,10 @@ make_helper (j_short)
 				if(cpu.ZF==1) ADDR(cpu.eip,short_addr,8)  break;//JE/JZ
 		case (0x75):sprintf(jump_type,"%s","jne");ADDR(temp_addr,short_addr,8)
 				if(cpu.ZF==0)  ADDR(cpu.eip,short_addr,8) break;//JNE
-
 		case (0x76):sprintf(jump_type,"%s","jbe");ADDR(temp_addr,short_addr,8)
 				if(cpu.ZF==1||cpu.CF==1)  ADDR(cpu.eip,short_addr,8) break;//Jbe
-
+		case (0x77):sprintf(jump_type,"%s","ja");ADDR(temp_addr,short_addr,8)  
+				if(cpu.CF==0&&cpu.ZF==0) ADDR(cpu.eip,short_addr,8)  break;//ja
 		case (0x7c):sprintf(jump_type,"%s","jl");ADDR(temp_addr,short_addr,8)
 				 if(cpu.SF!=cpu.OF) ADDR(cpu.eip,short_addr,8)  break;//Jl
 		case (0x7d):sprintf(jump_type,"%s","jge");ADDR(temp_addr,short_addr,8)
@@ -67,7 +71,7 @@ make_helper(j_near)
 	int byte=(lens==4)?16:32;
 	switch (jump_ins)
 	{
-		case (0x8f):sprintf(jump_type,"%s","jg");if(cpu.ZF==0 &&cpu.SF==cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
+		case (0x8f):sprintf(jump_type,"%s","jg");if(cpu.ZF==0 &&cpu.SF==cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jg
 		case(0x8e):sprintf(jump_type,"%s","jle"); if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
 		case(0x8c):sprintf(jump_type,"%s","jl"); if(cpu.SF!=cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jl
 	}
