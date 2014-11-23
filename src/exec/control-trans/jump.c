@@ -20,7 +20,7 @@ make_helper (j_short)
 				if(cpu.ecx==1) ADDR(cpu.eip,short_addr,8) }
 		else {	sprintf(jump_type,"%s","jcx");
 			ADDR(temp_addr,short_addr,8) 
-			if(reg_w(1)==1) ADDR(cpu.eip,short_addr,8)}
+			if(reg_w(1)==1) ADDR(cpu.eip,short_addr,8)}break;
 		case (0xeb):sprintf(jump_type,"%s","jump");ADDR(temp_addr,short_addr,8)
 				ADDR(cpu.eip,short_addr,8) break;//jump 8
 		case (0xe9):sprintf(jump_type,"%s","jump");
