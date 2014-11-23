@@ -41,7 +41,7 @@ helper_fun opcode_table [256] = {
 /* 0x78 */	inv, inv, inv, inv, 
 /* 0x7c */	j_short, j_short, j_short, j_short, 
 /* 0x80 */	x80_switcher, x81_switcher, nemu_trap, x83_switcher, 
-/* 0x84 */	test_r2rm_b, test_r2rm_v, inv, inv, 
+/* 0x84 */	test_r2rm_b, test_r2rm_v, xchg_r2rm_v, xchg_r2rm_b, 
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
 /* 0x8c */	inv, lea_rm2r_v, inv, inv, 
 /* 0x90 */	x90_switcher, inv, inv, inv,
