@@ -6,7 +6,7 @@ void memcpy(void *dest, void *src, int size) {
 	while (i<size)
 	{
 		*((uint32_t *)dest+i)=*((uint32_t *)src+i);
-		i=i+4;
+		i=i+1;
 	}
 }
 void memset(void *dest, void *src, int size) {
@@ -14,7 +14,7 @@ void memset(void *dest, void *src, int size) {
 	while (i<size)
 	{
 		*((uint32_t *)dest+i)=0;
-		i=i+4;
+		i=i+1;
 	}
 }
 void loader() {
