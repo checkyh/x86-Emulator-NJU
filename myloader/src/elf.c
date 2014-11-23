@@ -1,12 +1,12 @@
 #include <elf.h>
 #include "trap.h"
 
-void memcpy(void *dest, void *src, int size) {
-	asm volatile("rep movsl" : : "D"(dest), "S"(src), "c"(size));
+void memcpy(void *dst, void *src, int size) {
+	asm volatile("rep movsl" : : "D"(dst), "S"(src), "c"(size));
 }
 
-void memset(void *dest, int value, int size) {
-	asm volatile("rep stosl" : : "D"(dest), "a"(value), "c"(size));
+void memset(void *dst, int value, int size) {
+	asm volatile("rep stosl" : : "D"(dst), "a"(value), "c"(size));
 }
 
 void loader() {
