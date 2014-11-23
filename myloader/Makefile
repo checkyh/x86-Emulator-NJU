@@ -10,7 +10,7 @@ CSRC = $(shell find src/ -name "*.c")
 OBJS = $(CSRC:.c=.o)
   # TODO: Convert the suffix of all string in $(CSRC) into ".o".
  # TODO: Add prerequisites for creating the loader.
-loader:  src/start.o $(OBJS)
+loader:  src/start.o $(OBJS)   
 	ld -o loader -e start -Ttext 0x100000 -melf_i386 src/start.o $(OBJS)
  	
 clean:  
