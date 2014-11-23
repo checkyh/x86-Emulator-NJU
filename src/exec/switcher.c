@@ -30,7 +30,6 @@ make_helper(xff_switcher)
 {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
-	printf("%d\n",m.reg );
 	switch(m.reg)
 	{
 		case 0:return inc_rm_v(eip);
