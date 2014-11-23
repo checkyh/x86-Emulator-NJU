@@ -31,7 +31,7 @@ void loader() {
 		}
 	}
 
-	((void(*)(void)) ((uint32_t)elf->e_entry-0x100000+0x800000))();
+	((void(*)(void)) elf->e_entry)();
 
 	HIT_GOOD_TRAP;
 }
