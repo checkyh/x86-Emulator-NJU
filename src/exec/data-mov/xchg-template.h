@@ -3,12 +3,12 @@
 #include "cpu/modrm.h"
 
 make_helper(concat(xchg_r_, SUFFIX)) {
-	int reg_code = instr_fetch(eip+1, 1) & 0x7;
+	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = REG(0);
 	REG(0) = REG(reg_code);
 	REG(reg_code)=imm;
 	print_asm("xchg" str(SUFFIX) "  %%%s,%%%s",REG_NAME(0),REG_NAME(reg_code));
-	return 1+1;
+	return 1;
 }
 
 make_helper(concat(xchg_r2rm_, SUFFIX)) {

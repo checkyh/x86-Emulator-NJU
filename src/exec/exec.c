@@ -24,7 +24,7 @@ helper_fun opcode_table [256] = {
 /* 0x34 */	xor_i2r_b,xor_i2r_v, inv, inv,
 /* 0x38 */	cmp_r2rm_b, cmp_r2rm_v,cmp_rm2r_b,cmp_rm2r_v, 
 /* 0x3c */	cmp_i2r_b, cmp_i2r_v, inv, inv,
-/* 0x40 */	inv, inv, inv, inv, 
+/* 0x40 */	inc_r_v, inv, inv, inv, 
 /* 0x44 */	inv, inv, inv, inv,
 /* 0x48 */	inv, inv, inv, inv, 
 /* 0x4c */	inv, inv, inv, inv, 
@@ -44,9 +44,9 @@ helper_fun opcode_table [256] = {
 /* 0x84 */	test_r2rm_b, test_r2rm_v, xchg_r2rm_v, xchg_r2rm_b, 
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
 /* 0x8c */	inv, lea_rm2r_v, inv, inv, 
-/* 0x90 */	x90_switcher, inv, inv, inv,
-/* 0x94 */	inv, inv, inv, inv,
-/* 0x98 */	inv, cwd_v, inv, inv, 
+/* 0x90 */	nop, xchg_r_v, xchg_r_v, xchg_r_v,
+/* 0x94 */	xchg_r_v, xchg_r_v, xchg_r_v, xchg_r_v,
+/* 0x98 */	xchg_r_v, cwd_v, inv, inv, 
 /* 0x9c */	inv, inv, inv, inv, 
 /* 0xa0 */	mov_moffs2a_b, mov_moffs2a_v, mov_a2moffs_b, mov_a2moffs_v,
 /* 0xa4 */	movs_b, movs_v, inv, inv,
@@ -71,7 +71,7 @@ helper_fun opcode_table [256] = {
 /* 0xf0 */	inv, inv, inv, rep,
 /* 0xf4 */	inv, inv, xf6_switcher, xf7_switcher,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	cld, inv, inv, xff_switcher
+/* 0xfc */	cld, inv, xfe_switcher, xff_switcher
 };
 
 make_helper(exec) {

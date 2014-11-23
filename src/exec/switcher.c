@@ -32,10 +32,21 @@ make_helper(xff_switcher)
 	m.val = instr_fetch(eip + 1, 1);
 	switch(m.reg)
 	{
+		case 0:return inc_rm_v(eip);
 		case 2:return call_rel_v(eip);
 		case 4:return jumpff_v(eip);
 		case 5:return jumpff_ad_v(eip);
 		case 6:return push_rm_v(eip);
+		default:return 0;
+	}
+}
+make_helper(xfe_switcher)
+{
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	switch(m.reg)
+	{
+		case 0:return inc_rm_b(eip);
 		default:return 0;
 	}
 }
@@ -56,13 +67,6 @@ make_helper(x80_switcher)//arith
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	arith_change(_i2rm_b)
-}
-make_helper(x90_switcher)//nop and xchg
-{
-	ModR_M m;
-	m.val = instr_fetch(eip + 1, 1);
-	if (m.reg<=7&&m.reg>=0) return xchg_r_v(eip);
-	else return nop(eip);
 }
 make_helper(xf6_switcher)//logical
 {
