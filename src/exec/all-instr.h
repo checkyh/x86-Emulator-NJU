@@ -10,5 +10,6 @@
 #include "control-trans/call.h"
 #include "data-mov/lea.h"
 #include "data-mov/cwd.h"
+#include "data-mov/xchg.h"
 #include "string-trans/rep.h"
 #include "flag-control/cld.h"

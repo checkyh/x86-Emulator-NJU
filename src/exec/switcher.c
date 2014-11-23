@@ -57,6 +57,13 @@ make_helper(x80_switcher)//arith
 	m.val = instr_fetch(eip + 1, 1);
 	arith_change(_i2rm_b)
 }
+make_helper(x90_switcher)//nop and xchg
+{
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if (m.reg<=7&&m.reg>=0) return xchg_r_v(eip);
+	else return nop(eip);
+}
 make_helper(xf6_switcher)//logical
 {
 	ModR_M m;

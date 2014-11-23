@@ -11,5 +11,6 @@ make_helper(xc0_switcher);
 make_helper(xc1_switcher);
 make_helper(x0f_switcher);
 make_helper(xd1_switcher);
+make_helper(x90_switcher);
 make_helper(nop);
 #endif
