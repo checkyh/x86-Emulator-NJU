@@ -6,3 +6,9 @@ make_helper(cld)
 	print_asm("cld");
 	return 1;
 }
+make_helper(std)
+{
+	cpu.DF=1;
+	print_asm("std");
+	return 1;
+}

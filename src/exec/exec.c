@@ -71,7 +71,7 @@ helper_fun opcode_table [256] = {
 /* 0xf0 */	inv, inv, inv, rep,
 /* 0xf4 */	inv, inv, xf6_switcher, xf7_switcher,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	cld, inv, xfe_switcher, xff_switcher
+/* 0xfc */	cld, std, xfe_switcher, xff_switcher
 };
 
 make_helper(exec) {
