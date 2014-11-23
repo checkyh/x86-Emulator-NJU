@@ -107,35 +107,11 @@ static bool make_token(char *e) {
 				switch(rules[i].token_type) 
 				{
 					case NOTYPE:break;
-					
-					case EQ:tokens[nr_token].type=EQ;nr_token++;break;
-					case ADD:tokens[nr_token].type=ADD;nr_token++;break;
-					case MINUS:tokens[nr_token].type=MINUS;nr_token++;break;
 					case STRING:tokens[nr_token].type=STRING;memset(tokens[nr_token].str,0,32);
-						int i=0;for (;i<substr_len;i++)
-						tokens[nr_token].str[i]=e[-substr_len+i+position];
+						int j=0;for (;j<substr_len;j++)
+						tokens[nr_token].str[j]=e[-substr_len+j+position];
 						nr_token++; break;
-					case MULT:tokens[nr_token].type=MULT;nr_token++;break;
-					case DIV:tokens[nr_token].type=DIV;nr_token++;break;
-					case LEFT:tokens[nr_token].type=LEFT;nr_token++;break;
-					case RIGHT:tokens[nr_token].type=RIGHT;nr_token++;break;
-					case REG:tokens[nr_token].type=REG;nr_token++;break;
-					case MOD:tokens[nr_token].type=MOD;nr_token++;break;
-					case LESS:tokens[nr_token].type=LESS;nr_token++;break;
-					case GREATER:tokens[nr_token].type=GREATER;nr_token++;break;
-					case LESSEQ:tokens[nr_token].type=LESSEQ;nr_token++;break;
-					case GREATEQ:tokens[nr_token].type=GREATEQ;nr_token++;break;
-					case NEQ:tokens[nr_token].type=NEQ;nr_token++;break;
-					case ALSO:tokens[nr_token].type=ALSO;nr_token++;break;
-					case ORSO:tokens[nr_token].type=ORSO;nr_token++;break;
-					case OR:tokens[nr_token].type=OR;nr_token++;break;
-					case AND:tokens[nr_token].type=AND;nr_token++;break;
-					case NOT:tokens[nr_token].type=NOT;nr_token++;break;
-					case SHIFTL:tokens[nr_token].type=SHIFTL;nr_token++;break;
-					case SHIFTR:tokens[nr_token].type=SHIFTR;nr_token++;break;
-					case CRA:tokens[nr_token].type=CRA;nr_token++;break;
-					case FAN:tokens[nr_token].type=FAN;nr_token++;break;
-					default: break;
+					default:tokens[nr_token].type=rules[i].token_type;nr_token++;
 				}
 				break;
 			}
