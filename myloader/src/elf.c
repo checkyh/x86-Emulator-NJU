@@ -31,7 +31,7 @@ void loader() {
 		}
 	}
 
-	((void(*)(void)) elf->e_entry+0x800000)();
+	((void(*)(void)) elf->e_entry+0x80000)();
 
 	HIT_GOOD_TRAP;
 }
