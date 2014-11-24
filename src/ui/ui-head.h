@@ -5,12 +5,7 @@ void restart();
 extern void printreg();
 extern void printbt();
 extern uint32_t expr(char *e, bool *success);
-//breakpoint
-extern void free_bp(int NO);
-extern BP *new_bp();
-extern void new_watch();
-extern void printbreak();
-extern void setbreak();
+
 
 //read for numbers
 uint32_t  sixteenstring(char *q,int step)

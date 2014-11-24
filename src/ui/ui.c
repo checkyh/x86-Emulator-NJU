@@ -199,10 +199,7 @@ void main_loop() {
 		}
 		else if(strcmp(p,"bt")==0)			//bt
 		{
-	
-			
 			printbt(); 
-				
 		}
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }

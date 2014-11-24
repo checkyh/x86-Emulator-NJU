@@ -15,5 +15,12 @@ typedef struct breakpoint {
 	char watch_expr[100];
 	/* TODO: Add more members if necessary */
 } BP;
-
+void free_bp(int NO);
+void new_bp(uint32_t addr);
+void new_watch(char *q);
+void printbreak();
+void setbreak();
+void free_bp(int NO);
+void free_all(BP *head);
+bool findwatch();
 #endif

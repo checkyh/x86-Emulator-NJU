@@ -9,7 +9,6 @@ int break_state=0;
 uint32_t break_ins;
 int have_watch=0;
 BP *previous=NULL;
-
 void setbreak()
 {
 	BP *cirall=head;

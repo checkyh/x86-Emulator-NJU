@@ -15,10 +15,11 @@ jmp_buf jbuf;	/* Make it easy to perform exception handling */
 
 extern uint8_t loader [];
 extern uint32_t loader_len;
+extern bool findwatch();
 
 extern void setbreak();
 extern int quiet;
-
+extern int have_watch;
 uint32_t break_addr;
 extern void break_tcl(uint32_t addr);
 void restart() {
@@ -45,8 +46,6 @@ static void print_bin_instr(swaddr_t eip, int len) {
 	}
 	printf("%*.s", 50 - (12 + 3 * len), "");
 }
-extern bool findwatch();
-extern int have_watch;
 void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
 	setjmp(jbuf);
