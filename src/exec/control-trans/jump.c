@@ -59,7 +59,7 @@ make_helper(j_near)
 	int byte=(lens==4)?16:32;
 	switch (jump_ins)
 	{	
-		case (0xe9):sprintf(jump_type,"%s","jump");ADDR(cpu.eip,addr,byte) break;
+		case(0xe9):sprintf(jump_type,"%s","jump");ADDR(cpu.eip,addr,byte) break;
 		case(0x80):sprintf(jump_type,"%s","jo"); if(cpu.OF==1) ADDR(cpu.eip,addr,byte)  break;
 		case(0x81):sprintf(jump_type,"%s","jno"); if(cpu.OF==0) ADDR(cpu.eip,addr,byte)  break;
 		case(0x82):sprintf(jump_type,"%s","jnae"); if(cpu.CF==1) ADDR(cpu.eip,addr,byte)  break;
