@@ -141,7 +141,7 @@ void main_loop() {
 			if (q!=NULL)
 			{
 			expr(q,&suc);
-			if (number_state==1) { int addr=expr(q+1,&suc);printf("%x\n",addr );  if (judge) new_bp(addr);}	
+			if (number_state==1) { int addr=expr(q+1,&suc);  if (judge) new_bp(addr);}	
 			q=strtok(NULL,"");
 		}
 		}

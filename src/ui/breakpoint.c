@@ -14,7 +14,7 @@ void setbreak()
 	BP *cirall=head;
 	while(cirall!=NULL)
 	{
-		if(cirall->type==0) {printf("OK");cirall->inst=swaddr_read(cirall->addr,1);swaddr_write(cirall->addr,1,0xcc);}
+		if(cirall->type==0) {cirall->inst=swaddr_read(cirall->addr,1);swaddr_write(cirall->addr,1,0xcc);}
 		cirall=cirall->next;
 	}	
 }
