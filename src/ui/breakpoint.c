@@ -50,6 +50,7 @@ void new_bp(uint32_t addr)
 		else previous=free_;
 		free_=free_->next;
 		previous->next=NULL;
+		break_state=1;
 	}
 }
 void break_tcl(uint32_t addr)
