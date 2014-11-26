@@ -38,7 +38,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 		printf("temp=%x\n",temp );
 		i=SET_N;//end
 	}
-	if (get) return temp;
+	if (get) return temp& (~0u >> ((4 - len) << 3));
 	else{
 		get=false;
 		for (i=0;i<SET_N;i++) if (!cache[group][i].valid)
