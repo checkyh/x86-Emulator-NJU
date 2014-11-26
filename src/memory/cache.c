@@ -45,6 +45,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 			misscache_c();
 			get=true;
 			cache[group][i].valid=true;
+			printf("curmark=%x mark=%x\n",mark, cache[group][i].mark);
 			cache[group][i].mark=mark;
 			for(j=0;j<DATA_LEN;j++) {printf("%x=%x\n",addr-offset+j ,dram_read(addr-offset+j,1)); cache[group][i].data[j]=dram_read(addr-offset+j,1);}
 			i=SET_N;//end
@@ -52,7 +53,6 @@ uint32_t cache_read(uint32_t addr,size_t len)
 		if (get) return dram_read(addr,len);
 		else
 		{
-			printf("OK\n");
 			misscache_c();
 			cache[group][0].valid=true;
 			cache[group][0].mark=mark;
