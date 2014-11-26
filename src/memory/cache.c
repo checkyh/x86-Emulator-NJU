@@ -48,12 +48,12 @@ uint32_t cache_read(uint32_t addr,size_t len)
 			for(j=0;j<DATA_LEN;j++) cache[group][i].data[j]=dram_read(addr-offset+j,1);
 			i=SET_N;//end
 		}
-		if (get) {printf("%x\n",addr);return swaddr_read(addr,len);}
+		if (get) {printf("%x\n",addr);return dram_read(addr,len);}
 		else
 		{
 			assert(0);
 			for(j=0;j<DATA_LEN;j++) cache[group][0].data[j]=dram_read(addr-offset+j,1);
-				return swaddr_read(addr,len);
+				return dram_read(addr,len);
 		}
 	}	
 }
