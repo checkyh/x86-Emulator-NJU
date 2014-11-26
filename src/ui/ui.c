@@ -201,6 +201,10 @@ void main_loop() {
 		{
 			printbt(); 
 		}
+		else if(strcmp(p,"cachecost")==0)			//bt
+		{
+			read_cachecost(); 
+		}
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
 	}
