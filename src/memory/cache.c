@@ -23,41 +23,36 @@ void cache_init(){
 		for (j=0;j<SET_N;j++)
 			cache[i][j].valid=0;
 }
+int cache_mchoose(uint8_t mark,uint8_t group,int set)
+{
+	if (cache[group][set].valid&&cache[group][set].mark==mark) return set;
+	int i=0;
+	for (i=0;i<SET_N;i++) if (cache[group][i].valid&&cache[group][i].mark==mark) {hitcache_c();return i;}
+	for (i=0;i<SET_N;i++) if (!cache[group][i].valid) return -1-i;
+	return -1;
+} 
+void cache_makup(uint8_t group,uint8_t mark,uint32_t addr,int set)
+{
+	uint8_t offset=addr&0x3f;
+	int j=0;
+	misscache_c();
+	cache[group][set].valid=true;
+	cache[group][set].mark=mark;
+	for(j=0;j<DATA_LEN;j++)  cache[group][set].data[j]=dram_read(addr-offset+j,1);
+}
 uint32_t cache_read(uint32_t addr,size_t len)
 {
-	int i,j;bool get=false;
+	int i;
 	uint32_t temp=0;
 	uint16_t mark=(addr>>13)&0x3fff;
 	uint8_t offset=addr&0x3f;
 	uint8_t group=(addr>>6)&0x7f;
-	for (i=0;i<SET_N;i++) if (cache[group][i].valid&&cache[group][i].mark==mark)
+	int set=10;
+	for (i=0;i<len;i++)
 	{
-		hitcache_c();
-		get=true;
-		for (j=0;j<len;j++) temp+=cache[group][i].data[offset+j]<<(j*8);
-		i=SET_N;//end
-	}
-	if (get) return temp;
-	else{
-		get=false;
-		for (i=0;i<SET_N;i++) if (!cache[group][i].valid)
-		{
-			misscache_c();
-			get=true;
-			cache[group][i].valid=true;
-			printf("curmark=%x mark=%x\n",mark, cache[group][i].mark);
-			cache[group][i].mark=mark;
-			for(j=0;j<DATA_LEN;j++) {printf("%x=%x\n",addr-offset+j ,dram_read(addr-offset+j,1)); cache[group][i].data[j]=dram_read(addr-offset+j,1);}
-			i=SET_N;//end
-		}
-		if (get) return dram_read(addr,len);
-		else
-		{
-			misscache_c();
-			cache[group][0].valid=true;
-			cache[group][0].mark=mark;
-			for(j=0;j<DATA_LEN;j++) 	cache[group][0].data[j]=dram_read(addr-offset+j,1);
-				return dram_read(addr,len);
-		}
+		set=cache_mchoose(mark,group,set);
+		if (set<0) {set=-1-set;cache_makup(group,mark,addr,set);}
+		temp=(temp<<8)+cache[group][set].data[offset+i]; 
 	}	
+	return temp;
 }

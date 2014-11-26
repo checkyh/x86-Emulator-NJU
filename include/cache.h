@@ -1,4 +1,5 @@
-/*在NEMU中实现一个cache, 它的性质如下: 
+/*
+在NEMU中实现一个cache, 它的性质如下: 
 cache block存储空间的大小为64B 
  cache存储空间的大小为64KB 
  八位组相联
@@ -11,6 +12,7 @@ cache block存储空间的大小为64B
 每次写不命中都要从主存读一个块到cache
 16=7+3+6
 27=14+7+6
+000 001 0000 000|0 0000 00|00 0000
 */
 #ifndef __CACHE_H__
 #define __CACHE_H__
