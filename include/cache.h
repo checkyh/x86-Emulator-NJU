@@ -19,5 +19,5 @@ uint64_t read_cachecost();
 void hitcache_c();
 void misscache_c();
 void cache_init();
-bool cache_read(uint32_t addr,size_t len,uint32_t *dat);
+uint32_t cache_read(uint32_t addr,size_t len);
 #endif
