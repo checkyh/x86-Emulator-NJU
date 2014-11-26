@@ -3,25 +3,21 @@
 #include "nemu.h"
 
 #include <setjmp.h>
-
+#include "ui/breakpoint.h"
 #define LOADER_START 0x100000
 
 int exec(swaddr_t);
 void load_prog();
 void init_dram();
-extern int break_state;
+
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 
 extern uint8_t loader [];
 extern uint32_t loader_len;
-extern bool findwatch();
 
-extern void setbreak();
 extern int quiet;
-extern int have_watch;
-uint32_t break_addr;
-extern void break_tcl(uint32_t addr);
+
 void restart() {
 	/* Perform some initialization to restart a program */
 	load_prog();
@@ -30,7 +26,7 @@ void restart() {
 	cpu.eip = LOADER_START;
 
 	init_dram();
-	
+	cache_init();
 	setbreak();// 设置已存在的断点 src/ui/breakpoint.c
 	cpu.ebp=0;
 	cpu.esp=0x8000000;

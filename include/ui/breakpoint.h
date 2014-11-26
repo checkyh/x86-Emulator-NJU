@@ -23,4 +23,8 @@ void setbreak();
 void free_bp(int NO);
 void free_all(BP *head);
 bool findwatch();
+uint32_t break_addr;
+void break_tcl(uint32_t addr);
+int have_watch;
+int break_state;
 #endif
