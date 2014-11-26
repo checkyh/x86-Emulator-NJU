@@ -34,8 +34,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	{
 		hitcache_c();
 		get=true;
-		for (j=0;j<len;j++) {printf("%d=%x\n",offset+j,cache[group][i].data[offset+j] ); temp+=cache[group][i].data[offset+j]<<(j*8);}
-		printf("temp=%x\n",temp );
+		for (j=0;j<len;j++) temp+=cache[group][i].data[offset+j]<<(j*8);
 		i=SET_N;//end
 	}
 	if (get) return temp;
@@ -47,7 +46,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 			get=true;
 			cache[group][i].valid=true;
 			cache[group][i].mark=mark;
-			for(j=0;j<DATA_LEN;j++) cache[group][i].data[j]=dram_read(addr-offset+j,1);
+			for(j=0;j<DATA_LEN;j++) {printf("%x=%x\n",addr-offset+j ,dram_read(addr-offset+j,1)); cache[group][i].data[j]=dram_read(addr-offset+j,1);}
 			i=SET_N;//end
 		}
 		if (get) return dram_read(addr,len);
