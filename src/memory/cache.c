@@ -52,6 +52,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 		if (get) return dram_read(addr,len);
 		else
 		{
+			printf("OK\n");
 			misscache_c();
 			cache[group][0].valid=true;
 			cache[group][0].mark=mark;
