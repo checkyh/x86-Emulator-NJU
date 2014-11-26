@@ -1,12 +1,13 @@
 #include "common.h"
-
+#include "cache.h"
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
-
+uint32_t cache_get;
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
+	if(cache_read(addr,len,&cache_get))return cache_get;
 	return dram_read(addr, len);
 }
 

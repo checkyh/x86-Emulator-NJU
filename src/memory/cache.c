@@ -1,4 +1,4 @@
-#include"common.h"
+#include"memory.h"
 uint64_t cachecost;
 #define GROUP_N 128
 #define SET_N 8
@@ -21,4 +21,11 @@ void cache_init(){
 	for (i=0;i<SET_N;i++)
 		for (j=0;j<GROUP_N;j++)
 			cache[i][j].valid=0;
+}
+bool cache_read(uint32_t addr,size_t len,uint32_t *dat)
+{
+	uint16_t mark=(addr<<5)>>18;
+	uint8_t offset=addr&0x3ff;
+	printf("%x %x\n",mark,offset ); 
+	return  false;
 }
