@@ -43,13 +43,12 @@ uint32_t cache_read(uint32_t addr,size_t len)
 		get=false;
 		for (i=0;i<SET_N;i++) if (!cache[group][i].valid)
 		{
-			printf("the firtst time\n");
 			get=true;
 			cache[group][i].valid=true;
 			for(j=0;j<DATA_LEN;j++) cache[group][i].data[j]=dram_read(addr-offset+j,1);
 			i=SET_N;//end
 		}
-		if (get) return swaddr_read(addr,len);
+		if (get) {printf("%x\n",addr);return swaddr_read(addr,len);}
 		else
 		{
 			assert(0);
