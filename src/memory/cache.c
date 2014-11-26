@@ -28,7 +28,6 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	int i,j;bool get=false;
 	uint32_t temp=0;
 	uint16_t mark=(addr>>13)&0x3fff;
-	printf("\n%x\n",addr);
 	uint8_t offset=addr&0x3f;
 	uint8_t group=(addr>>6)&0x7f;
 	for (i=0;i<SET_N;i++) if (cache[group][i].valid&&cache[group][i].mark==mark)
