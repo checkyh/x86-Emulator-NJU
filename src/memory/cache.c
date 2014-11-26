@@ -34,11 +34,11 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	{
 		hitcache_c();
 		get=true;
-		for (j=0;j<len;j++) temp+=cache[group][i].data[offset+j]<<(j*8);
+		for (j=0;j<len;j++) {printf("%x\n",cache[group][i].data[offset+j] ); temp+=cache[group][i].data[offset+j]<<(j*8);}
 		printf("temp=%x\n",temp );
 		i=SET_N;//end
 	}
-	if (get) return temp& (~0u >> ((4 - len) << 3));
+	if (get) return temp;
 	else{
 		get=false;
 		for (i=0;i<SET_N;i++) if (!cache[group][i].valid)
