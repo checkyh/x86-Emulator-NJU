@@ -35,7 +35,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 		hitcache_c();
 		get=true;
 		for (j=0;j<len;j++) temp=(temp<<8*j)+cache[group][i].data[offset+j];
-		printf("%x\n",temp );
+		printf("temp=%x\n",temp );
 		i=SET_N;//end
 	}
 	if (get) return temp;
