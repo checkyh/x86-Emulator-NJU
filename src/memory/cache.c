@@ -30,14 +30,14 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	uint16_t mark=(addr>>13)&0x3fff;
 	uint8_t offset=addr&0x3ff;
 	uint8_t group=(addr>>6)&0x7f;
-	for (i=0;i<SET_N;i++) if (cache[group][i].valid&&cache[group][i].mark==mark)
+	/*for (i=0;i<SET_N;i++) if (cache[group][i].valid&&cache[group][i].mark==mark)
 	{
 		hitcache_c();
 		get=true;
 		cache[group][i].valid=true;
 		for (j=0;j<len;j++) {printf("%x\n",temp ); temp+=(temp<<4*j)+cache[group][i].data[offset+j];}
 		i=SET_N;//end
-	}
+	}*/
 	if (get) return temp;
 	else{
 		get=false;
@@ -46,14 +46,17 @@ uint32_t cache_read(uint32_t addr,size_t len)
 			misscache_c();
 			get=true;
 			cache[group][i].valid=true;
-			for(j=0;j<DATA_LEN;j++) cache[group][i].data[j]=dram_read(addr-offset+j,1);
+			cache[group][i].mark=mark;
+			for(j=0;j<DATA_LEN;j++) {printf("%x\n",dram_read(addr-offset+j,1)); cache[group][i].data[j]=dram_read(addr-offset+j,1);}
 			i=SET_N;//end
 		}
 		if (get) return dram_read(addr,len);
 		else
 		{
 			misscache_c();
-			for(j=0;j<DATA_LEN;j++) cache[group][0].data[j]=dram_read(addr-offset+j,1);
+			cache[group][0].valid=true;
+			cache[group][0].mark=mark;
+			for(j=0;j<DATA_LEN;j++) {printf("%x\n",dram_read(addr-offset+j,1) );	cache[group][0].data[j]=dram_read(addr-offset+j,1);}
 				return dram_read(addr,len);
 		}
 	}	
