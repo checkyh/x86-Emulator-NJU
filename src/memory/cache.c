@@ -76,7 +76,7 @@ void cache_writes(uint32_t addr,size_t len,uint32_t data)
 	for (i=0;i<len&&i+offset<DATA_LEN;i++)
 		cache[group][set].data[offset+i]=(data<<(24-i*8))>>24;
 	}
-	if (j>0) { printf("CROSS\n");}
+	if (j>0) { Log("CROSS\n");}
 
 }
 void printcacheinfo(uint8_t group,uint8_t set)
