@@ -71,6 +71,7 @@ void cache_writes(uint32_t addr,size_t len,uint32_t data)
 	cache_makup(group,mark,addr);
 	if (offset+len-1>=DATA_LEN) 
 		{
+			printf("OK\n");
 			group++;
 			set=cache_mchoose(mark,group);
 			cache_makup(group,mark,addr);
