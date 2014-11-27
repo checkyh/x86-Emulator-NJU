@@ -53,7 +53,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	{
 		if (offset+len>=DATA_LEN) {group++;set=cache_mchoose(mark,group,set);}
 		if (set<0) {set=-1-set;cache_makup(group,mark,addr,set);}
-		temp=(temp<<8)+cache[group][set].data[offset+i]; 
+		temp=temp+(cache[group][set].data[offset+i]<<i*8); 
 	}	
 	return temp;
 }
