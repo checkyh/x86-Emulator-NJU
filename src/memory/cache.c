@@ -1,7 +1,7 @@
 #include"memory.h"
 uint32_t dram_read(hwaddr_t addr, size_t len);
 uint64_t cachecost;
-uint8_t set;
+int set;
 #define GROUP_N 128
 #define SET_N 8
 #define DATA_LEN 64
