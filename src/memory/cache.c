@@ -35,12 +35,11 @@ int cache_mchoose(uint8_t mark,uint8_t group)
 } 
 void cache_makup(uint8_t group,uint8_t mark,uint32_t addr)
 {
-	uint8_t offset=addr&0x3f;
 	int j=0;
 	misscache_c();
 	cache[group][set].valid=true;
 	cache[group][set].mark=mark;
-	addr=addr-offset;
+	addr=addr&(0x7ffffc0);
 	for(j=0;j<DATA_LEN;j++)  cache[group][set].data[j]=dram_read(addr+j,1);
 }
 uint8_t cache_read(uint32_t addr)
