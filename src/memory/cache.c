@@ -54,11 +54,8 @@ uint32_t cache_reads(uint32_t addr,size_t len)
 {
 	int i=0;
 	uint32_t temp=0;
-	uint8_t each=0;
 	for(;i<len;i++)
-	{
-		each=cache_read(addr+i);
-		temp=temp+(each<<(i*8));
-	}
+		temp=temp+(cache_read(addr+i)<<(i*8));
+	
 	return  temp;
 }
