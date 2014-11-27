@@ -13,6 +13,7 @@ cache block存储空间的大小为64B
 16=7+3+6
 27=14+7+6
 000 001 0000 000|0 0000 00|00 0000
+111 111 1111 111   1 1111 11 00 0000
 */
 #ifndef __CACHE_H__
 #define __CACHE_H__
@@ -23,4 +24,6 @@ void misscache_c();
 void cache_init();
 uint32_t cache_reads(uint32_t addr,size_t len);
 void printcacheinfo(uint8_t group,uint8_t set);
+void cache_writes(uint32_t addr,size_t len,uint32_t data);
+
 #endif
