@@ -60,17 +60,13 @@ uint32_t cache_reads(uint32_t addr,size_t len)
 	for(;i<len;i++)temp=temp+(cache_read(addr+i)<<(i*8));
 	return  temp;
 }
-void cache_write(uint32_t addr,uint32_t data,size_t len)
-{	uint16_t mark=(addr>>13)&0x3fff;
-	uint8_t group=(addr>>6)&0x7f;
-	set=cache_mchoose(mark,group);
-	if (set<0) {set=-1-set;dram_write(addr,data,len);cache_makup(group,mark,addr);}
-}
 void cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
 	set=10;
-	int i=0;
-	for(;i<len;i++) cache_write(addr+i,data,len);
+	uint16_t mark=(addr>>13)&0x3fff;
+	uint8_t group=(addr>>6)&0x7f;
+	set=cache_mchoose(mark,group);
+	if (set<0) {set=-1-set;dram_write(addr,data,len);cache_makup(group,mark,addr);}
 }
 void printcacheinfo(uint8_t group,uint8_t set)
 {
