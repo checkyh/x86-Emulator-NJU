@@ -3,7 +3,7 @@ uint32_t dram_read(hwaddr_t addr, size_t len);
 uint64_t cachecost;
 #define GROUP_N 128
 #define SET_N 8
-#define DATA_LEN 8
+#define DATA_LEN 64
 //
 typedef struct{
 	uint8_t data[DATA_LEN];
@@ -46,15 +46,14 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	uint32_t temp=0;
 	uint16_t mark=(addr>>13)&0x3fff;
 	uint8_t offset=addr&0x3f;
-	uint8_t value_no=offset/8;
 	uint8_t group=(addr>>6)&0x7f;
 	int set=10;
 	set=cache_mchoose(mark,group,set);
 	for (i=0;i<len;i++)
 	{
-		if (value_no+len>=8) {group++;set=cache_mchoose(mark,group,set);}
+		if (offset+len>=DATA_LEN) {group++;set=cache_mchoose(mark,group,set);}
 		if (set<0) {set=-1-set;cache_makup(group,mark,addr,set);}
-		temp=(temp<<8)+cache[group][set].data[value_no+i]; 
+		temp=(temp<<8)+cache[group][set].data[offset+i]; 
 	}	
 	return temp;
 }
