@@ -197,14 +197,16 @@ void main_loop() {
 			read_symtab(sixteenstring(q,10)); 
 				
 		}
-		else if(strcmp(p,"bt")==0)			//bt
+		else if(strcmp(p,"bt")==0){printbt(); }
+		else if(strcmp(p,"cachecost")==0){printf("%llu\n", read_cachecost());}
+		else if(strcmp(p,"cache")==0)
 		{
-			printbt(); 
-		}
-		else if(strcmp(p,"cachecost")==0)			//bt
-		{
-			printf("%llu\n", read_cachecost());
-		}
+			q=strtok(NULL," ");
+			uint8_t group=sixteenstring(q,10);
+			q=strtok(NULL,"");
+			uint8_t set=sixteenstring(q,10);
+			printcacheinfo(group,set);
+		}	
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
 	}

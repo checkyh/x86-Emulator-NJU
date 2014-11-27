@@ -60,3 +60,15 @@ uint32_t cache_reads(uint32_t addr,size_t len)
 	for(;i<len;i++)temp=temp+(cache_read(addr+i)<<(i*8));
 	return  temp;
 }
+void printcacheinfo(uint8_t group,uint8_t set)
+{
+	int i=0;
+	printf("data=");
+	for(;i<DATA_LEN;i++) 
+		{
+			if (i%16==0) printf("\n");
+			printf("%x ",cache[group][set].data[i] );
+		}
+	printf("\nvalid=%d\n",cache[group][set].valid );
+	printf("mark=%x\n",cache[group][set].mark);
+}

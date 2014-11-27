@@ -22,4 +22,5 @@ void hitcache_c();
 void misscache_c();
 void cache_init();
 uint32_t cache_reads(uint32_t addr,size_t len);
+void printcacheinfo(uint8_t group,uint8_t set);
 #endif
