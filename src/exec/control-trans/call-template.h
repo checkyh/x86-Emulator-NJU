@@ -20,6 +20,7 @@ make_helper(concat(call_rm_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 	call_addr=REG(m.R_M);
+	printf("%x\n",call_addr );
 	lens+=DATA_BYTE;
 	cpu.eip=call_addr-lens;
 	print_asm("call 0x%x",cpu.eip+lens);
