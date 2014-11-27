@@ -1,6 +1,7 @@
 #include"memory.h"
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
+
 uint64_t cachecost;
 int set;
 #define GROUP_N 128
@@ -68,11 +69,14 @@ void cache_writes(uint32_t addr,size_t len,uint32_t data)
 	dram_write(addr,len,data);
 	set=10;
 	set=cache_mchoose(mark,group);
-	if (set<0) {set=-1-set;cache_makup(group,mark,addr);}
-	else {
-		int i=0;
-		for (i=0;i<len;i++)
-			cache[group][set].data[offset+i]=(data<<(24-i*8))>>24;
+	if (set<0) set=-1-set;
+	cache_makup(group,mark,addr);
+	if (offset+len>=DATA_LEN) 
+	{
+		group++;
+		set=cache_mchoose(mark,group);
+		if (set<0) set=-1-set;
+		 cache_makup(group,mark,addr+len-1);
 	}
 }
 void printcacheinfo(uint8_t group,uint8_t set)
