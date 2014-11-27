@@ -51,7 +51,7 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	set=cache_mchoose(mark,group,set);
 	for (i=0;i<len;i++)
 	{
-		if (offset+len>=DATA_LEN) {group++;set=cache_mchoose(mark,group,set);}
+		if (offset+len>=DATA_LEN) {offset=offset-DATA_LEN;group++;set=cache_mchoose(mark,group,set);}
 		if (set<0) {set=-1-set;cache_makup(group,mark,addr,set);}
 		temp=temp+(cache[group][set].data[offset+i]<<i*8); 
 	}	
