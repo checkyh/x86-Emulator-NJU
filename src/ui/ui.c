@@ -202,7 +202,7 @@ void main_loop() {
 		else if(strcmp(p,"cache")==0)
 		{
 			q=strtok(NULL," ");
-			uint8_t group=sixteenstring(q,10);
+			uint8_t group=sixteenstring(q,16);
 			q=strtok(NULL,"");
 			uint8_t set=sixteenstring(q,10);
 			printcacheinfo(group,set);
