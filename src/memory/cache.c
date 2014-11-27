@@ -46,13 +46,15 @@ uint32_t cache_read(uint32_t addr,size_t len)
 	uint32_t temp=0;
 	uint16_t mark=(addr>>13)&0x3fff;
 	uint8_t offset=addr&0x3f;
+	uint8_t value_no=offset/8;
 	uint8_t group=(addr>>6)&0x7f;
 	int set=10;
+	set=cache_mchoose(mark,group,set);
 	for (i=0;i<len;i++)
 	{
-		set=cache_mchoose(mark,group,set);
+		if (value_no+len>=8) {group++;set=cache_mchoose(mark,group,set);}
 		if (set<0) {set=-1-set;cache_makup(group,mark,addr,set);}
-		temp=(temp<<8)+cache[group][set].data[offset+i]; 
+		temp=(temp<<8)+cache[group][set].data[value_no+i]; 
 	}	
 	return temp;
 }
