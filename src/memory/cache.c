@@ -69,6 +69,7 @@ void cache_writes(uint32_t addr,size_t len,uint32_t data)
 	set=cache_mchoose(mark,group);
 	dram_write(addr,len,data);
 	cache_makup(group,mark,addr);
+	assert(offset<DATA_LEN-4);
 	if (offset+len-1>=DATA_LEN) 
 		{
 			printf("OK\n");
