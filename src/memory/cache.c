@@ -66,7 +66,7 @@ void cache_writes(uint32_t addr,size_t len,uint32_t data)
 	uint16_t mark=(addr>>13)&0x3fff;
 	uint8_t group=(addr>>6)&0x7f;
 	set=cache_mchoose(mark,group);
-	if (set<0) {set=-1-set;dram_write(addr,data,len);cache_makup(group,mark,addr);}
+	if (set<0) {set=-1-set;dram_write(addr,len,data);cache_makup(group,mark,addr);}
 }
 void printcacheinfo(uint8_t group,uint8_t set)
 {
