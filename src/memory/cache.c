@@ -35,6 +35,7 @@ int cache_mchoose(uint8_t mark,uint8_t group)
 } 
 void cache_makup(uint8_t group,uint8_t mark,uint32_t addr)
 {
+	printf("addr=%x,set=%d\n",addr,set );
 	int j=0;
 	misscache_c();
 	cache[group][set].valid=true;
