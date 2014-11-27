@@ -39,7 +39,7 @@ void cache_makup(uint8_t group,uint8_t mark,uint32_t addr)
 	misscache_c();
 	cache[group][set].valid=true;
 	cache[group][set].mark=mark;
-	addr=addr&(0x7ffffc0);
+	addr=addr&(0xfffffc0);
 	for(j=0;j<DATA_LEN;j++)  cache[group][set].data[j]=dram_read(addr+j,1);
 }
 uint8_t cache_read(uint32_t addr)
