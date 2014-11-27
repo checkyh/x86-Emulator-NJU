@@ -40,20 +40,25 @@ void cache_makup(uint8_t group,uint8_t mark,uint32_t addr,int set)
 	cache[group][set].mark=mark;
 	for(j=0;j<DATA_LEN;j++)  cache[group][set].data[j]=dram_read(addr-offset+j,1);
 }
-uint32_t cache_read(uint32_t addr,size_t len)
+uint8_t cache_read(uint32_t addr)
 {
-	int i;
-	uint32_t temp=0;
 	uint16_t mark=(addr>>13)&0x3fff;
 	int offset=addr&0x3f;
 	uint8_t group=(addr>>6)&0x7f;
 	int set=10;
 	set=cache_mchoose(mark,group,set);
-	for (i=0;i<len;i++)
+	if (set<0) {set=-1-set;cache_makup(group,mark,addr,set);}
+	return cache[group][set].data[offset]; 
+}
+uint32_t cache_reads(uint32_t addr,size_t len)
+{
+	int i=0;
+	uint32_t temp=0;
+	uint8_t each=0;
+	for(;i<len;i++)
 	{
-		if (offset+i>=DATA_LEN) {printf("%x %x %x\n",set,group,addr );offset=offset-DATA_LEN;group++;set=cache_mchoose(mark,group,set);}
-		if (set<0) {set=-1-set;cache_makup(group,mark,addr,set);}
-		temp=temp+(cache[group][set].data[offset+i]<<i*8); 
-	}	
-	return temp;
+		each=cache_read(addr+i);
+		temp=temp+(each<<(i*8));
+	}
+	return  temp;
 }
