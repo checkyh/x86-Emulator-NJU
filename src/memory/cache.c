@@ -67,18 +67,15 @@ void cache_writes(uint32_t addr,size_t len,uint32_t data)
 	uint8_t offset=addr&0x3f;
 	uint8_t group=(addr>>6)&0x7f;
 	dram_write(addr,len,data);
-	set=10;
-	set=cache_mchoose(mark,group);
-	if (set<0) set=-1-set;
-	cache_makup(group,mark,addr);
-	if (offset+len-1>=DATA_LEN) 
-	{
-		printf("cross\n");
-		group++;
-		set=cache_mchoose(mark,group);
-		if (set<0) set=-1-set;
-		 cache_makup(group,mark,addr+len-1);
-	}
+ 	set=10;
+ 	set=cache_mchoose(mark,group);
+if (set<0) {set=-1-set;cache_makup(group,mark,addr);}
+else {
+	int i=0;
+	for (i=0;i<len;i++)
+		cache[group][set].data[offset+i]=(data<<(24-i*8))>>24;
+	
+ 	}
 }
 void printcacheinfo(uint8_t group,uint8_t set)
 {
