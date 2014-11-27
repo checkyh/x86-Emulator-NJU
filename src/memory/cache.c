@@ -67,7 +67,7 @@ void printcacheinfo(uint8_t group,uint8_t set)
 	for(;i<DATA_LEN;i++) 
 		{
 			if (i%16==0) printf("\n");
-			printf("%x ",cache[group][set].data[i] );
+			printf("%2x ",cache[group][set].data[i] );
 		}
 	printf("\nvalid=%d\n",cache[group][set].valid );
 	printf("mark=%x\n",cache[group][set].mark);
