@@ -44,7 +44,7 @@ void L1cache_makup(uint8_t group,uint16_t mark,uint32_t addr)
 	addr=(addr>>6)<<6;
 	for(j=0;j<DATA_LEN;j++)  L1cache[group][set].data[j]=dram_read(addr+j,1);
 }
-uint8_t L1cache_read(uint32_t addr)
+/*uint8_t L1cache_read(uint32_t addr)
 {
 	uint16_t mark=(addr>>13)&0x3fff;
 	uint8_t offset=addr&0x3f;
@@ -52,13 +52,24 @@ uint8_t L1cache_read(uint32_t addr)
 	set=L1cache_mchoose(mark,group);
 	if (set<0) {set=-1-set;L1cache_makup(group,mark,addr);}
 	return L1cache[group][set].data[offset]; 
-}
+}*/
 uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
+	uint16_t mark=(addr>>13)&0x3fff;
+	uint8_t offset=addr&0x3f;
+	uint8_t group=(addr>>6)&0x7f;
 	set=10;
 	int i=0;
 	uint32_t temp=0;
-	for(;i<len;i++)temp=temp+(L1cache_read(addr+i)<<(i*8));
+	set=L1cache_mchoose(mark,group);
+	if (set<0) {set=-1-set;L1cache_makup(group,mark,addr);}
+	for(;i<len;i++)
+	{
+		if (offset==DATA_LEN) {group++;offset=0;set=L1cache_mchoose(mark,group);}
+		if (set<0) {set=-1-set;L1cache_makup(group,mark,addr);}
+		temp=temp+(L1cache[group][set].data[offset]<<(i*8));
+		offset++;
+	}
 	return  temp;
 }
 void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
