@@ -60,7 +60,6 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
 	analy cur;
 	cur.v=addr;
-	assert(cur.offset+len-1<DATA_N);
 	set=10;
 	int i=0;
 	uint32_t temp=0;
