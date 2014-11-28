@@ -81,11 +81,13 @@ uint32_t L2cache_reads(uint32_t addr,size_t len)
 {
 	analy2 cur;
 	cur.v=addr;
+	analy cur1;
+	cur1.v=addr;
 	set=SET2_N+1;
 	int i=0;
 	uint32_t temp=0;
 	set=L2cache_mchoose(cur);
-	if (set<0) {set=-1-set;L2cache_makup(cur);}
+	if (set<0) {set=-1-set;L2cache_makup(cur);L1cache_makup(cur1);}
 	for(;i<len;i++)
 	{
 		temp=temp+(L2cache[cur.group][set].data[cur.offset]<<(i*8));
