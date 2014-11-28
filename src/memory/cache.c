@@ -109,9 +109,9 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
  	{
  		analy2 temp;
  		temp.v=cur.v;
- 		Log("write back\n");
  		if (L2cache[temp.group][set].dirty)
  		 {
+ 		 	Log("write back\n");
  			temp.offset=0;
  			for(i=0;i<DATA_N;i++) {dram_write(cur.v,1,L2cache[temp.group][set].data[temp.offset]);cur.offset++;}
  		} 
@@ -124,7 +124,7 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
  			}
  		}
  	} 
-	if (set<0) {set=-1-set;L2cache_makup(cur);L2cache[cur.group][set].dirty=true;}//write allocate
+	if (set<0) {set=-1-set;L2cache_makup(cur);}//write allocate
 	for (i=0;i<len;i++)
 	{
 		
