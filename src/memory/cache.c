@@ -14,11 +14,11 @@ int set;
 typedef union{
 	struct
 	{
-		uint16_t offset:DATA_LEN;
-		uint16_t group:GROUP_LEN;
-		uint16_t mark:MARK_LEN;
+		unsigned offset:DATA_LEN;
+		unsigned group:GROUP_LEN;
+		unsigned mark:MARK_LEN;
 	};
-	uint32_t v:27;
+	unsigned v:27;
 } analy;
 //L1 cache
 typedef struct{
