@@ -41,7 +41,6 @@ make_helper(concat(mov_r2rm_, SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		printf("%x\n",addr );
 		MEM_W(addr, REG(m.reg));
 
 		print_asm("mov" str(SUFFIX) " %%%s,%s", REG_NAME(m.reg), ModR_M_asm);
