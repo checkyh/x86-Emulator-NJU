@@ -57,7 +57,6 @@ void L1cache_makup(analy cur)
 }
 uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
-	printf("%x\n",addr );
 	analy cur;
 	cur.v=addr;
 	set=10;
@@ -83,14 +82,14 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
  	set=L1cache_mchoose(cur);
 	if (set>=0)//not write allocate
 	{
-	int i=0;
-	for (i=0;i<len;i++)
-	{
-		if (cur.offset==DATA_N) {cur.group++;cur.offset=0;set=L1cache_mchoose(cur);}
-		if (set<0) break;
-		L1cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
-		cur.offset++;
-	}
+		int i=0;
+		for (i=0;i<len;i++)
+		{
+			if (cur.offset==DATA_N) {cur.group++;cur.offset=0;set=L1cache_mchoose(cur);}
+			if (set<0) break;
+			L1cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
+			cur.offset++;
+		}
 	}
 }
 void printL1cacheinfo(uint8_t group,uint8_t set)
