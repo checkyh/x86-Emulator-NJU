@@ -45,6 +45,7 @@ L1cache_line L1cache[GROUP_N][SET_N];
 typedef struct{
 	uint8_t data[DATA_N];
 	bool valid;
+	bool dirty;
 	uint16_t mark:MARK_LEN;
 } L2cache_line;
 L2cache_line L2cache[GROUP2_N][SET2_N];
@@ -55,6 +56,7 @@ void cache_init()
 	int i,j=0;
 	for (i=0;i<GROUP_N;i++) for (j=0;j<SET_N;j++) L1cache[i][j].valid=false;
 	for (i=0;i<GROUP2_N;i++) for (j=0;j<SET2_N;j++) L2cache[i][j].valid=false;
+	for (i=0;i<GROUP2_N;i++) for (j=0;j<SET2_N;j++) L2cache[i][j].dirty=false;
 
 }
 int L2cache_mchoose(analy2 cur)
@@ -74,21 +76,25 @@ void L2cache_makup(analy2 cur)
 	cur.v=(cur.v>>DATA_LEN)<<DATA_LEN;
 	for(j=0;j<DATA_N;j++)  L2cache[cur.group][set].data[j]=dram_read(cur.v+j,1);
 }
+void L1cache_makup(analy cur);
 uint32_t L2cache_reads(uint32_t addr,size_t len)
 {
 	analy2 cur;
+	analy cur1;
 	cur.v=addr;
+	cur1.v=addr;
 	set=SET2_N+1;
 	int i=0;
 	uint32_t temp=0;
 	set=L2cache_mchoose(cur);
-	if (set<0) {set=-1-set;L2cache_makup(cur);}
+	if (set<0) {set=-1-set;L2cache_makup(cur);L1cache_makup(cur1);}
 	for(;i<len;i++)
 	{
 		temp=temp+(L2cache[cur.group][set].data[cur.offset]<<(i*8));
-		if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L2cache_mchoose(cur);}else cur.offset++;
-		if (set<0) {set=-1-set;L2cache_makup(cur);}
-		
+		if (cur.offset+1==DATA_N){
+			cur.group++;cur.offset=0;
+			set=L2cache_mchoose(cur);}else cur.offset++;
+		if (set<0) {set=-1-set;cur1.v=cur.v;L2cache_makup(cur);L1cache_makup(cur1);}
 	}
 	return  temp;
 }
@@ -96,19 +102,37 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
 	analy2 cur;
 	cur.v=addr;
-	dram_write(addr,len,data);
  	set=SET2_N+1;
+ 	int i=0;
  	set=L2cache_mchoose(cur);
-	if (set<0) {set=-1-set;L2cache_makup(cur);}//write allocate
-	
-
-		int i=0;
-		for (i=0;i<len;i++)
-		{
-			L2cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
-			if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L2cache_mchoose(cur);}else cur.offset++;
-			if (set<0) {set=-1-set;L2cache_makup(cur);}
-		}
+ 	if (set>=0)//write back
+ 	{
+ 		analy2 temp;
+ 		temp.v=cur.v;
+ 		Log("write back\n");
+ 		if (L2cache[temp.group][set].dirty)
+ 		 {
+ 			temp.offset=0;
+ 			for(i=0;i<DATA_N;i++) {dram_write(cur.v,1,L2cache[temp.group][set].data[temp.offset]);cur.offset++;}
+ 		}
+ 		if (cur.offset+len-1>=DATA_N) 
+ 		{
+ 			temp.group++;temp.offset=0;
+ 			if (L2cache[temp.group][set].dirty) 
+ 			{
+ 			for(i=0;i<DATA_N;i++) {dram_write(cur.v,1,L2cache[temp.group][set].data[temp.offset]);cur.offset++;}
+ 			}
+ 		}
+ 	} 
+	if (set<0) {set=-1-set;L2cache_makup(cur);L2cache[cur.group][set].dirty=true;}//write allocate
+	for (i=0;i<len;i++)
+	{
+		
+		L2cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
+		if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L2cache_mchoose(cur);}
+		else cur.offset++;
+		if (set<0) {set=-1-set;L2cache_makup(cur);L2cache[cur.group][set].dirty=true;}
+	}
 	
 }
 //L1 cache
@@ -148,7 +172,6 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 		temp=temp+(L1cache[cur.group][set].data[cur.offset]<<(i*8));
 		if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L1cache_mchoose(cur);}else cur.offset++;
 		if (set<0) {set=-1-set;L1cache_makup(cur);}
-		
 	}
 	return  temp;
 }
@@ -158,10 +181,11 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	cur.v=addr;
  	set=SET_N+1;
  	set=L1cache_mchoose(cur);
- 	if (set<0)L2cache_writes(addr,len,data);
+ 	if (set<0) L2cache_writes(addr,len,data);
 	//not write allocate
 	if (set>=0)
 	{
+		dram_write(addr,len,data);
 		int i=0;
 		for (i=0;i<len;i++)
 		{
