@@ -39,7 +39,8 @@ void hitL1cache_c(){L1cachecost+=2;}
 void missL1cache_c(){L1cachecost+=200;}
 int L1cache_mchoose(analy cur)
 {
-	if (L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
+
+	if (set!=10&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
 	int i=0;
 	for (i=0;i<SET_N;i++) if (L1cache[cur.group][i].valid&&L1cache[cur.group][i].mark==cur.mark) 
 		{hitL1cache_c();return i;}
