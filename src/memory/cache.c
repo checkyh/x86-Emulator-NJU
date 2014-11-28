@@ -47,7 +47,7 @@ void L1cache_makup(uint8_t group,uint16_t mark,uint32_t addr)
 }
 uint8_t L1cache_read(uint32_t addr)
 {
-	uint16_t mark=(addr>>13)&0x7ff;
+	uint16_t mark=(addr>>13)&0xfff;
 	uint8_t offset=addr&0x3f;
 	uint8_t group=(addr>>6)&0x7f;
 	set=L1cache_mchoose(mark,group);
@@ -64,7 +64,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 }
 void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
-	uint16_t mark=(addr>>13)&0x7ff;
+	uint16_t mark=(addr>>13)&0xfff;
 	uint8_t offset=addr&0x3f;
 	uint8_t group=(addr>>6)&0x7f;
 	dram_write(addr,len,data);
