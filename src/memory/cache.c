@@ -26,7 +26,7 @@ void cache_init(){
 		for (j=0;j<SET_N;j++)
 			L1cache[i][j].valid=false;
 }
-int L1cache_mchoose(uint16_t mark,uint8_t group)
+int L1cache_mchoose(uint8_t mark,uint8_t group)
 {
 	printf("\nmark%x\n",mark );
 	if (L1cache[group][set].valid&&L1cache[group][set].mark==mark) return set;
@@ -36,7 +36,7 @@ int L1cache_mchoose(uint16_t mark,uint8_t group)
 	for (i=0;i<SET_N;i++) if (!L1cache[group][i].valid) return -1-i;
 	return -1;
 } 
-void L1cache_makup(uint8_t group,uint16_t mark,uint32_t addr)
+void L1cache_makup(uint8_t group,uint8_t mark,uint32_t addr)
 {
 	int j=0;
 	missL1cache_c();
