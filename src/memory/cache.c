@@ -75,6 +75,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 }
 void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
+	printf("%x\n",addr );
 	analy cur;
 	cur.v=addr;
 	dram_write(addr,len,data);
