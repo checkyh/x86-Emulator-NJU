@@ -7,8 +7,8 @@ int set;
 #define GROUP_N 128
 #define GROUP_LEN  7
 #define SET_N 8
-#define DATA_LEN 7
-#define DATA_N 128
+#define DATA_LEN 6
+#define DATA_N 64
 #define MARK_LEN (27-DATA_LEN-GROUP_LEN)
 //addr analysis
 typedef union{
