@@ -119,8 +119,7 @@ int L1cache_mchoose(analy cur)
 	if (set<=7&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
 	int i=0;
 	for (i=0;i<SET_N;i++) if (L1cache[cur.group][i].valid&&L1cache[cur.group][i].mark==cur.mark) 
-	{Log("hitread\n");
-		// hitL1cache_c();
+	{		// hitL1cache_c();
 		return i;}
 	for (i=0;i<SET_N;i++) if (!L1cache[cur.group][i].valid) return -1-i;
 	return -1;
@@ -142,7 +141,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 	int i=0;
 	uint32_t temp=0;
 	set=L1cache_mchoose(cur);
-	if (set<0) {set=-1-set;L1cache_makup(cur);Log("missread\n");}
+	if (set<0) {set=-1-set;L1cache_makup(cur);}
 	for(;i<len;i++)
 	{
 		temp=temp+(L1cache[cur.group][set].data[cur.offset]<<(i*8));
@@ -158,9 +157,9 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	cur.v=addr;
  	set=SET_N+1;
  	set=L1cache_mchoose(cur);
- 	if (set<0) {Log("misswrite\n"); dram_write(addr,len,data);}
+ 	dram_write(addr,len,data);
 	//not write allocate
-	else
+	if (set>=0)
 	{
 		int i=0;
 		for (i=0;i<len;i++)
