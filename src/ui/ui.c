@@ -198,7 +198,7 @@ void main_loop() {
 				
 		}
 		else if(strcmp(p,"bt")==0){printbt(); }
-		else if(strcmp(p,"cachecost")==0){printf("%llu\n", read_L1cachecost());}
+		//else if(strcmp(p,"cachecost")==0){printf("%llu\n", read_L1cachecost());}
 		else if(strcmp(p,"cache")==0)
 		{
 			q=strtok(NULL," ");

@@ -2,7 +2,7 @@
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 
-uint64_t L1cachecost;
+// uint64_t L1cachecost;
 int set;
 
 #define GROUP_LEN  7
@@ -51,7 +51,8 @@ L2cache_line L2cache[GROUP2_N][SET2_N];
 
 void cache_init()
 {
-	L1cachecost=0;int i,j=0;
+	// L1cachecost=0;
+	int i,j=0;
 	for (i=0;i<GROUP_N;i++) for (j=0;j<SET_N;j++) L1cache[i][j].valid=false;
 	for (i=0;i<GROUP2_N;i++) for (j=0;j<SET2_N;j++) L2cache[i][j].valid=false;
 
@@ -110,22 +111,24 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
 	}
 }
 //L1 cache
-uint64_t read_L1cachecost(){return L1cachecost;}
-void hitL1cache_c(){L1cachecost+=2;}
-void missL1cache_c(){L1cachecost+=200;}
+// uint64_t read_L1cachecost(){return L1cachecost;}
+// void hitL1cache_c(){L1cachecost+=2;}
+// void missL1cache_c(){L1cachecost+=200;}
 int L1cache_mchoose(analy cur)
 {
 	if (set<=7&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
 	int i=0;
 	for (i=0;i<SET_N;i++) if (L1cache[cur.group][i].valid&&L1cache[cur.group][i].mark==cur.mark) 
-	{hitL1cache_c();return i;}
+	{
+		// hitL1cache_c();
+		return i;}
 	for (i=0;i<SET_N;i++) if (!L1cache[cur.group][i].valid) return -1-i;
 	return -1;
 } 
 void L1cache_makup(analy cur)
 {
 	int j=0;
-	missL1cache_c();
+	// missL1cache_c();
 	L1cache[cur.group][set].valid=true;
 	L1cache[cur.group][set].mark=cur.mark;
 	cur.v=(cur.v>>DATA_LEN)<<DATA_LEN;
