@@ -103,11 +103,10 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
  	set=SET2_N+1;
  	int i=0;
  	set=L2cache_mchoose(cur);
- 	dram_write(addr,len,data);
 
  	if (set>=0)//write back
  	{
- 		/*analy2 temp;
+ 		analy2 temp;
  		temp.v=cur.v;
  		if (L2cache[temp.group][set].dirty)
  		 {
@@ -125,7 +124,7 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
  			L2cache[temp.group][set].dirty=false;
  			for(i=0;i<DATA_N;i++) {dram_write(temp.v,1,L2cache[temp.group][set].data[temp.offset]);temp.offset++;}
  			}
- 		}*/
+ 		}
  	} 
 	else {set=-1-set;L2cache_makup(cur);}//write allocate
 	for (i=0;i<len;i++)
