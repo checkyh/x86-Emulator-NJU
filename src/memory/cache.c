@@ -64,7 +64,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 }
 void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
-	uint16_t mark=(addr>>13)&0x1ff;
+	uint16_t mark=(addr>>13)&0x3ff;
 	uint8_t offset=addr&0x3f;
 	uint8_t group=(addr>>6)&0x7f;
 	dram_write(addr,len,data);
