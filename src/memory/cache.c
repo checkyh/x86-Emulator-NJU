@@ -59,7 +59,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
 	analy cur;
 	cur.v=addr;
-	assert(cur.offset+len-1<DATA_LEN);
+	assert(cur.offset+len-1<DATA_N);
 	set=10;
 	int i=0;
 	uint32_t temp=0;
@@ -76,7 +76,7 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
 	analy cur;
 	cur.v=addr;
-	assert(cur.offset+len-1<DATA_LEN);
+	assert(cur.offset+len-1<DATA_N);
 	dram_write(addr,len,data);
  	set=10;
  	set=L1cache_mchoose(cur);
