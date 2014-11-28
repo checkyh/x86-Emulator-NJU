@@ -40,7 +40,7 @@ void missL1cache_c(){L1cachecost+=200;}
 int L1cache_mchoose(analy cur)
 {
 
-	if (set!=10&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
+	if (set<=7&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
 	int i=0;
 	for (i=0;i<SET_N;i++) if (L1cache[cur.group][i].valid&&L1cache[cur.group][i].mark==cur.mark) 
 		{hitL1cache_c();return i;}
@@ -61,15 +61,15 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 	analy cur;
 	cur.v=addr;
 	assert(cur.offset+len-1<DATA_N);
-	if(addr==0x800094) printf("%x %x %x\n",cur.mark ,cur.group,cur.offset );
 	set=10;
 	int i=0;
 	uint32_t temp=0;
 	set=L1cache_mchoose(cur);
-	if(addr==0x800094) printf("%x\n",set);
 	if (set<0) {set=-1-set;L1cache_makup(cur);}
 	for(;i<len;i++)
 	{
+		if (cur.offset==DATA_N){cur.group++;cur.offset=0;set=L1cache_mchoose(cur);}
+		if (set<0) {set=-1-set;L1cache_makup(cur);}
 		temp=temp+(L1cache[cur.group][set].data[cur.offset]<<(i*8));
 		cur.offset++;
 	}
@@ -80,7 +80,6 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	analy cur;
 	cur.v=addr;
 	assert(cur.offset+len-1<DATA_N);
-	if(addr==0x800094) printf("%x %x %x\n",cur.mark ,cur.group,cur.offset );
 	dram_write(addr,len,data);
  	set=10;
  	set=L1cache_mchoose(cur);
