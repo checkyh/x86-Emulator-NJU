@@ -70,7 +70,7 @@ void cache_writes(uint32_t addr,size_t len,uint32_t data)
  	set=10;
  	set=cache_mchoose(mark,group);
  	int j=offset+len-DATA_LEN;
-	if (set>=0)
+	if (set>=0)//not write allocate
 	{
 	int i=0;
 	for (i=0;i<len&&i+offset<DATA_LEN;i++)
