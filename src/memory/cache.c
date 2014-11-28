@@ -99,16 +99,17 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
 	dram_write(addr,len,data);
  	set=SET2_N+1;
  	set=L2cache_mchoose(cur);
-	if (set>=0)//not write allocate
-	{
+	if (set<0) {set=-1-set;L2cache_makup(cur);}//write allocate
+	
+
 		int i=0;
 		for (i=0;i<len;i++)
 		{
 			L2cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
 			if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L2cache_mchoose(cur);}else cur.offset++;
-			if (set<0) break;
+			if (set<0) {set=-1-set;L2cache_makup(cur);}
 		}
-	}
+	
 }
 //L1 cache
 // uint64_t read_L1cachecost(){return L1cachecost;}
@@ -137,7 +138,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
 	analy cur;
 	cur.v=addr;
-	set=10;
+	set=SET_N+1;
 	int i=0;
 	uint32_t temp=0;
 	set=L1cache_mchoose(cur);
@@ -157,7 +158,7 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	cur.v=addr;
  	set=SET_N+1;
  	set=L1cache_mchoose(cur);
- 	dram_write(addr,len,data);
+ 	L2cache_writes(addr,len,data);
 	//not write allocate
 	if (set>=0)
 	{
