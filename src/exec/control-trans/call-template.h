@@ -27,11 +27,9 @@ make_helper(concat(call_rm_, SUFFIX)) {
 	return lens;
 	}
 	else{
-
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		call_addr=MEM_R(addr);
-		printf("%x\n",addr );
 		lens+=len;
 		cpu.eip=call_addr-lens;
 		print_asm("call 0x%x",cpu.eip+lens);

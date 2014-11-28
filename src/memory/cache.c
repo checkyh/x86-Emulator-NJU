@@ -7,6 +7,7 @@ int set;
 #define GROUP_N 128
 #define SET_N 8
 #define DATA_LEN 64
+#define ADDR_LEN 27
 //
 typedef struct{
 	uint8_t data[DATA_LEN];
