@@ -68,10 +68,9 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 	{
 		if (cur.offset==DATA_N){cur.group++;cur.offset=0;set=L1cache_mchoose(cur);}
 		if (set<0) {set=-1-set;L1cache_makup(cur);}
-		printf("value=%x\n", L1cache[cur.group][set].data[cur.offset]);
+		printf("value=%x i=%d\n", L1cache[cur.group][set].data[cur.offset],i);
 		temp=temp+(L1cache[cur.group][set].data[cur.offset]<<(i*8));
 		printf("temp=%x\n", temp);
-
 		cur.offset++;
 	}
 	return  temp;
