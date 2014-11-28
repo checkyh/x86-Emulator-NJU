@@ -198,14 +198,14 @@ void main_loop() {
 				
 		}
 		else if(strcmp(p,"bt")==0){printbt(); }
-		else if(strcmp(p,"cachecost")==0){printf("%llu\n", read_cachecost());}
+		else if(strcmp(p,"cachecost")==0){printf("%llu\n", read_L1cachecost());}
 		else if(strcmp(p,"cache")==0)
 		{
 			q=strtok(NULL," ");
 			uint8_t group=sixteenstring(q,16);
 			q=strtok(NULL,"");
 			uint8_t set=sixteenstring(q,10);
-			printcacheinfo(group,set);
+			printL1cacheinfo(group,set);
 		}	
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
