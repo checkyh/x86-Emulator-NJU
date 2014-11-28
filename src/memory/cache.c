@@ -39,11 +39,10 @@ void hitL1cache_c(){L1cachecost+=2;}
 void missL1cache_c(){L1cachecost+=200;}
 int L1cache_mchoose(analy cur)
 {
-
 	if (set<=7&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
 	int i=0;
 	for (i=0;i<SET_N;i++) if (L1cache[cur.group][i].valid&&L1cache[cur.group][i].mark==cur.mark) 
-		{hitL1cache_c();return i;}
+	{hitL1cache_c();return i;}
 	for (i=0;i<SET_N;i++) if (!L1cache[cur.group][i].valid) return -1-i;
 	return -1;
 } 
@@ -78,7 +77,6 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
 	analy cur;
 	cur.v=addr;
-	assert(cur.offset+len-1<DATA_N);
 	dram_write(addr,len,data);
  	set=10;
  	set=L1cache_mchoose(cur);
@@ -86,7 +84,12 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	{
 	int i=0;
 	for (i=0;i<len;i++)
-		L1cache[cur.group][set].data[cur.offset+i]=(data<<(24-i*8))>>24;
+	{
+		if (cur.offset==DATA_N) {cur.group++;cur.offset=0;set=L1cache_mchoose(cur);}
+		if (set<0) break;
+		L1cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
+		cur.offset++;
+	}
 	}
 }
 void printL1cacheinfo(uint8_t group,uint8_t set)
