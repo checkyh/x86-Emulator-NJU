@@ -168,7 +168,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 	int i=0;
 	uint32_t temp=0;
 	set=L1cache_mchoose(cur);
-	if (set<0) { return L2cache_reads(addr,len);}
+	if (set<0) {   return L2cache_reads(addr,len);}
 	for(;i<len;i++)
 	{
 		temp=temp+(L1cache[cur.group][set].data[cur.offset]<<(i*8));
@@ -187,7 +187,6 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	//not write allocate
 	if (set>=0)
 	{
-		Log("OK");
 		dram_write(addr,len,data);
 		int i=0;
 		for (i=0;i<len;i++)
