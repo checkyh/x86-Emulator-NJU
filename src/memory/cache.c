@@ -57,6 +57,7 @@ void L1cache_makup(analy cur)
 }
 uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
+	printf("%x\n",addr );
 	analy cur;
 	cur.v=addr;
 	set=10;
