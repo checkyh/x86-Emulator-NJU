@@ -1,5 +1,6 @@
 #include "common.h"
 #include "cache.h"
+//物理地址hwaddr 逻辑地址 swaddr
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 /* Memory accessing interfaces */
