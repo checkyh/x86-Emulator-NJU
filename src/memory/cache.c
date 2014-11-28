@@ -4,11 +4,11 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 
 uint64_t L1cachecost;
 int set;
-#define GROUP_N 512
-#define GROUP_LEN  9
+#define GROUP_N 128
+#define GROUP_LEN  7
 #define SET_N 8
-#define DATA_LEN 6
-#define DATA_N 64
+#define DATA_LEN 7
+#define DATA_N 128
 #define MARK_LEN (27-DATA_LEN-GROUP_LEN)
 //addr analysis
 typedef union{
