@@ -22,7 +22,7 @@ typedef union{
 } analy;
 //L1 cache
 typedef struct{
-	uint8_t data[DATA_LEN];
+	uint8_t data[DATA_N];
 	bool valid;
 	uint16_t mark:MARK_LEN;
 } L1cache_line;
@@ -91,7 +91,7 @@ void printL1cacheinfo(uint8_t group,uint8_t set)
 {
 	int i=0;
 	printf("data=");
-	for(;i<DATA_LEN;i++) 
+	for(;i<DATA_N;i++) 
 		{
 			if (i%16==0) printf("\n");
 			printf("%2x ",L1cache[group][set].data[i] );
