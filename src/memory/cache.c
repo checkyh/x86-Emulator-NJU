@@ -142,7 +142,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 	int i=0;
 	uint32_t temp=0;
 	set=L1cache_mchoose(cur);
-	if (set<0) {set=-1-set;L1cache_makup(cur);}
+	if (set<0) return L2cache_reads(addr,len);
 	for(;i<len;i++)
 	{
 		temp=temp+(L1cache[cur.group][set].data[cur.offset]<<(i*8));
