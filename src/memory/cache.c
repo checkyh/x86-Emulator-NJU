@@ -113,6 +113,7 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
  		 {
  		 	Log("write back\n");
  			temp.offset=0;
+ 			L2cache[temp.group][set].dirty=false;
  			for(i=0;i<DATA_N;i++) {dram_write(cur.v,1,L2cache[temp.group][set].data[temp.offset]);cur.offset++;}
  		} 
  		if (cur.offset+len-1>=DATA_N) 
@@ -120,6 +121,7 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
  			temp.group++;temp.offset=0;
  			if (L2cache[temp.group][set].dirty) 
  			{
+ 			L2cache[temp.group][set].dirty=false;
  			for(i=0;i<DATA_N;i++) {dram_write(cur.v,1,L2cache[temp.group][set].data[temp.offset]);cur.offset++;}
  			}
  		}
