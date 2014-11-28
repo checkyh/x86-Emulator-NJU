@@ -28,6 +28,7 @@ void cache_init(){
 }
 int L1cache_mchoose(uint16_t mark,uint8_t group)
 {
+	printf("\nmark%x\n",mark );
 	if (L1cache[group][set].valid&&L1cache[group][set].mark==mark) return set;
 	int i=0;
 	for (i=0;i<SET_N;i++) if (L1cache[group][i].valid&&L1cache[group][i].mark==mark) 
@@ -55,7 +56,6 @@ uint8_t L1cache_read(uint32_t addr)
 }
 uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
-	printf("addr=%x\n",addr );
 	set=10;
 	int i=0;
 	uint32_t temp=0;

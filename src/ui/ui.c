@@ -129,7 +129,7 @@ void main_loop() {
 			int cir_x=1;		
 			if (judge) for (;cir_x<=N;cir_x++,addr++) {
 			printf("%02x ",swaddr_read(addr,1));	
-			if ((cir_x%5)==0) printf("\n");
+			if ((cir_x%16)==0) printf("\n");
 			}	
 			if (cir_x<=4) printf("\n");
 		}
@@ -204,8 +204,11 @@ void main_loop() {
 			q=strtok(NULL," ");
 			uint8_t group=sixteenstring(q,16);
 			q=strtok(NULL,"");
+			if (q!=NULL)
+			{
 			uint8_t set=sixteenstring(q,10);
 			printL1cacheinfo(group,set);
+			}
 		}	
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
