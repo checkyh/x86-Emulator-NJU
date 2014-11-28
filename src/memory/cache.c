@@ -60,11 +60,12 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 	analy cur;
 	cur.v=addr;
 	assert(cur.offset+len-1<DATA_N);
-	printf("%x %x %x\n",cur.mark ,cur.group,cur.offset );
+	if(addr==0x800094) printf("%x %x %x\n",cur.mark ,cur.group,cur.offset );
 	set=10;
 	int i=0;
 	uint32_t temp=0;
 	set=L1cache_mchoose(cur);
+	if(addr==0x800094) printf("%x\n",set);
 	if (set<0) {set=-1-set;L1cache_makup(cur);}
 	for(;i<len;i++)
 	{
@@ -78,7 +79,7 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	analy cur;
 	cur.v=addr;
 	assert(cur.offset+len-1<DATA_N);
-	printf("%x %x %x\n",cur.mark ,cur.group,cur.offset );
+	if(addr==0x800094) printf("%x %x %x\n",cur.mark ,cur.group,cur.offset );
 	dram_write(addr,len,data);
  	set=10;
  	set=L1cache_mchoose(cur);
