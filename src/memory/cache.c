@@ -187,6 +187,7 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	//not write allocate
 	if (set>=0)
 	{
+		Log("OK");
 		dram_write(addr,len,data);
 		int i=0;
 		for (i=0;i<len;i++)
