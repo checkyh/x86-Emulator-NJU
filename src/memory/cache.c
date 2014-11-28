@@ -4,8 +4,8 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 
 uint64_t L1cachecost;
 int set;
-#define GROUP_N 128
-#define GROUP_LEN  7
+#define GROUP_N 256
+#define GROUP_LEN  8
 #define SET_N 8
 #define DATA_LEN 6
 #define DATA_N 64
