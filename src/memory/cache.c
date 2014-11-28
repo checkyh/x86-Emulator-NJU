@@ -65,7 +65,7 @@ uint32_t L1cache_reads(uint32_t addr,size_t len)
 	if (set<0) {set=-1-set;L1cache_makup(group,mark,addr);}
 	for(;i<len;i++)
 	{
-		if (offset==DATA_LEN) {group++;offset=0;set=L1cache_mchoose(mark,group);}
+		if (offset==DATA_LEN) {printf("CROSS\n"); group++;offset=0;set=L1cache_mchoose(mark,group);}
 		if (set<0) {set=-1-set;L1cache_makup(group,mark,addr);}
 		temp=temp+(L1cache[group][set].data[offset]<<(i*8));
 		offset++;
