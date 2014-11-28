@@ -25,6 +25,16 @@ typedef union{
 	};
 	unsigned v:27;
 } analy;
+typedef union{
+	struct
+	{
+		unsigned offset:DATA_LEN;
+		unsigned group:GROUP2_LEN;
+		unsigned mark:MARK2_LEN;
+	};
+	unsigned v:27;
+} analy2;
+
 //L1 cache
 typedef struct{
 	uint8_t data[DATA_N];
@@ -32,11 +42,72 @@ typedef struct{
 	uint16_t mark:MARK_LEN;
 } L1cache_line;
 L1cache_line L1cache[GROUP_N][SET_N];
+typedef struct{
+	uint8_t data[DATA_N];
+	bool valid;
+	uint16_t mark:MARK_LEN;
+} L2cache_line;
+L2cache_line L2cache[GROUP2_N][SET2_N];
 
 void cache_init()
 {
 	L1cachecost=0;int i,j=0;
 	for (i=0;i<GROUP_N;i++) for (j=0;j<SET_N;j++) L1cache[i][j].valid=false;
+	for (i=0;i<GROUP2_N;i++) for (j=0;j<SET2_N;j++) L2cache[i][j].valid=false;
+
+}
+int L2cache_mchoose(analy2 cur)
+{
+	if (set<=SET_N-1&&L2cache[cur.group][set].valid&&L2cache[cur.group][set].mark==cur.mark) return set;
+	int i=0;
+	for (i=0;i<SET_N;i++) if (L2cache[cur.group][i].valid&&L2cache[cur.group][i].mark==cur.mark) 
+	return i;
+	for (i=0;i<SET_N;i++) if (!L2cache[cur.group][i].valid) return -1-i;
+	return -1;
+} 
+void L2cache_makup(analy2 cur)
+{
+	int j=0;
+	L2cache[cur.group][set].valid=true;
+	L2cache[cur.group][set].mark=cur.mark;
+	cur.v=(cur.v>>DATA_LEN)<<DATA_LEN;
+	for(j=0;j<DATA_N;j++)  L2cache[cur.group][set].data[j]=dram_read(cur.v+j,1);
+}
+uint32_t L2cache_reads(uint32_t addr,size_t len)
+{
+	analy2 cur;
+	cur.v=addr;
+	set=SET2_N+1;
+	int i=0;
+	uint32_t temp=0;
+	set=L2cache_mchoose(cur);
+	if (set<0) {set=-1-set;L2cache_makup(cur);}
+	for(;i<len;i++)
+	{
+		temp=temp+(L2cache[cur.group][set].data[cur.offset]<<(i*8));
+		if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L2cache_mchoose(cur);}else cur.offset++;
+		if (set<0) {set=-1-set;L2cache_makup(cur);}
+		
+	}
+	return  temp;
+}
+void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
+{
+	analy2 cur;
+	cur.v=addr;
+	dram_write(addr,len,data);
+ 	set=SET2_N+1;
+ 	set=L2cache_mchoose(cur);
+	if (set>=0)//not write allocate
+	{
+		int i=0;
+		for (i=0;i<len;i++)
+		{
+			L2cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
+			if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L2cache_mchoose(cur);}else cur.offset++;
+			if (set<0) break;
+		}
+	}
 }
 //L1 cache
 uint64_t read_L1cachecost(){return L1cachecost;}
