@@ -4,7 +4,6 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 
 // uint64_t L1cachecost;
 int set;
-int set2;
 #define GROUP_LEN  7
 #define GROUP_N 1<<GROUP_LEN
 #define SET_N 8
@@ -61,7 +60,7 @@ void cache_init()
 }
 int L2cache_mchoose(analy2 cur)
 {
-	if (set2<=SET2_N-1&&L2cache[cur.group][set2].valid&&L2cache[cur.group][set2].mark==cur.mark) return set2;
+	if (set<=SET2_N-1&&L2cache[cur.group][set].valid&&L2cache[cur.group][set].mark==cur.mark) return set;
 	int i=0;
 	for (i=0;i<SET2_N;i++) if (L2cache[cur.group][i].valid&&L2cache[cur.group][i].mark==cur.mark) 
 	return i;
@@ -71,28 +70,28 @@ int L2cache_mchoose(analy2 cur)
 void L2cache_makup(analy2 cur)
 {
 	int j=0;
-	L2cache[cur.group][set2].valid=true;
-	L2cache[cur.group][set2].mark=cur.mark;
+	L2cache[cur.group][set].valid=true;
+	L2cache[cur.group][set].mark=cur.mark;
 	cur.v=(cur.v>>DATA_LEN)<<DATA_LEN;
-	for(j=0;j<DATA_N;j++)  L2cache[cur.group][set2].data[j]=dram_read(cur.v+j,1);
+	for(j=0;j<DATA_N;j++)  L2cache[cur.group][set].data[j]=dram_read(cur.v+j,1);
 }
 void L1cache_makup(analy cur);
 uint32_t L2cache_reads(uint32_t addr,size_t len)
 {
 	analy2 cur;
 	cur.v=addr;
-	set2=SET2_N+1;
+	set=SET2_N+1;
 	int i=0;
 	uint32_t temp=0;
-	set2=L2cache_mchoose(cur);
-	if (set2<0) {set2=-1-set2;L2cache_makup(cur);}
+	set=L2cache_mchoose(cur);
+	if (set<0) {set=-1-set;L2cache_makup(cur);}
 	for(;i<len;i++)
 	{
-		temp=temp+(L2cache[cur.group][set2].data[cur.offset]<<(i*8));
+		temp=temp+(L2cache[cur.group][set].data[cur.offset]<<(i*8));
 		if (cur.offset+1==DATA_N){
 			cur.group++;cur.offset=0;
-			set2=L2cache_mchoose(cur);}else cur.offset++;
-		if (set2<0) {set2=-1-set2;L2cache_makup(cur);}
+			set=L2cache_mchoose(cur);}else cur.offset++;
+		if (set<0) {set=-1-set;L2cache_makup(cur);}
 	}
 	return  temp;
 }
@@ -100,41 +99,41 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
 	analy2 cur;
 	cur.v=addr;
- 	set2=SET2_N+1;
+ 	set=SET2_N+1;
  	int i=0;
- 	set2=L2cache_mchoose(cur);
+ 	set=L2cache_mchoose(cur);
 
  	if (set>=0)//write back
  	{
  		Log("writeback");
  		analy2 temp;
  		temp.v=cur.v;
- 		if (L2cache[temp.group][set2].dirty)
+ 		if (L2cache[temp.group][set].dirty)
  		 {
  			temp.offset=0;
- 			L2cache[temp.group][set2].dirty=false;
- 			for(i=0;i<DATA_N;i++) {dram_write(temp.v,1,L2cache[temp.group][set2].data[temp.offset]);temp.offset++;}
+ 			L2cache[temp.group][set].dirty=false;
+ 			for(i=0;i<DATA_N;i++) {dram_write(temp.v,1,L2cache[temp.group][set].data[temp.offset]);temp.offset++;}
  		} 
  		if (cur.offset+len-1>=DATA_N) 
  		{
 
  			temp.group++;temp.offset=0;
- 			set2=L2cache_mchoose(cur);
- 			if (L2cache[temp.group][set2].dirty) 
+ 			set=L2cache_mchoose(cur);
+ 			if (L2cache[temp.group][set].dirty) 
  			{
- 			L2cache[temp.group][set2].dirty=false;
- 			for(i=0;i<DATA_N;i++) {dram_write(temp.v,1,L2cache[temp.group][set2].data[temp.offset]);temp.offset++;}
+ 			L2cache[temp.group][set].dirty=false;
+ 			for(i=0;i<DATA_N;i++) {dram_write(temp.v,1,L2cache[temp.group][set].data[temp.offset]);temp.offset++;}
  			}
  		}
  	} 
-	else {set2=-1-set2;L2cache_makup(cur);}//write allocate
+	else {set=-1-set;L2cache_makup(cur);}//write allocate
 	for (i=0;i<len;i++)
 	{
-		L2cache[cur.group][set2].dirty=true;
-		L2cache[cur.group][set2].data[cur.offset]=(data<<(24-i*8))>>24;
+		L2cache[cur.group][set].dirty=true;
+		L2cache[cur.group][set].data[cur.offset]=(data<<(24-i*8))>>24;
 		if (cur.offset+1==DATA_N){cur.group++;cur.offset=0;set=L2cache_mchoose(cur);}
 		else cur.offset++;
-		if (set2<0) {set2=-1-set2;L2cache_makup(cur);L2cache[cur.group][set2].dirty=true;}
+		if (set<0) {set=-1-set;L2cache_makup(cur);L2cache[cur.group][set].dirty=true;}
 	}
 	
 }
