@@ -158,7 +158,7 @@ void L1cache_makup(analy cur)
 	L1cache[cur.group][set].valid=true;
 	L1cache[cur.group][set].mark=cur.mark;
 	cur.v=(cur.v>>DATA_LEN)<<DATA_LEN;
-	for(j=0;j<DATA_N;j++)  L1cache[cur.group][set].data[j]=L2cache_reads(cur.v+j,1);
+	for(j=0;j<DATA_N;j++)  L1cache[cur.group][set].data[j]=dram_read(cur.v+j,1);
 }
 uint32_t L1cache_reads(uint32_t addr,size_t len)
 {
@@ -181,7 +181,7 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 {
 	analy cur;
 	cur.v=addr;
-	L2cache_writes(addr,len,data);
+	dram_write(addr,len,data);
  	set=SET_N+1;
  	set=L1cache_mchoose(cur);
 	//not write allocate
