@@ -61,7 +61,7 @@ void cache_init()
 }
 int L2cache_mchoose(analy2 cur)
 {
-	if (set2<=SET2_N-1&&L2cache[cur.group][set2].valid&&L2cache[cur.group][set2].mark==cur.mark) return set;
+	if (set2<=SET2_N-1&&L2cache[cur.group][set2].valid&&L2cache[cur.group][set2].mark==cur.mark) return set2;
 	int i=0;
 	for (i=0;i<SET2_N;i++) if (L2cache[cur.group][i].valid&&L2cache[cur.group][i].mark==cur.mark) 
 	return i;
