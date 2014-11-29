@@ -25,8 +25,8 @@ L1cache block存储空间的大小为64B
 void hitL1cache_c();
 void missL1cache_c();
 void cache_init();
-uint32_t L2cache_reads(uint32_t addr,size_t len);
+uint32_t L1cache_reads(uint32_t addr,size_t len);
 void printL1cacheinfo(uint8_t group,uint8_t set);
-void L2cache_writes(uint32_t addr,size_t len,uint32_t data);
+void L1cache_writes(uint32_t addr,size_t len,uint32_t data);
 
 #endif
