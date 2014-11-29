@@ -61,11 +61,11 @@ void cache_init()
 }
 int L2cache_mchoose(analy2 cur)
 {
-	if (set2<=SET_N-1&&L2cache[cur.group][set2].valid&&L2cache[cur.group][set2].mark==cur.mark) return set;
+	if (set2<=SET2_N-1&&L2cache[cur.group][set2].valid&&L2cache[cur.group][set2].mark==cur.mark) return set;
 	int i=0;
-	for (i=0;i<SET_N;i++) if (L2cache[cur.group][i].valid&&L2cache[cur.group][i].mark==cur.mark) 
+	for (i=0;i<SET2_N;i++) if (L2cache[cur.group][i].valid&&L2cache[cur.group][i].mark==cur.mark) 
 	return i;
-	for (i=0;i<SET_N;i++) if (!L2cache[cur.group][i].valid) return -1-i;
+	for (i=0;i<SET2_N;i++) if (!L2cache[cur.group][i].valid) return -1-i;
 	return -1;
 } 
 void L2cache_makup(analy2 cur)
@@ -144,7 +144,7 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
 // void missL1cache_c(){L1cachecost+=200;}
 int L1cache_mchoose(analy cur)
 {
-	if (set<=7&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
+	if (set<=SET_N-1&&L1cache[cur.group][set].valid&&L1cache[cur.group][set].mark==cur.mark) return set;
 	int i=0;
 	for (i=0;i<SET_N;i++) if (L1cache[cur.group][i].valid&&L1cache[cur.group][i].mark==cur.mark) 
 	{		// hitL1cache_c();
@@ -184,12 +184,10 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	cur.v=addr;
  	set=SET_N+1;
  	set=L1cache_mchoose(cur);
- 	dram_write(addr,len,data);
- 	if (set<0) L2cache_writes(addr,len,data);
 	//not write allocate
+	L2cache_writes(addr,len,data);
 	if (set>=0)
 	{
-		dram_write(addr,len,data);
 		int i=0;
 		for (i=0;i<len;i++)
 		{
