@@ -106,7 +106,6 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
 
  	if (set2>=0)//write back
  	{
- 		Log("writeback");
  		analy2 temp;
  		temp.v=cur.v;
  		if (L2cache[temp.group][set2].dirty)
