@@ -7,12 +7,12 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	return L1cache_reads(addr, len);
+	return L2cache_reads(addr, len);
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
-	L1cache_writes(addr, len, data);
+	L2cache_writes(addr, len, data);
 }
 
 uint32_t swaddr_read(swaddr_t addr, size_t len) {
