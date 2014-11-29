@@ -184,6 +184,7 @@ void L1cache_writes(uint32_t addr,size_t len,uint32_t data)
 	cur.v=addr;
  	set=SET_N+1;
  	set=L1cache_mchoose(cur);
+ 	dram_write(addr,len,data);
  	if (set<0) L2cache_writes(addr,len,data);
 	//not write allocate
 	if (set>=0)
