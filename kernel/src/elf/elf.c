@@ -34,7 +34,6 @@ uint32_t loader() {
 #endif
 
 	/* Load each program segment */
-	nemu_assert(0);
 	int i=0;
 	for(; i < elf->e_phnum; i ++) {
 		/* Scan the program header table, load each segment into memory */
