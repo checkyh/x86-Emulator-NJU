@@ -108,6 +108,7 @@ make_helper(x0f_switcher)//2 byte escape
 {
 	 uint8_t ins_type=instr_fetch(eip + 1, 1);
 	 if (ins_type>=0x80&&ins_type<=0x8f) return 1+j_near(eip+1);
+	 if (ins_type>=0x90&&ins_type<=0x9f) return 1+setcc(eip+1);
 	 else
 	 {
 

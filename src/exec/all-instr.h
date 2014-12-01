@@ -8,6 +8,7 @@
 #include "misc/misc.h"
 #include "logical-ins/logical.h"
 #include "logical-ins/binlogical.h"
+#include "logical-ins/setcc.h"
 #include "control-trans/jump.h"
 #include  "binary-arith/arith.h"
 #include "binary-arith/inc.h"
