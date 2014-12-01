@@ -12,6 +12,7 @@ make_helper(concat(jumpff_,SUFFIX))
 		return 1 ;
 	}
 	else {
+		printf("OK\n");
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 2, &addr);
 		cpu.eip=MEM_R(addr)-len-1;
