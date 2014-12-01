@@ -9,10 +9,9 @@ make_helper(concat(jumpff_,SUFFIX))
 	if(m.mod == 3) {
 		cpu.eip=REG(m.R_M)-1;
 		print_asm("jump" str(SUFFIX) " *%%%s",REG_NAME(m.R_M));
-		return 1 ;
+		return 2 ;
 	}
 	else {
-		printf("OK\n");
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 2, &addr);
 		cpu.eip=MEM_R(addr)-len-1;
