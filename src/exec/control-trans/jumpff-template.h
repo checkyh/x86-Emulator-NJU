@@ -14,9 +14,9 @@ make_helper(concat(jumpff_,SUFFIX))
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 2, &addr);
-		cpu.eip=MEM_R(addr)-len-1;
+		cpu.eip=MEM_R(addr)-len-2;
 		print_asm("jump" str(SUFFIX) " *%%%s",ModR_M_asm);
-		return len + 1;
+		return len + 2;
 	}
 	return 1;
 }
