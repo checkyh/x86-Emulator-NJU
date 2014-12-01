@@ -32,7 +32,7 @@ uint32_t loader() {
 	/* The ELF file is located at memory address 0 */
 	elf = (void *)0x0;
 #endif
-
+	ph = (void *)elf->e_phoff;
 	/* Load each program segment */
 	int i=0;
 	for(; i < elf->e_phnum; i ++) {
