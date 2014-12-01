@@ -7,7 +7,7 @@ make_helper(concat(jumpff_,SUFFIX))
 	ModR_M m;
 	m.val = instr_fetch(eip+1, 1);
 	if(m.mod == 3) {
-		cpu.eip=REG(m.R_M)-1;
+		cpu.eip=REG(m.R_M)-2;
 		print_asm("jump" str(SUFFIX) " *%%%s",REG_NAME(m.R_M));
 		return 2 ;
 	}
