@@ -19,7 +19,7 @@ make_helper(ldt){
 	cpu.GDTR.limit=imm1&0xffff;
 	uint32_t imm2 = instr_fetch(eip + 4, 2);
 	cpu.GDTR.base=imm2;
-	print_asm("lgdtl $0x%x",imm1);
+	print_asm("lgdtl $0x%x%x",imm1,imm2);
 	return 1+1+4;
 	}
 	else{
@@ -27,7 +27,7 @@ make_helper(ldt){
 	cpu.GDTR.limit=imm1&0xffff;
 	uint32_t imm2 = instr_fetch(eip + 4, 2);
 	cpu.GDTR.base=imm2&0xffffff;
-	print_asm("lgdtw $0x%x",imm1);
+	print_asm("lgdtw $0x%x%x",imm1,imm2);
 	return 1+1+4;
 	}
 
