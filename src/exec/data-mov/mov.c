@@ -50,3 +50,9 @@ make_helper(movzb_v) {
 make_helper(movs_v) {
 	return (suffix == 'l' ? movs_l(eip) : movs_w(eip));
 }
+
+//mov to/from special registers
+make_helper(mov_c2r)
+{
+	return 2;
+}

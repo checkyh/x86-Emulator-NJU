@@ -12,10 +12,8 @@
  */
 
 typedef struct {
-	union
-	{
-		union 
-		{
+	union{
+		union {
 			uint32_t _32;
 			uint16_t _16;
 			uint8_t _8[2];
@@ -25,31 +23,24 @@ typedef struct {
 	 * They match the register encoding scheme used in i386 instruction format.
 	 * See i386 manual for more details.
 	 */
-		struct 
-		{
+		struct {
 	
 			uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 		};
 	};
 	swaddr_t eip;
-	union{struct {	unsigned CF:1;
-			unsigned set1:1;
-			unsigned PF:1;
-			unsigned set3:1;
-			unsigned AF:1;
-			unsigned set4:1;
-			unsigned ZF:1;
-			unsigned SF:1;
-			unsigned TF:1;
-			unsigned IF:1;
-			unsigned DF:1;
-			unsigned OF:1;
-			unsigned IOPL:2;
-			unsigned NT:1;
-			unsigned set15:1;
-			unsigned RF:1;
-			unsigned VM:1;};
+	union{struct {	unsigned CF:1;unsigned set1:1;unsigned PF:1;unsigned set3:1;
+			unsigned AF:1;unsigned set4:1;unsigned ZF:1;unsigned SF:1;
+			unsigned TF:1;unsigned IF:1;unsigned DF:1;unsigned OF:1;
+			unsigned IOPL:2;unsigned NT:1;unsigned set15:1;
+			unsigned RF:1;unsigned VM:1;};
 		uint32_t EFLAGS;};
+	uint32_t CR0,CR2,CR3;
+	struct{
+		uint16_t limit; 
+		uint32_t base;
+		uint16_t unused;
+	}GDTR;
 } CPU_state;
 extern CPU_state cpu;
 

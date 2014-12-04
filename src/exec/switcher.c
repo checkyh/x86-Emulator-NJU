@@ -114,10 +114,12 @@ make_helper(x0f_switcher)//2 byte escape
 
 	 switch(ins_type)
 	 {
+	 	case (0x01):return  1+ldt(eip+1);
+	 	case (0x20):return 1+mov_c2r(eip+1);
 	 	case (0xaf):return 1+imul_rm2r_v(eip+1);
 	 	case (0xbe):return 1+movsb_v(eip+1);
-	 	case(0xb6):return 1+movzb_v(eip+1);
-	 	case(0xb7):return 1+movzx_l(eip+1);
+	 	case (0xb6):return 1+movzb_v(eip+1);
+	 	case (0xb7):return 1+movzx_l(eip+1);
 	 }
 	 return 1;
 	}

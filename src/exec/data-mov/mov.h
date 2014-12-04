@@ -19,4 +19,6 @@ make_helper(movzb_v);
 make_helper(movzx_l);
 make_helper(movs_v);
 make_helper(movs_b);
+
+make_helper(mov_c2r);
 #endif
