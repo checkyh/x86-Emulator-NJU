@@ -15,6 +15,7 @@
 
 #include "control-trans/jump.h"
 #include "control-trans/call.h"
+#include "control-trans/jmp-far.h"
 
 #include  "binary-arith/arith.h"
 #include "binary-arith/inc.h"

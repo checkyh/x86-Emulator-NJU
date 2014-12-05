@@ -65,7 +65,7 @@ make_helper(mov_c2r)
 		case (0x2):REG(m.reg)=cpu.CR2;break;
 		case (0x3):REG(m.reg)=cpu.CR3;break;
 	}
-	print_asm("mov cr%x %s",m.R_M,REG_NAME(m.reg));
+	print_asm("mov %%cr%x,%%%s",m.R_M,REG_NAME(m.reg));
 	return 2;
 }
 make_helper(mov_r2c)
@@ -79,7 +79,7 @@ make_helper(mov_r2c)
 		case (0x2):cpu.CR2=REG(m.reg);break;
 		case (0x3):cpu.CR3=REG(m.reg);break;
 	}
-	print_asm("mov %s cr%x",REG_NAME(m.reg),m.R_M);
+	print_asm("mov %%%s,%%cr%x",REG_NAME(m.reg),m.R_M);
 	return 2;
 }
 #include "exec/template-end.h"

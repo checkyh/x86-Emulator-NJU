@@ -28,14 +28,18 @@ typedef struct {
 			uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 		};
 	};
-	swaddr_t eip;
+
+
+
+	swaddr_t eip;	uint32_t CR0,CR1,CR2,CR3;
+	uint16_t CS,DS,ES,SS;
 	union{struct {	unsigned CF:1;unsigned set1:1;unsigned PF:1;unsigned set3:1;
 			unsigned AF:1;unsigned set4:1;unsigned ZF:1;unsigned SF:1;
 			unsigned TF:1;unsigned IF:1;unsigned DF:1;unsigned OF:1;
 			unsigned IOPL:2;unsigned NT:1;unsigned set15:1;
 			unsigned RF:1;unsigned VM:1;};
 		uint32_t EFLAGS;};
-	uint32_t CR0,CR1,CR2,CR3;
+		
 	struct{
 		uint16_t limit; 
 		uint32_t base;
