@@ -26,6 +26,6 @@ make_helper(ldt){
 	cpu.GDTR.limit=imm&0xffff;
 	cpu.GDTR.base=(imm>>16)&0xffffff;
 	print_asm("lgdtw $0x%x",imm);
-	return 1+1+4;
+	return 1+1+2;
 	}
 }

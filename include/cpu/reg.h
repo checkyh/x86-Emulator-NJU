@@ -35,7 +35,7 @@ typedef struct {
 			unsigned IOPL:2;unsigned NT:1;unsigned set15:1;
 			unsigned RF:1;unsigned VM:1;};
 		uint32_t EFLAGS;};
-	uint32_t CR0,CR2,CR3;
+	uint32_t CR0,CR1,CR2,CR3;
 	struct{
 		uint16_t limit; 
 		uint32_t base;
