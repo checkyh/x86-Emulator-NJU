@@ -82,5 +82,21 @@ make_helper(mov_r2c)
 	print_asm("mov %%%s,%%cr%x",REG_NAME(m.reg),m.R_M);
 	return 2;
 }
+make_helper(mov_r2s)
+{
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	char seg_name[2];
+	switch(m.reg)
+	{
+		case (0x0):sprintf(seg_name,"%s","es");cpu.ES=REG(m.R_M);break;
+		case (0x1):sprintf(seg_name,"%s","cs");cpu.CS=REG(m.R_M);break;
+		case (0x2):sprintf(seg_name,"%s","ss");cpu.SS=REG(m.R_M);break;
+		case (0x3):sprintf(seg_name,"%s","ds");cpu.DS=REG(m.R_M);break;
+	}
+	print_asm("mov %%%s,%%%s",REG_NAME(m.R_M),seg_name);
+	return 2;
+}
+
 #include "exec/template-end.h"
 #undef DATA_BYTE

@@ -9,6 +9,6 @@ make_helper(jump_far)
 	uint16_t selector=instr_fetch(eip+5,2);
 	cpu.eip=addr-7;
 	cpu.CS=addr>>4;
-	print_asm("ljmp $%x,$%x",selector,addr);
+	print_asm("ljmp $0x%x,$0x%x",selector,addr);
 	return 7;
 }
