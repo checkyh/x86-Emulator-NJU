@@ -24,7 +24,10 @@ void restart() {
 	memcpy(hwa_to_va(LOADER_START), loader, loader_len);
 
 	cpu.eip = LOADER_START;
-
+// load Code Segment
+	
+// CR0-PE =0 real address mode 
+	cpu.CR0=cpu.CR0>>1<<1;
 	init_dram();
 	cache_init();
 	setbreak();// 设置已存在的断点 src/ui/breakpoint.c

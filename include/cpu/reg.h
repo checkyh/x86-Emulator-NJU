@@ -10,8 +10,7 @@
  * Hint: Use 'union'.
  * For more details about the GPR encoding scheme, see i386 manual.
  */
-
-typedef struct {
+ typedef struct {
 	union{
 		union {
 			uint32_t _32;
