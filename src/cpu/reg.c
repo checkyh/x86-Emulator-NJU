@@ -95,7 +95,7 @@ uint32_t regfinder(char *q)
 	if(strcmp(q,"es")==0) return  cpu.ES;
 	if(strcmp(q,"ss")==0) return  cpu.SS;
 	if(strcmp(q,"cr0")==0) return  cpu.CR0;
-	if(strcmp(q,"gdtr")==0) return  (cpu.GDTR.base<<16)+cpu.GDTR.limit;
+	if(strcmp(q,"gdtr")==0) return  cpu.GDTR.limit;
 
 	printf("wrong expr\n");return 0;
 }
