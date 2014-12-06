@@ -8,7 +8,10 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 uint16_t current_sreg;
 uint32_t segment_translater(lnaddr_t addr,size_t len)
 {
-	return addr;
+	if ((cpu.CR0&0x1)==0) return addr;
+	else{
+		return addr;
+	}
 }
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
