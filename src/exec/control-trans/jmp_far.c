@@ -8,7 +8,7 @@ make_helper(jump_far)
 	uint32_t addr = instr_fetch(eip + 1, 4);
 	uint16_t selector=instr_fetch(eip+5,2);
 	cpu.eip=addr-7;
-	printf("%x\n",cpu.GDTR.base+(cpu.CS>>3));
+	printf("%x\n",cpu.GDTR.base+(selector>>3));
 	cpu.CS=selector;
 	print_asm("ljmp $0x%x,$0x%x",selector,addr);
 	return 7;
