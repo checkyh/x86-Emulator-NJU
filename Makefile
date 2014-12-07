@@ -29,7 +29,7 @@ nemu: $(OBJS)
 $(TEST_FILE_LIST):
 	cd `dirname $@` && make
 
-LOADER_DIR = kernel
+LOADER_DIR = myloader
 loader:
 	cd $(LOADER_DIR) && make
 	objcopy -S -O binary $(LOADER_DIR)/loader loader
