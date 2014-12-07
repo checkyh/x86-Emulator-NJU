@@ -128,7 +128,7 @@ int symmatch(char *expr)
 	for (i=1;i<=nr_symtab_entry;i++)
 	{
 
-		if(symtab[i].st_info==0x12||symtab[i].st_info==0x13) { if (strcmp(expr,strtab+symtab[i].st_name)==0) return i;}
+		 if (strcmp(expr,strtab+symtab[i].st_name)==0) return i;
 	}
 	return -1;
 }
