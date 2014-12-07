@@ -20,6 +20,5 @@ int main() {
 
 	nemu_assert(k == 3);
 
-
 	return 0;
 }
