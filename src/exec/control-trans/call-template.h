@@ -18,9 +18,11 @@ make_helper(concat(call_rm_, SUFFIX)) {
 	DATA_TYPE call_addr;
 	int lens=1;
 	m.val = instr_fetch(eip + 1, 1);
+	cpu.esp-=DATA_BYTE;
 	if(m.mod == 3) {
 	call_addr=REG(m.R_M);
 	lens+=DATA_BYTE;
+	MEM_W(cpu.esp, cpu.eip+lens);
 	cpu.eip=call_addr-lens;
 	print_asm("call 0x%x",cpu.eip+lens);
 	return lens;
@@ -30,6 +32,7 @@ make_helper(concat(call_rm_, SUFFIX)) {
 		int len = read_ModR_M(eip + 1, &addr);
 		call_addr=MEM_R(addr);
 		lens+=len;
+		MEM_W(cpu.esp, cpu.eip+lens);
 		cpu.eip=call_addr-lens;
 		print_asm("call 0x%x",cpu.eip+lens);
 		return lens;

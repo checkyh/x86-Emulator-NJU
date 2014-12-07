@@ -126,7 +126,7 @@ void L2cache_writes(uint32_t addr,size_t len,uint32_t data)
  			}
  		}
  	} 
-	else {set2=-1-set2;L2cache_makup(cur);}//write allocate
+	else {set2=-1-set2;L2cache_makup(cur);}//write allocate 写不命中时  先把所写单元所在的块调入 Cache
 	for (i=0;i<len;i++)
 	{
 		L2cache[cur.group][set2].dirty=true;
