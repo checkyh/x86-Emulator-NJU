@@ -8,6 +8,5 @@ int main()
 
 	z=0x333333e6;
 	nemu_assert(x*y/2*2-z==0);
-	HIT_GOOD_TRAP;
 	return 0;
 }
