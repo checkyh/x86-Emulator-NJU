@@ -7,7 +7,7 @@
 char ModR_M_asm[MODRM_ASM_BUF_SIZE];
 #define print_ModR_M_asm(...) \
 	assert(snprintf(ModR_M_asm, MODRM_ASM_BUF_SIZE, __VA_ARGS__) < MODRM_ASM_BUF_SIZE )
-
+extern uint32_t current_sreg;
 /* For more details about instruction format, please refer to i386 manual. */
 int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 	ModR_M m;
@@ -28,11 +28,12 @@ int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 		base_reg = s.base;
 		disp_offset = 2;
 		scale = s.ss;
-
+		current_sreg=SS;
 		if(s.index != R_ESP) { index_reg = s.index; }
 	}
 	else {
 		/* no SIB */
+		current_sreg=DS;
 		base_reg = m.R_M;
 		disp_offset = 1;
 	}
