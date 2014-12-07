@@ -10,6 +10,7 @@ uint32_t segment_translater(lnaddr_t addr,size_t len)
 {
 	if ((cpu.CR0&0x1)==0) return addr;
 	else{
+		printf("base=%x\n",segments[current_sreg].base);
 		return addr;
 	}
 }
