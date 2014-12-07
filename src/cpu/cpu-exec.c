@@ -25,8 +25,7 @@ void restart() {
 
 	cpu.eip = LOADER_START;
 // load Code Segment
-	GDT[cpu.CS>>3].base=0;
-	GDT[cpu.CS>>3].limit=0xffffffff;
+	
 // CR0-PE =0 real address mode 
 	cpu.CR0=cpu.CR0>>1<<1;
 	init_dram();
