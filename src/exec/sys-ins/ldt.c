@@ -16,15 +16,15 @@ extern char suffix;
 make_helper(ldt){
 	if (suffix=='l'){
 	uint32_t imm = instr_fetch(eip + 2, 4);
-	cpu.GDTR.limit=imm&0xffff;
-	cpu.GDTR.base=imm>>16;
+	cpu.GDTR.limit=swaddr_read(imm,2);
+	cpu.GDTR.base=swaddr_read(imm,4);
 	print_asm("lgdtl $0x%x",imm);
 	return 1+1+4;
 	}
 	else{
 	uint32_t imm=instr_fetch(eip+2,4);
-	cpu.GDTR.limit=imm&0xffff;
-	cpu.GDTR.base=(imm>>16)&0xffffff;
+	cpu.GDTR.limit=swaddr_read(imm,2);;
+	cpu.GDTR.base=swaddr_read(imm,4)&0xffffff;
 	print_asm("lgdtw $0x%x",imm);
 	return 1+1+2;
 	}
