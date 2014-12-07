@@ -55,3 +55,10 @@ uint32_t instr_fetch(swaddr_t addr, size_t len) {
 	lnaddr_t lnaddr=segment_translater(addr,len);
 	return swaddr_read(lnaddr, len);
 }
+uint32_t base_read(uint32_t index)
+{
+	uint32_t temp=swaddr_read(cpu.GDTR.base+index*8+2,2);
+	temp+=swaddr_read(cpu.GDTR.base+index*8+5,1)<<16;
+	temp+=swaddr_read(cpu.GDTR.base+index*8+7,1)<<24;
+	return temp;
+}

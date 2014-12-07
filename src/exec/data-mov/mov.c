@@ -87,12 +87,13 @@ make_helper(mov_r2s)
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	char seg_name[2];
+	uint32_t base=base_read(REG(m.R_M)>>3);
 	switch(m.reg)
 	{
-		case (0x0):sprintf(seg_name,"%s","es");cpu.ES=REG(m.R_M);break;
-		case (0x1):sprintf(seg_name,"%s","cs");cpu.CS=REG(m.R_M);break;
-		case (0x2):sprintf(seg_name,"%s","ss");cpu.SS=REG(m.R_M);break;
-		case (0x3):sprintf(seg_name,"%s","ds");cpu.DS=REG(m.R_M);break;
+		case (0x0):sprintf(seg_name,"%s","es");segments[ES].base=base;cpu.ES=REG(m.R_M);break;
+		case (0x1):sprintf(seg_name,"%s","cs");segments[CS].base=base;cpu.CS=REG(m.R_M);break;
+		case (0x2):sprintf(seg_name,"%s","ss");segments[SS].base=base;cpu.SS=REG(m.R_M);break;
+		case (0x3):sprintf(seg_name,"%s","ds");segments[DS].base=base;cpu.DS=REG(m.R_M);break;
 	}
 	print_asm("mov %%%s,%%%s",REG_NAME(m.R_M),seg_name);
 	return 2;
