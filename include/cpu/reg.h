@@ -11,6 +11,12 @@
  * For more details about the GPR encoding scheme, see i386 manual.
  */
  typedef struct {
+ 	uint32_t limit;
+ 	uint32_t base;
+ 	uint8_t G,X,AVL,P,DPL,TYPE,A;
+ }GDT_line;
+ GDT_line GDT[200];//test number
+ typedef struct {
 	union{
 		union {
 			uint32_t _32;
@@ -23,7 +29,6 @@
 	 * See i386 manual for more details.
 	 */
 		struct {
-	
 			uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 		};
 	};
