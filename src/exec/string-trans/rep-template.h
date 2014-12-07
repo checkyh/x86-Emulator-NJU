@@ -1,9 +1,12 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
+extern uint32_t current_sreg;
 make_helper(concat(rep_,SUFFIX))
 {
 	int ins = instr_fetch(eip+1, 1);
+		current_sreg=DS;
+
 	while (REG(1)!=0)
 	{
 		switch (ins)
