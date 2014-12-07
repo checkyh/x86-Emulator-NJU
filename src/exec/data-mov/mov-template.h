@@ -1,7 +1,7 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-extern uint32_t current_sreg;
+#include "cpu/reg.h"
 make_helper(concat(mov_i2r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
@@ -65,21 +65,26 @@ make_helper(concat(mov_rm2r_, SUFFIX)) {
 		return len + 1;
 	}
 }
-extern uint32_t current_sreg;
+extern uint16_t current_sreg;
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
+	if ((cpu.CR0&0x1)==1){
 	current_sreg=DS;
-	MEM_W(addr, REG(R_EAX));
-	print_asm("mov" str(SUFFIX) " %%%s,0x%x", REG_NAME(R_EAX), addr);
+	MEM_W(addr, REG(R_EAX));}
+	else MEM_W(addr+(cpu.DS<<16), REG(R_EAX));
+
+	print_asm("mov" str(SUFFIX) " DS:%%%s,0x%x", REG_NAME(R_EAX), addr);
 	return 5;
 }
 
 make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
+	if ((cpu.CR0&0x1)==1){
 	current_sreg=DS;
-	REG(R_EAX) = MEM_R(addr);
+	REG(R_EAX) = MEM_R(addr);}
+	else REG(R_EAX)=MEM_R(addr+(cpu.DS<<16));
 
-	print_asm("mov" str(SUFFIX) " 0x%x,%%%s", addr, REG_NAME(R_EAX));
+	print_asm("mov" str(SUFFIX) " DS:0x%x,%%%s", addr, REG_NAME(R_EAX));
 	return 5;
 }
 #if (DATA_BYTE==4)
