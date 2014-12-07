@@ -20,6 +20,7 @@ int main() {
 	nemu_assert(A[4] == 4);
 	nemu_assert(b == 3);
 	nemu_assert(A[5] == 3);
+	HIT_GOOD_TRAP;
 
 
 	return 0;

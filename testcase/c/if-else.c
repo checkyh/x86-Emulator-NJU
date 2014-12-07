@@ -22,6 +22,7 @@ int main() {
 		nemu_assert(if_else(test_data[i]) == ans[ans_idx ++]);
 	}
 
+	HIT_GOOD_TRAP;
 
 	return 0;
 }

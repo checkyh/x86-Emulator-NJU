@@ -23,6 +23,7 @@ int main() {
 		nemu_assert(switch_case(i - 1) == ans[i]);
 	}
 
+	HIT_GOOD_TRAP;
 
 	return 0;
 }

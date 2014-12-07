@@ -21,6 +21,7 @@ int main() {
 	}
 
 	nemu_assert(n == 21);
+	HIT_GOOD_TRAP;
 
 	return 0;
 }
