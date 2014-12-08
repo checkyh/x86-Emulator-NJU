@@ -28,7 +28,6 @@ make_helper(concat(concat(arith,_i2rm_), SUFFIX)) {
 		switch_r
 		RESULT_check
 		print_asm( "%s" str(SUFFIX) " $0x%x,%%%s",ins_name, imm, REG_NAME(m.R_M));
-		printf("%d\n",DATA_BYTE );
 		return 1 + DATA_BYTE + 1;
 	}
 	else {
