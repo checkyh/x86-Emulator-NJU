@@ -21,7 +21,7 @@ make_helper(concat(call_rm_, SUFFIX)) {
 	cpu.esp-=DATA_BYTE;
 	if(m.mod == 3) {
 	call_addr=REG(m.R_M);
-	lens+=DATA_BYTE;
+	lens+=1;
 	MEM_W(cpu.esp, cpu.eip+lens);
 	cpu.eip=call_addr-lens;
 	print_asm("call 0x%x",cpu.eip+lens);
