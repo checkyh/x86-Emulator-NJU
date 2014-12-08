@@ -84,7 +84,7 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	REG(R_EAX) = MEM_R(addr);}
 	else REG(R_EAX)=MEM_R(addr+(cpu.DS<<16));
 
-	print_asm("mov" str(SUFFIX) " DS:0x%x,%%%s", addr, REG_NAME(R_EAX));
+	print_asm("mov" str(SUFFIX) " 0x%x,DS:%%%s", addr, REG_NAME(R_EAX));
 	return 5;
 }
 #if (DATA_BYTE==4)
