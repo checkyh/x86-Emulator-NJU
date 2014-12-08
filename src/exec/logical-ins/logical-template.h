@@ -16,7 +16,7 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 		{
 			imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
 			src=imm;
-			lens+=DATA_BYTE;
+			lens++;
 		}
 		else src=REG(m.R_M);
 		DATA_TYPE *dst=&REG(m.R_M);		
@@ -33,7 +33,7 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 		{
 			imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
 			src=imm;
-			len+=DATA_BYTE;
+			len++;
 		}
 		else src=MEM_R(addr);
 		DATA_TYPE dst_v=MEM_R(addr);
