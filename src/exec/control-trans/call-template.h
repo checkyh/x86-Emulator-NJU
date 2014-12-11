@@ -8,7 +8,7 @@ make_helper(concat(call_rel_, SUFFIX)) {
 	call_addr=instr_fetch(eip+1,DATA_BYTE);
 	lens+=DATA_BYTE;
 	cpu.esp-=DATA_BYTE;
-	MEM_W(cpu.esp, cpu.eip+lens);
+	swaddr_write(cpu.esp, cpu.eip+lens,4);
 	printf("%x\n",cpu.eip+lens );	
 	ADDR(cpu.eip,call_addr,DATA_BYTE*8)
 	print_asm("call 0x%x",cpu.eip+lens);	
