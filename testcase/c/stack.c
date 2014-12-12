@@ -38,7 +38,5 @@ int main()
         nemu_assert(x = ans[i]);
     }
 
-    HIT_GOOD_TRAP;
-
     return 0;
 }
