@@ -8,6 +8,7 @@ bool page_enable()
 }
 bool page_cross(uint32_t addr,int len)
 {
+	printf("page=%d addr=%x\n",page_enable(),addr);
 	if (page_enable()&&addr>>3!=(addr+len)>>3) return false;
 	return true;
 }
