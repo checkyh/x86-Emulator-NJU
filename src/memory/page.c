@@ -13,9 +13,9 @@ bool page_cross(uint32_t addr,int len)
 }
 hwaddr_t page_translate(lnaddr_t addr)
 {
-	if(page_enable()) {
+	
 	uint32_t base=cpu.CR3>>12;
 	printf("%x\n",base );
-	return addr;}
+
 	return addr;
 }
