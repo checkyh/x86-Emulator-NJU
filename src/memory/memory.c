@@ -1,6 +1,7 @@
 #include "common.h"
 #include "cache.h"
 #include "cpu/reg.h"
+#include "page.h"
 //物理地址hwaddr 逻辑地址 swaddr
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
@@ -22,12 +23,26 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	return hwaddr_read(addr, len);
+	if (page_cross(addr,len)) {
+		/* this is a special case, you can handle it later. */
+		assert(0);
+	}
+	else {
+		hwaddr_t hwaddr = page_translate(addr);
+		return hwaddr_read(hwaddr, len);
+	}
 }
  
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
-	return hwaddr_write(addr, len, data);
+	if (page_cross(addr,len)) {
+		/* this is a special case, you can handle it later. */
+		assert(0);
+	}
+	else {
+		hwaddr_t hwaddr = page_translate(addr);
+		hwaddr_write(hwaddr, len,data);
+	}
 }
 
 uint32_t swaddr_read(swaddr_t addr, size_t len) {
