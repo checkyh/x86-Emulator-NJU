@@ -39,7 +39,6 @@ uint32_t loader() {
 		if(ph[i].p_type == PT_LOAD) {
 			current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
 			memocpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
-			memoset((void *)(current_addr + ph[i].p_filesz),0, ph[i].p_memsz - ph[i].p_filesz);
 			extern uint32_t brk;
 			uint32_t new_brk = current_addr + ph[i].p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
