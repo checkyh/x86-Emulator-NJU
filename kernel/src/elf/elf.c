@@ -37,14 +37,14 @@ uint32_t loader() {
 	int i=0;
 #ifdef IA32_PAGE
 	for(; i < elf->e_phnum; i ++) {
+		 uint32_t current_addr;
 		/* Scan the program header table, load each segment into memory */
 		if(ph[i].p_type == PT_LOAD) {
 
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			 uint32_t current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
-			 printf("%x\n",current_addr );
+			current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
 			memocpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
 			memoset((void *)(current_addr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
 			 
