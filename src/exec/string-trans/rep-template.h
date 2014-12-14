@@ -2,6 +2,7 @@
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
 extern uint32_t current_sreg;
+// no stosl
 make_helper(concat(rep_,SUFFIX))
 {
 	int ins = instr_fetch(eip+1, 1);
