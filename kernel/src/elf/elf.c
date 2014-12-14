@@ -53,17 +53,7 @@ uint32_t loader() {
 #endif
 
 	write_cr3(get_ucr3());
-#else 
-	for(; i < elf->e_phnum; i ++) {
-		if(ph[i].p_type == PT_LOAD) {
-			memocpy((void *)ph[i].p_vaddr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
-			memoset((void *)(ph[i].p_vaddr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
-			extern uint32_t brk;
-			uint32_t new_brk = ph[i].p_vaddr + ph[i].p_memsz - 1;
-			if(brk < new_brk) { brk = new_brk; }
-		}
-	}
-	volatile uint32_t entry = elf->e_entry;
+
 #endif
 
 	return entry;
