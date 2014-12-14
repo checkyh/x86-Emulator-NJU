@@ -35,14 +35,47 @@ uint32_t loader() {
 	ph = (void *)elf->e_phoff;
 	/* Load each program segment */
 	int i=0;
+#ifdef IA32_PAGE
 	for(; i < elf->e_phnum; i ++) {
 		/* Scan the program header table, load each segment into memory */
-		if(ph->p_type == PT_LOAD) {
+		if(ph[i].p_type == PT_LOAD) {
 
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			 memocpy((void *)ph[i].p_vaddr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
+			 uint32_t current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
+			memocpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
+			memoset((void *)(current_addr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
+			 
+			/* TODO: zero the memory region 
+			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
+			 */
+
+
+			/* Record the prgram break for future use. */
+			extern uint32_t brk;
+			uint32_t new_brk = current_addr + ph[i].p_memsz - 1;
+			if(brk < new_brk) { brk = new_brk; }
+		}
+	}
+
+	volatile uint32_t entry = elf->e_entry;
+	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);////分配堆栈
+
+#ifdef HAS_DEVICE
+	create_video_mapping();
+#endif
+
+	write_cr3(get_ucr3());
+#else 
+	for(; i < elf->e_phnum; i ++) {
+		/* Scan the program header table, load each segment into memory */
+		if(ph[i].p_type == PT_LOAD) {
+
+			/* TODO: read the content of the segment from the ELF file 
+			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
+			 */
+			memocpy((void *)ph[i].p_vaddr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
 			memoset((void *)(ph[i].p_vaddr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
 			 
 			/* TODO: zero the memory region 
@@ -52,21 +85,12 @@ uint32_t loader() {
 
 			/* Record the prgram break for future use. */
 			extern uint32_t brk;
-			uint32_t new_brk = ph->p_vaddr + ph->p_memsz - 1;
+			uint32_t new_brk = ph[i].p_vaddr + ph[i].p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
 		}
 	}
 
 	volatile uint32_t entry = elf->e_entry;
-
-#ifdef IA32_PAGE
-	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
-
-#ifdef HAS_DEVICE
-	create_video_mapping();
-#endif
-
-	write_cr3(get_ucr3());
 #endif
 
 	return entry;
