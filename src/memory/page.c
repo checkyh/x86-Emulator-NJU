@@ -9,7 +9,7 @@ bool page_enable()
 }
 bool page_cross(uint32_t addr,int len)
 {
-	if (page_enable()&&addr>>3!=(addr+len)>>3) return true;
+	if (page_enable()&&addr>>12!=(addr+len)>>12) return true;
 	return false;
 }
 hwaddr_t page_translate(lnaddr_t addr)

@@ -72,14 +72,14 @@ make_helper(mov_r2c)
 {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
-	switch(m.R_M)
+	switch(m.reg)
 	{
-		case (0x0):cpu.CR0=REG(m.reg);break;
-		case (0x1):cpu.CR1=REG(m.reg);break;
-		case (0x2):cpu.CR2=REG(m.reg);break;
-		case (0x3):cpu.CR3=REG(m.reg);break;
+		case (0x0):cpu.CR0=REG(m.R_M);break;
+		case (0x1):cpu.CR1=REG(m.R_M);break;
+		case (0x2):cpu.CR2=REG(m.R_M);break;
+		case (0x3):cpu.CR3=REG(m.R_M);break;
 	}
-	print_asm("mov %%%s,%%cr%x",REG_NAME(m.reg),m.R_M);
+	print_asm("mov %%%s,%%cr%x",REG_NAME(m.R_M),m.reg);
 	return 2;
 }
 make_helper(mov_r2s)

@@ -69,7 +69,7 @@ helper_fun opcode_table [256] = {
 /* 0xe8 */	call_rel_v, j_near, jump_far, j_short,
 /* 0xec */	inv, inv, inv, inv,
 /* 0xf0 */	inv, inv, inv, rep,
-/* 0xf4 */	inv, inv, xf6_switcher, xf7_switcher,
+/* 0xf4 */	hlt, inv, xf6_switcher, xf7_switcher,
 /* 0xf8 */	inv, inv, cli, inv,
 /* 0xfc */	cld, std, xfe_switcher, xff_switcher
 };

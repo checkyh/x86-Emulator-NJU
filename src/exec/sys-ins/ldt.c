@@ -29,3 +29,7 @@ make_helper(ldt){
 	return 1+1+2;
 	}
 }
+make_helper(hlt){
+	print_asm("hlt");
+	return 1;
+}
