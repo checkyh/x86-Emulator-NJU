@@ -44,12 +44,13 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 			 uint32_t current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
+			 printf("%x\n",current_addr );
 			memocpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
 			memoset((void *)(current_addr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
 			 
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
-			 */
+			 */ 		
 
 
 			/* Record the prgram break for future use. */
