@@ -9,7 +9,11 @@ bool page_enable()
 }
 bool page_cross(uint32_t addr,int len)
 {
-	if (page_enable()&&addr>>12!=(addr+len)>>12) return true;
+	if (page_enable()&&addr>>12!=(addr+len-1)>>12) {
+		printf("addr=%x len=%d\n",addr,len );
+
+		return true;
+	}
 	return false;
 }
 hwaddr_t page_translate(lnaddr_t addr)
