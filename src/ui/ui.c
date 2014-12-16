@@ -128,7 +128,7 @@ void main_loop() {
 			uint32_t addr=expr(q,&suc);	
 			int cir_x=1;		
 			if (judge) for (;cir_x<=N;cir_x++,addr++) {
-			printf("%02x ",swaddr_read(addr,1));	
+			printf("%02x ",hwaddr_read(addr,1));	
 			if ((cir_x%16)==0) printf("\n");
 			}	
 			if (cir_x<=4) printf("\n");
