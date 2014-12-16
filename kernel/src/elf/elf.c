@@ -41,10 +41,6 @@ uint32_t loader() {
 	}
 	volatile uint32_t entry = elf->e_entry;
 	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);////分配堆栈
-
-#ifdef HAS_DEVICE
-	create_video_mapping();
-#endif
 #else 
 	for(; i < elf->e_phnum; i ++) {
 		/* Scan the program header table, load each segment into memory */
@@ -70,5 +66,8 @@ uint32_t loader() {
 	write_cr3(get_ucr3());
 #endif
 
+#ifdef HAS_DEVICE
+	create_video_mapping();
+#endif
 	return entry;
 }
