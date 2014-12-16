@@ -8,6 +8,6 @@ char suffix = 'l';
 make_helper(data_size) {
 	suffix = 'w';
 	int instr_len = exec(eip + 1);
-	suffix = 'l';
+	suffix = 'l';//default state
 	return instr_len + 1;
 }

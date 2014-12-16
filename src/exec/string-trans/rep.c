@@ -13,12 +13,16 @@
 extern char suffix;
 make_helper(rep)
 {
-	switch (suffix)
+	int ins = instr_fetch(eip+1, 1);
+	switch(ins)
 	{
-		case 'l':return rep_l(eip);
-		case 'w':return rep_w(eip);
-		case 'b':return rep_b(eip);
-		default:return 1;
+		case(0xa4):case(0xaa):return rep_b(eip);
+		default: switch (suffix)
+		{
+			case 'l':return rep_l(eip);
+			case 'w':return rep_w(eip);
+		}
 	}
+	assert(0);
 }
 
