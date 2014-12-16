@@ -17,7 +17,7 @@ void init_page(void) {
 	uint32_t pdir_idx, ptable_idx, pframe_idx;
 
 	/* make all PDE invalid */
-	memoset(pdir, 0, NR_PDE * sizeof(PDE));
+	memset(pdir, 0, NR_PDE * sizeof(PDE));
 
 	/* fill PDEs and PTEs */
 	pframe_idx = 0;
