@@ -16,7 +16,7 @@ hwaddr_t page_translate(lnaddr_t addr)
 {
 	if(page_enable()) {
 	uint32_t base=cpu.CR3>>12<<12;
-	hwaddr_t table_now=hwaddr_read((addr>>22)*4+base,4);//read页表的物理地址
+	hwaddr_t table_now=hwaddr_read((addr>>20)*4+base,4);//read页表的物理地址
 	printf("CR3=%x page =%x \n",cpu.CR3,table_now>>12<<12 );
 	assert(table_now&0x1);
 	hwaddr_t page_now=hwaddr_read(((addr>>12)&0x3ff)*4+(table_now>>12<<12),4);//read页的物理地址
