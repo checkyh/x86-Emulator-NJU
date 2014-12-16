@@ -16,7 +16,8 @@ make_helper(rep)
 	int ins = instr_fetch(eip+1, 1);
 	switch(ins)
 	{
-		case(0xa4):case(0xaa):return rep_b(eip);
+		case(0xa4):return rep_b(eip);
+		case(0xaa):return rep_b(eip);
 		default: switch (suffix)
 		{
 			case 'l':return rep_l(eip);
