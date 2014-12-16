@@ -33,7 +33,7 @@ uint32_t loader() {
 		 uint32_t current_addr;
 		if(ph[i].p_type == PT_LOAD) {
 			current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
-			memset((void*)0x300000+i*4,current_addr,4);
+			memset((void*)0x600000+i*4,current_addr,4);
 			memcpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
 			extern uint32_t brk;
 			uint32_t new_brk = current_addr + ph[i].p_memsz - 1;
