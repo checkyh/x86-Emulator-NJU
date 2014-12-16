@@ -28,8 +28,8 @@ void restart() {
 	segments[CS].base=0;
 	segments[CS].limit=0xffffffff;
 // CR0-PE =0 real address mode 
-	cpu.CR0=cpu.CR0>>1<<1;
-	
+	cpu.CR0=0;
+	cpu.CR3=0;
 	init_dram();
 	cache_init();
 	setbreak();// 设置已存在的断点 src/ui/breakpoint.c
