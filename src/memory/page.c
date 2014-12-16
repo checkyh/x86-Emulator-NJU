@@ -13,6 +13,8 @@ bool page_cross(uint32_t addr,int len)
 	return false;
 }
 //32=10+10+12
+//80480aa
+//0000 1000 00|00 0100 1000 |0000 1010 1010
 //128*1024*1024=4*1024*(32*1024) number of page and page_entry
 hwaddr_t page_translate(lnaddr_t addr)
 {
