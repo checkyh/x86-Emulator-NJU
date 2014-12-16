@@ -41,29 +41,7 @@ uint32_t loader() {
 	}
 	volatile uint32_t entry = elf->e_entry;
 	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);////分配堆栈
-#else 
-	for(; i < elf->e_phnum; i ++) {
-		/* Scan the program header table, load each segment into memory */
-		if(ph[i].p_type == PT_LOAD) {
-			/* TODO: read the content of the segment from the ELF file 
-			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
-			 */
-			memocpy((void *)ph[i].p_vaddr, (void *)elf + ph[i].p_offset, ph[i].p_filesz);
-			memoset((void *)(ph[i].p_vaddr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
-			 
-			/* TODO: zero the memory region 
-			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
-			 */
-			/* Record the prgram break for future use. */
-			extern uint32_t brk;
-			uint32_t new_brk = ph[i].p_vaddr + ph[i].p_memsz - 1;
-			if(brk < new_brk) { brk = new_brk; }
-		}
-	}
 
-	volatile uint32_t entry = elf->e_entry;
-
-	write_cr3(get_ucr3());
 #endif
 
 #ifdef HAS_DEVICE
