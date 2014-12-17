@@ -31,7 +31,8 @@ uint32_t loader() {
 	for(; i < elf->e_phnum; i ++) {
 		 uint32_t current_addr;
 		if(ph[i].p_type == PT_LOAD) {
-			current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
+			if (i>=1&&ph[i].p_vaddr>>12==ph[i-1].p_vaddr>>12) current_addr=current_addr+(ph[i].p_vaddr-ph[i-1].p_vaddr);
+			else current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
 			memcpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_memsz);
 			memset((void *)current_addr+ph[i].p_filesz,0,ph[i].p_memsz-ph[i].p_filesz);
 			extern uint32_t brk;
