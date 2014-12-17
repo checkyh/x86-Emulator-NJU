@@ -8,7 +8,6 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 	ModR_M m;
 	DATA_TYPE imm=0;
 	 DATA_TYPE src=0;
-	 DATA_TYPE *dst=NULL;
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result=0;
 	int lens=1;
@@ -19,11 +18,8 @@ make_helper(concat(concat(logical,_i2rm_),SUFFIX)) {
 			src=imm;
 			lens+=DATA_BYTE;
 		}
-		else 
-		{
-		src=REG(m.R_M);
-		dst=&REG(m.R_M);
-		}		
+		else src=REG(m.R_M);
+		DATA_TYPE *dst=&REG(m.R_M);		
 		switch_r
 		if (logical_chooser==0)
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
