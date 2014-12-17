@@ -209,6 +209,13 @@ void main_loop() {
 			uint8_t set=sixteenstring(q,10);
 			printL1cacheinfo(group,set);
 			}
+		}
+		else if(strcmp(p,"page")==0)
+		{
+			q=strtok(NULL,"");
+			uint32_t addr=sixteenstring(q,16);
+			printpage(addr);
+
 		}	
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }

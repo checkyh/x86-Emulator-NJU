@@ -6,7 +6,7 @@ extern void printreg();
 extern void printbt();
 extern uint32_t expr(char *e, bool *success);
 extern uint32_t hwaddr_read(hwaddr_t addr, size_t len);
-
+extern void printpage(uint32_t addr);
 //read for numbers
 uint32_t  sixteenstring(char *q,int step)
 {

@@ -28,3 +28,11 @@ hwaddr_t page_translate(lnaddr_t addr)
 	}
 	else return addr;
 }
+void printpage(uint32_t addr)
+{
+	uint32_t base=cpu.CR3>>12<<12;
+	hwaddr_t table_now=hwaddr_read((addr>>22)*4+base,4);
+	hwaddr_t page_now=hwaddr_read(((addr>>12)&0x3ff)*4+(table_now>>12<<12),4);
+	uint32_t value=hwaddr_read((page_now>>12<<12)+(addr&0xfff),4);
+	printf("table=0x%x\npage=0x%x\nvalue=0x%x\n",table_now,page_now,value);
+}
