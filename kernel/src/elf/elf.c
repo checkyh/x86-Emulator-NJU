@@ -27,16 +27,12 @@ uint32_t loader() {
 #endif
 
 #ifdef IA32_PAGE
-	i=0;uint32_t memsz=0;uint32_t temp=0xffffffff;
+	i=0;uint32_t memsz=0;
 	ph = (void *)elf->e_phoff;
 	for(; i < elf->e_phnum; i ++)
-		if(ph[i].p_type == PT_LOAD) 
-			{
-				if (temp>ph[i].p_memsz) temp=ph[i].p_memsz;
-				memsz+=ph[i].p_memsz;
-			}
-	addr=mm_malloc(temp,memsz);
-	addr-=temp;
+		if(ph[i].p_type == PT_LOAD) memsz+=ph[i].p_memsz;
+	addr=mm_malloc(ph[0].p_vaddr,memsz);
+	addr-=ph[0].p_vaddr;
 #endif
 	/* Load program header table */
 	ph = (void *)elf->e_phoff;
