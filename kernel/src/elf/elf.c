@@ -9,7 +9,13 @@
 #endif
 
 #define STACK_SIZE (1 << 20)
+void memocpy(void *dst, void *src, int size) {
+	asm volatile("rep movsl" : : "D"(dst), "S"(src), "c"(size));
+}
 
+void memoset(void *dst, int value, int size) {
+	asm volatile("rep stosl" : : "D"(dst), "a"(value), "c"(size));
+}
 void ide_read(uint8_t *, uint32_t, uint32_t);
 void create_video_mapping();
 uint32_t get_ucr3();
@@ -33,8 +39,8 @@ uint32_t loader() {
 		 uint32_t current_addr;
 		if(ph[i].p_type == PT_LOAD) {
 			current_addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
-			memcpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_memsz);
-			memset((void *)current_addr+ph[i].p_filesz,0,ph[i].p_memsz-ph[i].p_filesz);
+			memocpy((void *)current_addr, (void *)elf + ph[i].p_offset, ph[i].p_memsz);
+			memoset((void *)current_addr+ph[i].p_filesz,0,ph[i].p_memsz-ph[i].p_filesz);
 			extern uint32_t brk;
 			uint32_t new_brk = current_addr + ph[i].p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
