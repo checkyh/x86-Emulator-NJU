@@ -31,7 +31,7 @@ uint32_t loader() {
 	ph = (void *)elf->e_phoff;
 	for(; i < elf->e_phnum; i ++)
 		if(ph[i].p_type == PT_LOAD) memsz+=ph[i].p_memsz;
-	addr=mm_malloc(ph[0].p_vaddr,memsz);
+	addr=mm_malloc(ph[0].p_vaddr,2*memsz);
 	addr-=ph[0].p_vaddr;
 #endif
 	/* Load program header table */
