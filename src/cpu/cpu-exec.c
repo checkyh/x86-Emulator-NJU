@@ -53,7 +53,7 @@ void cpu_exec(volatile uint32_t n) {
 	setjmp(jbuf);
 	for(; n > 0; n --) {
 		if (have_watch&&findwatch()) return;
-		if (hwaddr_read((0x8048123>>22)*4+0x00138000,4)==0x13c007)  {Log("HERE!");return  ;}
+		//if (hwaddr_read((0x8048123>>22)*4+0x00138000,4)==0x13c007)  {Log("HERE!");return  ;}
 		if(break_state!=0)
 		{
 			if (break_state==1) 
