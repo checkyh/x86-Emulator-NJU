@@ -33,7 +33,6 @@ uint32_t loader() {
 		if(ph[i].p_type == PT_LOAD) memsz+=ph[i].p_memsz;
 	addr=mm_malloc(ph[0].p_vaddr,memsz);
 	addr-=ph[0].p_vaddr;
-	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);////分配堆栈
 #endif
 	/* Load program header table */
 	ph = (void *)elf->e_phoff;
@@ -54,6 +53,7 @@ uint32_t loader() {
 
 
 #ifdef IA32_PAGE
+	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);////分配堆栈
 	write_cr3(get_ucr3());
 #ifdef HAS_DEVICE
 	create_video_mapping();
