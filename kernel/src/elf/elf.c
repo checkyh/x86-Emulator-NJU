@@ -31,8 +31,8 @@ uint32_t loader() {
 	ph = (void *)elf->e_phoff;
 	for(; i < elf->e_phnum; i ++)
 		memsz+=ph[i].p_memsz;
-	addr=mm_malloc(ph[0].p_vaddr,memsz);
-	addr-=ph[0].p_vaddr;
+	addr=mm_malloc(0x8048000,memsz);
+	addr-=0x8048000;
 #endif
 	/* Load program header table */
 	ph = (void *)elf->e_phoff;
