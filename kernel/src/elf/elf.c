@@ -27,20 +27,15 @@ uint32_t loader() {
 #endif
 
 #ifdef IA32_PAGE
-	i=0;uint32_t memsz=0;
-	ph = (void *)elf->e_phoff;
-	for(; i < elf->e_phnum; i ++)
-		memsz+=ph[i].p_memsz;
-	addr=mm_malloc(0x8048000,memsz);
-	addr-=0x8048000;
 #endif
 	/* Load program header table */
 	ph = (void *)elf->e_phoff;
 	i=0;
 	for(; i < elf->e_phnum; i ++) {
 		if(ph[i].p_type == PT_LOAD) {
-			memcpy((void *)(addr+ph[i].p_vaddr), (void *)elf + ph[i].p_offset, ph[i].p_memsz);
-			memset((void *)(addr+ph[i].p_vaddr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
+			addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
+			memcpy((void *)(addr), (void *)elf + ph[i].p_offset, ph[i].p_memsz);
+			memset((void *)(addr + ph[i].p_filesz), 0, ph[i].p_memsz - ph[i].p_filesz);
 		}
 			extern uint32_t brk;
 			uint32_t new_brk = ph->p_vaddr + ph->p_memsz - 1;
