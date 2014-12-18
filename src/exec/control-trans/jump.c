@@ -45,7 +45,7 @@ make_helper(j_near)
 	uint32_t temp_addr=cpu.eip;
 	uint32_t addr=0;
 	int jump_ins = instr_fetch(eip, 1);
-	int lens=1;
+	int lens=2;
 	char jump_type[5];
 	if (suffix=='l') {
 		 addr=instr_fetch(eip+1,4);
@@ -56,7 +56,7 @@ make_helper(j_near)
 		ADDR(temp_addr,addr,16)
 		lens+=2;
 	}
-	int byte=(lens==3)?16:32;
+	int byte=(lens==4)?16:32;
 	printf("eip=%xaddr=%x\n",cpu.eip,addr );
 	switch (jump_ins)
 	{	
