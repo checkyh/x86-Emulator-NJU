@@ -1,6 +1,7 @@
 #include "cpu/reg.h"
 #include "common.h"
 #include "page.h"
+#include "stdlib.h"
 extern uint32_t hwaddr_read(hwaddr_t addr,size_t len);
 void maptlb()
 {
@@ -21,7 +22,7 @@ uint32_t TLB_fill(uint32_t addr)
 {
 	int i=0;
 	for (;i<TLB_SIZE;i++) if (TLB[i].valid==false) break;
-	if (i==TLB_SIZE) i=0;
+	if (i==TLB_SIZE){ srand(addr);i=rand()%TLB_SIZE;}
 	TLB[i].valid=true;
 	uint32_t base=cpu.CR3>>12<<12;
 	hwaddr_t table_now=hwaddr_read((addr>>22)*4+base,4);//read页表的物理地址
