@@ -79,6 +79,6 @@ make_helper(j_near)
 	}
 	printf("temp=%x lens=%d\n",temp_addr,lens);
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
-	return  lens;
+	return  lens-1;
 }
 #undef ADDR
