@@ -8,7 +8,9 @@ typedef struct {
 	bool valid;
 	uint32_t addr;
 	uint32_t asid;// unused
+	uint32_t mark;
 }TLBSTR;
-TLBSTR TLB[64];
+#define TLB_SIZE 64
+TLBSTR TLB[TLB_SIZE];
 void maptlb();
 #endif
