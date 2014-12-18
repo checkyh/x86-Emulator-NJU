@@ -26,21 +26,31 @@ uint32_t loader() {
 	elf = (void *)0x0;
 #endif
 
-
 	/* Load program header table */
 	ph = (void *)elf->e_phoff;
 	i=0;
+#ifdef IA32_PAGE 
 	for(; i < elf->e_phnum; i ++) {
 		if(ph[i].p_type == PT_LOAD) {
 			addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
 			memcpy((void *)(addr), (void *)elf + ph[i].p_offset, ph[i].p_memsz);
+			//maybe instuctions in memset are still unfinished maybe some other wrong
 			extern uint32_t brk;
 			uint32_t new_brk = ph[i].p_vaddr + ph[i].p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
 		}
 	}
 	
-
+#else
+	for(; i < elf->e_phnum; i ++) {
+		if(ph[i].p_type == PT_LOAD) {
+			memcpy((void *)ph[i].p_vaddr, (void *)elf + ph[i].p_offset, ph[i].p_memsz);
+			extern uint32_t brk;
+			uint32_t new_brk = ph[i].p_vaddr + ph[i].p_memsz - 1;
+			if(brk < new_brk) { brk = new_brk; }
+		}
+	}
+#endif
 	
 	volatile uint32_t entry = elf->e_entry;
 
