@@ -14,12 +14,12 @@ uint32_t segment_translater(lnaddr_t addr,size_t len)
 }
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	return dram_read(addr, len);
+	return L1cache_reads(addr, len);
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
-	dram_write(addr, len, data);
+	L1cache_writes(addr, len, data);
 }
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
