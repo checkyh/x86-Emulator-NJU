@@ -32,6 +32,7 @@ void restart() {
 	cpu.CR3=0;
 	init_dram();
 	cache_init();
+	maptlb();
 	setbreak();// 设置已存在的断点 src/ui/breakpoint.c
 	cpu.ebp=0;
 	cpu.esp=0x8000000;

@@ -5,4 +5,6 @@
 #include "memory.h"
 #include "cpu/reg.h"
 #include "cache.h"
+#include "page.h"
+
 #endif
