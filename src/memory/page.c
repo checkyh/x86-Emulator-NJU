@@ -2,6 +2,7 @@
 #include "common.h"
 #include "page.h"
 extern uint32_t hwaddr_read(hwaddr_t addr,size_t len);
+int tlbreg;
 void maptlb()
 {
 	int i=0;
@@ -38,8 +39,8 @@ uint32_t TLB_fill(uint32_t addr)
 hwaddr_t page_translate(lnaddr_t addr)
 {
 	if(page_enable()) {
-		int i=0;
-	for (;i<TLB_SIZE;i++) if (TLB[i].valid&&TLB[i].mark==addr>>12<<12) { return TLB[i].addr+(addr&0xfff);break;}
+	if (TLB[i].valid&&TLB[i].mark==addr>>12<<12)
+	for (;i<TLB_SIZE;i++) if (TLB[i].valid&&TLB[i].mark==addr>>12<<12) { tlbreg=i;return TLB[i].addr+(addr&0xfff);break;}
 	
 	return TLB_fill(addr);
 	
