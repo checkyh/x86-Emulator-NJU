@@ -68,6 +68,7 @@ make_helper(mov_c2r)
 	print_asm("mov %%cr%x,%%%s",m.R_M,REG_NAME(m.reg));
 	return 2;
 }
+extern void maptlb();
 make_helper(mov_r2c)
 {
 	ModR_M m;
@@ -77,7 +78,7 @@ make_helper(mov_r2c)
 		case (0x0):cpu.CR0=REG(m.R_M);break;
 		case (0x1):cpu.CR1=REG(m.R_M);break;
 		case (0x2):cpu.CR2=REG(m.R_M);break;
-		case (0x3):cpu.CR3=REG(m.R_M);break;
+		case (0x3):cpu.CR3=REG(m.R_M);maptlb();break;
 	}
 	print_asm("mov %%%s,%%cr%x",REG_NAME(m.R_M),m.reg);
 	return 2;
