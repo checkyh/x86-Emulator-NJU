@@ -32,7 +32,7 @@
 #define EX_I(src,imm)     {if (((imm) >> ((1 << 3) - 1)&0x1)){ if (DATA_BYTE==2) src=imm|0xff00;if (DATA_BYTE==4) src=imm|0xffffff00;}else{if (DATA_BYTE==2);src=imm;if(DATA_BYTE==4) src=imm;}}
 #define MSB(n) ((DATA_TYPE)(n) >> ((DATA_BYTE << 3) - 1))
 #define MLSB(n) (((DATA_TYPE)(n)<<1)>>((DATA_BYTE<<3)-1))
-#define PF_check(result) {int i=0,count=0;for (;i<=7;i++){if(result%2==1) count++;result=result/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
+#define PF_check(result) {uint32_t temp=result;int i=0,count=0;for (;i<=7;i++){if(temp%2==1) count++;temp=temp/2;}if (count%2==0) cpu.PF=1;else cpu.PF=0;}
 #define ZF_check(result) {if (result==0) cpu.ZF=1;else cpu.ZF=0;}
 #define SF_check(result) {if (MSB(result)) cpu.SF=1;else cpu.SF=0;}
 #define ADDR(eip,addr,len)  {switch(len)\

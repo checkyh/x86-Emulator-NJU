@@ -24,7 +24,7 @@
 #endif
 
 #if logical_chooser==0//test 
-#define switch_r { printf("sr=%x\ndst=%x\n",src,*dst );result=*dst&src; cpu.CF=0;cpu.OF=0;PF_check(result) ZF_check(result) SF_check(result)} 
+#define switch_r { result=*dst&src; cpu.CF=0;cpu.OF=0;PF_check(result) ZF_check(result) SF_check(result)} 
 #define switch_rm {result=*dst&src;cpu.CF=0;cpu.OF=0;PF_check(result) ZF_check(result) SF_check(result)}
 
 #elif logical_chooser==2//not
