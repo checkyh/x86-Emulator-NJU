@@ -45,18 +45,18 @@ make_helper(j_near)
 	uint32_t temp_addr=cpu.eip;
 	uint32_t addr=0;
 	int jump_ins = instr_fetch(eip, 1);
-	int lens=2;
+	int lens=1;
 	char jump_type[5];
 	if (suffix=='l') {
 		 addr=instr_fetch(eip+1,4);
-		ADDR(temp_addr,addr,32)  lens+=3;
+		ADDR(temp_addr,addr,32)  lens+=4;
 	}
 	else { 
 		addr=instr_fetch(eip+1,2);
 		ADDR(temp_addr,addr,16)
-		lens+=1;
+		lens+=2;
 	}
-	int byte=(lens==4)?16:32;
+	int byte=(lens==3)?16:32;
 	switch (jump_ins)
 	{	
 		case(0xe9):sprintf(jump_type,"%s","jump");ADDR(cpu.eip,addr,byte) break;
@@ -76,6 +76,7 @@ make_helper(j_near)
 		case(0x8e):sprintf(jump_type,"%s","jle"); if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
 		case(0x8c):sprintf(jump_type,"%s","jl"); if(cpu.SF!=cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jl
 	}
+	printf("temp=%x lens=%d\n",temp_addr,lens);
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return  lens;
 }

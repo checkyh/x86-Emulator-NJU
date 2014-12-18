@@ -34,7 +34,6 @@ uint32_t loader() {
 		if(ph[i].p_type == PT_LOAD) {
 			addr=mm_malloc(ph[i].p_vaddr,ph[i].p_memsz);
 			memcpy((void *)(addr), (void *)elf + ph[i].p_offset, ph[i].p_memsz);
-		
 			extern uint32_t brk;
 			uint32_t new_brk = ph[i].p_vaddr + ph[i].p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
