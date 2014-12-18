@@ -57,7 +57,6 @@ make_helper(j_near)
 		lens+=2;
 	}
 	int byte=(lens==4)?16:32;
-	printf("eip=%xaddr=%x\n",cpu.eip,addr );
 	switch (jump_ins)
 	{	
 		case(0xe9):sprintf(jump_type,"%s","jump");ADDR(cpu.eip,addr,byte) break;
@@ -77,7 +76,6 @@ make_helper(j_near)
 		case(0x8e):sprintf(jump_type,"%s","jle"); if(cpu.ZF==1||cpu.SF!=cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jle
 		case(0x8c):sprintf(jump_type,"%s","jl"); if(cpu.SF!=cpu.OF) ADDR(cpu.eip,addr,byte)  break;//Jl
 	}
-	printf("temp=%x lens=%d\n",temp_addr,lens);
 	print_asm("%s 0x%x",jump_type,temp_addr+lens);
 	return  lens-1;
 }
