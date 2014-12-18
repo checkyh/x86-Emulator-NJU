@@ -152,7 +152,7 @@ int L1cache_mchoose(analy cur)
 		return i;}
 	for (i=0;i<SET_N;i++) if (!L1cache[cur.group][i].valid) return -1-i;
 	srand(cur.v);
-	return -(1+rand()%SET2_N);
+	return -(1+rand()%SET_N);
 } 
 void L1cache_makup(analy cur)
 {
