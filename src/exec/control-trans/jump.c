@@ -57,6 +57,7 @@ make_helper(j_near)
 		lens+=2;
 	}
 	int byte=(lens==3)?16:32;
+	printf("eip=%xaddr=%x\n",cpu.eip,addr );
 	switch (jump_ins)
 	{	
 		case(0xe9):sprintf(jump_type,"%s","jump");ADDR(cpu.eip,addr,byte) break;
