@@ -1,4 +1,5 @@
 #include"memory.h"
+#include "stdlib.h"
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 
@@ -66,7 +67,7 @@ int L2cache_mchoose(analy2 cur)
 	for (i=0;i<SET2_N;i++) if (L2cache[cur.group][i].valid&&L2cache[cur.group][i].mark==cur.mark) 
 	return i;
 	for (i=0;i<SET2_N;i++) if (!L2cache[cur.group][i].valid) return -1-i;
-	return -1;
+	return -(1+rand()%SET2_N);
 } 
 void L2cache_makup(analy2 cur)
 {
@@ -149,7 +150,7 @@ int L1cache_mchoose(analy cur)
 	{		// hitL1cache_c();
 		return i;}
 	for (i=0;i<SET_N;i++) if (!L1cache[cur.group][i].valid) return -1-i;
-	return -1;
+	return -(1+rand()%SET2_N);
 } 
 void L1cache_makup(analy cur)
 {

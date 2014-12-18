@@ -2,7 +2,7 @@
 #include "common.h"
 #include "page.h"
 extern uint32_t hwaddr_read(hwaddr_t addr,size_t len);
-int tlbreg;
+static int tlbi;
 void maptlb()
 {
 	int i=0;
@@ -20,17 +20,16 @@ bool page_cross(uint32_t addr,int len)
 }
 uint32_t TLB_fill(uint32_t addr)
 {
-	int i=0;
-	for (;i<TLB_SIZE;i++) if (TLB[i].valid==false) break;
-	if (i==TLB_SIZE) i=0;
-	TLB[i].valid=true;
+	for (tlbi=0;tlbi<TLB_SIZE;tlbi++) if (TLB[tlbi].valid==false) break;
+	if (tlbi==TLB_SIZE) tlbi=0;
+	TLB[tlbi].valid=true;
 	uint32_t base=cpu.CR3>>12<<12;
 	hwaddr_t table_now=hwaddr_read((addr>>22)*4+base,4);//read页表的物理地址
 	assert(table_now&0x1);
 	hwaddr_t page_now=hwaddr_read(((addr>>12)&0x3ff)*4+(table_now>>12<<12),4);//read页的物理地址
 	assert(page_now&0x1);
-	TLB[i].mark=addr>>12<<12;
-	TLB[i].addr=page_now>>12<<12;
+	TLB[tlbi].mark=addr>>12<<12;
+	TLB[tlbi].addr=page_now>>12<<12;
 	return (page_now>>12<<12)+(addr&0xfff);
 }
 //80480aa
@@ -39,8 +38,8 @@ uint32_t TLB_fill(uint32_t addr)
 hwaddr_t page_translate(lnaddr_t addr)
 {
 	if(page_enable()) {
-	if (TLB[i].valid&&TLB[i].mark==addr>>12<<12)
-	for (;i<TLB_SIZE;i++) if (TLB[i].valid&&TLB[i].mark==addr>>12<<12) { tlbreg=i;return TLB[i].addr+(addr&0xfff);break;}
+	if (TLB[tlbi].valid&&TLB[tlbi].mark==addr>>12<<12) return TLB[tlbi].addr+(addr&0xfff);
+	for (tlbi=0;tlbi<TLB_SIZE;tlbi++) if (TLB[tlbi].valid&&TLB[tlbi].mark==addr>>12<<12) { return TLB[tlbi].addr+(addr&0xfff);break;}
 	
 	return TLB_fill(addr);
 	
