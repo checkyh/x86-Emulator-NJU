@@ -30,3 +30,9 @@ make_helper(nemu_trap) {
 	print_asm("nemu trap");
 	return 1;
 }
+make_helper(int_i)
+{
+	uint8_t imm=instr_fetch(eip+1,1);
+	printf("int 0x%x\n",imm);
+	return 2;
+}
