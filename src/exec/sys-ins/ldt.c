@@ -14,8 +14,12 @@ FI; FI;*/
 
 extern char suffix;
 make_helper(ldt){
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
 	swaddr_t addr;
 	int len = read_ModR_M(eip + 1, &addr);
+	if (m.reg==2)
+	{
 	if (suffix=='l'){
 		cpu.GDTR.limit=swaddr_read(addr,2);
 		cpu.GDTR.base=swaddr_read(addr+2,4);
@@ -27,6 +31,11 @@ make_helper(ldt){
 	cpu.GDTR.base=swaddr_read(addr+2,4)&0xffffff;
 	print_asm("lgdtw %s",ModR_M_asm);
 	return 1+len;
+	}
+	}
+	else
+	{
+		assert(0);
 	}
 }
 make_helper(hlt){
