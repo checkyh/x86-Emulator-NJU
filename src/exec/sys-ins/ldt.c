@@ -18,7 +18,7 @@ make_helper(ldt){
 	m.val = instr_fetch(eip + 1, 1);
 	printf("%d\n", m.mod);
 	if (suffix=='l'){
-	if(m.mod == 3) {
+	if(m.mod != 3) {
 		uint32_t imm = reg_l(m.reg);
 		cpu.GDTR.limit=swaddr_read(imm,2);
 		cpu.GDTR.base=swaddr_read(imm+2,4);
