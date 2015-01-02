@@ -55,7 +55,6 @@ int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 	if(disp_size != 0) {
 		/* has disp */
 		disp = instr_fetch(eip + disp_offset, disp_size);
-		disp=segment_translater(disp,4);
 		if(disp_size == 1) { disp = (int8_t)disp; }
 		sprintf(disp_buf, "%s%#x", (disp < 0 ? "-" : ""), (disp < 0 ? -disp : disp));
 
