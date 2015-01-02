@@ -35,8 +35,19 @@ make_helper(ldt){
 	}
 	else
 	{
-		assert(0);
+		if (suffix=='l'){
+		cpu.IDTR.limit=swaddr_read(addr,2);
+		cpu.IDTR.base=swaddr_read(addr+2,4);
+		print_asm("lidtl %s",ModR_M_asm);
+		return 1+len;
+		}
+	else{
+	cpu.IDTR.limit=swaddr_read(addr,2);;
+	cpu.IDTR.base=swaddr_read(addr+2,4)&0xffffff;
+	print_asm("lidtw %s",ModR_M_asm);
+	return 1+len;
 	}
+}
 }
 make_helper(hlt){
 	print_asm("hlt");
