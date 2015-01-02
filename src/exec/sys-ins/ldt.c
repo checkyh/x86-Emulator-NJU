@@ -16,6 +16,7 @@ extern char suffix;
 make_helper(ldt){
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
+	printf("%d\n", m.mod);
 	if (suffix=='l'){
 	if(m.mod == 3) {
 		uint32_t imm = reg_l(m.reg);
