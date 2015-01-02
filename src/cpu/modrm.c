@@ -8,6 +8,7 @@ char ModR_M_asm[MODRM_ASM_BUF_SIZE];
 #define print_ModR_M_asm(...) \
 	assert(snprintf(ModR_M_asm, MODRM_ASM_BUF_SIZE, __VA_ARGS__) < MODRM_ASM_BUF_SIZE )
 extern uint32_t current_sreg;
+extern uint32_t segment_translater(lnaddr_t addr,size_t len);
 /* For more details about instruction format, please refer to i386 manual. */
 int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 	ModR_M m;
@@ -28,12 +29,12 @@ int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 		base_reg = s.base;
 		disp_offset = 2;
 		scale = s.ss;
-		
+		current_sreg=SS;
 		if(s.index != R_ESP) { index_reg = s.index; }
 	}
 	else {
 		/* no SIB */
-
+		current_sreg=DS;
 		base_reg = m.R_M;
 		disp_offset = 1;
 	}
@@ -58,14 +59,14 @@ int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 		sprintf(disp_buf, "%s%#x", (disp < 0 ? "-" : ""), (disp < 0 ? -disp : disp));
 
 		instr_len += disp_size;
-		*addr += disp;
+		*addr += segment_translater(disp,4);
 	}
 	else { disp_buf[0] = '\0'; }
 
 	if(base_reg == -1) { base_buf[0] = '\0'; }
 	else { 
 		sprintf(base_buf, "%%%s", regsl[base_reg]); 
-		*addr += reg_l(base_reg);
+		*addr += segment_translater(reg_l(base_reg),4);
 	}
 
 	if(index_reg == -1) { index_buf[0] = '\0'; }
