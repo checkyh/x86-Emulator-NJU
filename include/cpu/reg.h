@@ -43,6 +43,11 @@
 		uint32_t base;
 		uint16_t unused;
 	}GDTR;
+	struct{
+		uint32_t base;
+		uint16_t limit;
+		uint16_t unused;
+	}IDTR;
 } CPU_state;
 extern CPU_state cpu;
 typedef struct{
@@ -51,6 +56,13 @@ typedef struct{
 	uint8_t G,B,AVL,P,DPL,TYPE;
 }invdis;
 invdis segments[4];
+typedef struct{
+	uint32_t offset;
+	uint16_t selector;
+	uint8_t type;
+	uint8_t P,DPL;
+}gates;
+gates gate[4];
 enum {ES,CS,SS,DS};
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
