@@ -14,25 +14,14 @@ FI; FI;*/
 
 extern char suffix;
 make_helper(ldt){
-	ModR_M m;
-	m.val = instr_fetch(eip + 1, 1);
-	printf("%d\n", m.mod);
 	if (suffix=='l'){
-	if(m.mod != 3) {
-		uint32_t imm = reg_l(m.reg);
-		cpu.GDTR.limit=swaddr_read(imm,2);
-		cpu.GDTR.base=swaddr_read(imm+2,4);
-		print_asm("lgdtl $0x%x",imm);
-		return 2;
-	}
-	else{
-		uint32_t imm = instr_fetch(eip + 2, 4);
-		cpu.GDTR.limit=swaddr_read(imm,2);
-		cpu.GDTR.base=swaddr_read(imm+2,4);
-		print_asm("lgdtl $0x%x",imm);
-		return 1+1+4;
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		cpu.GDTR.limit=swaddr_read(addr,2);
+		cpu.GDTR.base=swaddr_read(addr+2,4);
+		print_asm("lgdtl $0x%x",addr);
+		return 1+len;
 		}
-	}
 	else{
 		assert(0);
 	uint32_t imm=instr_fetch(eip+2,4);
