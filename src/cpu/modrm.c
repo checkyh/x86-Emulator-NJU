@@ -55,18 +55,19 @@ int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 	if(disp_size != 0) {
 		/* has disp */
 		disp = instr_fetch(eip + disp_offset, disp_size);
+		disp=segment_translater(disp,4);
 		if(disp_size == 1) { disp = (int8_t)disp; }
 		sprintf(disp_buf, "%s%#x", (disp < 0 ? "-" : ""), (disp < 0 ? -disp : disp));
 
 		instr_len += disp_size;
-		*addr += segment_translater(disp,4);
+		*addr += disp;
 	}
 	else { disp_buf[0] = '\0'; }
 
 	if(base_reg == -1) { base_buf[0] = '\0'; }
 	else { 
 		sprintf(base_buf, "%%%s", regsl[base_reg]); 
-		*addr += segment_translater(reg_l(base_reg),4);
+		*addr += reg_l(base_reg);
 	}
 
 	if(index_reg == -1) { index_buf[0] = '\0'; }
