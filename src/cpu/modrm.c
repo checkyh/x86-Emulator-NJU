@@ -28,12 +28,12 @@ int read_ModR_M(swaddr_t eip, swaddr_t *addr) {
 		base_reg = s.base;
 		disp_offset = 2;
 		scale = s.ss;
-		current_sreg=SS;
+		
 		if(s.index != R_ESP) { index_reg = s.index; }
 	}
 	else {
 		/* no SIB */
-		current_sreg=DS;
+
 		base_reg = m.R_M;
 		disp_offset = 1;
 	}
