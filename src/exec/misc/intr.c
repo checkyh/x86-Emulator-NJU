@@ -10,4 +10,5 @@ void raise_intr(uint8_t NO) {
  
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
+	assert(0);
 }
