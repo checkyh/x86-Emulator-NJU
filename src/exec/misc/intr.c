@@ -7,8 +7,8 @@ void raise_intr(uint8_t NO) {
 	/* TODO: Trigger an interrupt/exception with ``NO''.
 	 * That is, use ``NO'' to index the IDT.
 	 */
- 
- 	printf("%x %d\n",cpu.IDTR.base,NO );
+ 	lnaddr_t addr=cpu.IDTR.base+NO*8;
+ 	printf("%x\n",addr);
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
 }
