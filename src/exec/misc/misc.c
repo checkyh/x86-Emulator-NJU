@@ -34,7 +34,6 @@ extern void raise_intr(uint8_t NO);
 make_helper(int_i)
 {
 	uint8_t imm=instr_fetch(eip+1,1);
-	raise_intr(imm);
 	print_asm("int 0x%x",imm);
 	return 2;
 }
