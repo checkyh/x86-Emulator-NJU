@@ -31,10 +31,14 @@ make_helper(nemu_trap) {
 	return 1;
 }
 extern void raise_intr(uint8_t NO);
+static bool already_finished;
 make_helper(int_i)
 {
 	uint8_t imm=instr_fetch(eip+1,1);
+	if (already_finished) {print_asm("int 0x%x",imm);already_finished=false; return 2;}
+	else{
+	already_finished=true;
 	raise_intr(imm);
-	print_asm("int 0x%x",imm);
-	return 2;
+	assert(0);
+	}
 }
