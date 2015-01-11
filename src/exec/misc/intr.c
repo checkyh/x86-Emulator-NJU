@@ -12,10 +12,8 @@ void raise_intr(uint8_t NO) {
  	uint32_t offset=(lnaddr_read(addr+6,2)<<16)+lnaddr_read(addr,2);
  	uint16_t selector=lnaddr_read(addr+2,2);
  	uint32_t base=base_read(selector);
- 	printf("offset=%x base=%d\n",offset,base);
- 	assert(0);
  	uint32_t temp_eip=cpu.eip;
- 	cpu.eip=addr;
+ 	cpu.eip=base+offset;
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
 	cpu.eip=temp_eip;
