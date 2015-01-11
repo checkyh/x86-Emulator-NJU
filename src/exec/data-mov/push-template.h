@@ -48,5 +48,8 @@ make_helper(concat(pop_rm_, SUFFIX)) {
 		return len + 1;	
 }
 
-
+make_helper(concat(pusha_,SUFFIX)){
+	print_asm("pusha"str(SUFFIX));
+	return 1;
+}
 #include "exec/template-end.h"
