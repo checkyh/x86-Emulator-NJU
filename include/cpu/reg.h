@@ -55,7 +55,7 @@ typedef struct{
 	uint32_t limit;
 	uint8_t G,B,AVL,P,DPL,TYPE;
 }invdis;
-invdis segments[4];
+invdis segments[10];
 typedef struct{
 	uint32_t offset;
 	uint16_t selector;
