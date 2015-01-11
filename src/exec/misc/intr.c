@@ -9,6 +9,9 @@ void raise_intr(uint8_t NO) {
 	 */
  	lnaddr_t addr=cpu.IDTR.base+NO*8;
  	printf("%x\n",addr);
+ 	uint32_t temp_eip=cpu.eip;
+ 	cpu.eip=addr;
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
+	cpu.eip=temp_eip;
 }
