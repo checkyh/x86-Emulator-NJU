@@ -49,6 +49,14 @@ make_helper(concat(pop_rm_, SUFFIX)) {
 }
 
 make_helper(concat(pusha_,SUFFIX)){
+	int i=0;
+	uint32_t origin_esp=cpu.esp;
+	for (i=0;i<=7;i++)
+	{
+		cpu.esp-=DATA_BYTE;
+		if (i!=4)MEM_W(cpu.esp,REG(i));
+		else MEM_W(cpu.esp,origin_esp);
+	}
 	print_asm("pusha"str(SUFFIX));
 	return 1;
 }
