@@ -8,7 +8,8 @@ void raise_intr(uint8_t NO) {
 	 * That is, use ``NO'' to index the IDT.
 	 */
  	lnaddr_t addr=cpu.IDTR.base+NO*4;
- 	printf("%x\n",addr);
+ 	printf("base=%x index=%d %x\n",cpu.IDTR.base,NO,addr);
+ 	assert(0);
  	uint32_t temp_eip=cpu.eip;
  	cpu.eip=addr;
 	/* Jump back to cpu_exec() */
