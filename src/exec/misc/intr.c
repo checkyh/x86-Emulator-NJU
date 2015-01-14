@@ -19,7 +19,7 @@ void raise_intr(uint8_t NO) {
 	cpu.esp-=4;
 	swaddr_write(cpu.esp,4,cpu.CS);
 	cpu.esp-=4;
-	swaddr_write(cpu.esp,4,cpu.eip);
+	swaddr_write(cpu.esp,4,cpu.eip+1);
 	lnaddr_t addr=cpu.IDTR.base+NO*8;
  	uint32_t offset=(lnaddr_read(addr+6,2)<<16)+lnaddr_read(addr,2);
  	uint16_t selector=lnaddr_read(addr+2,2);
