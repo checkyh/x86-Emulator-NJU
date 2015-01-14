@@ -29,7 +29,7 @@ make_helper(nemu_trap) {
 		char *addr=(char *)(cpu.ecx-0xc0000000);
 		uint32_t len=cpu.edx;
 		printf("%.*s\n",len,addr);
-		return 4;
+		return 1;
 	}
 	else
 	{
