@@ -45,7 +45,6 @@ make_helper(int_i)
 {
 	uint8_t imm=instr_fetch(eip+1,1);
 	printf("enter brk\n");
-	cpu.eax=imm;
 	print_asm("int 0x%x",imm);
 	raise_intr(imm);
 	return 2;
