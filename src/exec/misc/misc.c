@@ -49,3 +49,18 @@ make_helper(int_i)
 	raise_intr(imm);
 	return 2;
 }
+//32  no 16
+make_helper(iret)
+{
+	cpu.eip=swaddr_read(cpu.esp,4);
+	cpu.esp+=4;
+	cpu.CS=swaddr_read(cpu.esp,4);
+	cpu.esp+=4;
+	int i=0;
+	for (i=7;i>=0;i--)
+	{
+		if (i!=4) reg_l(i)=swaddr_read(cpu.esp,4);
+		cpu.esp+=4;
+	}
+	return 1;
+}
