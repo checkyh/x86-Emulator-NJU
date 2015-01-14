@@ -3,6 +3,8 @@
 #include "ui/ui.h"
 
 #include "nemu.h"
+
+#include "page.h"
 extern int break_state;
 make_helper(inv) {
 	/* invalid opcode */
@@ -26,7 +28,7 @@ make_helper(int3) {
 make_helper(nemu_trap) {
 	if (cpu.eax==2)
 	{
-		char *str=(char *)(cpu.ecx-0xc0000000);
+		char *str=(char *)(page_translate(cpu.ecx));
 		uint32_t len=cpu.edx;
 		printf("%.*s\n",len,str );
 		return 1;
