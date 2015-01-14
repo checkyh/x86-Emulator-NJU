@@ -25,6 +25,7 @@ void raise_intr(uint8_t NO) {
 	swaddr_write(cpu.esp,4,cpu.CS);
 	cpu.esp-=4;
 	swaddr_write(cpu.esp,4,cpu.eip);
+	printf("eip=0x%x\n",cpu.eip );
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
 }
