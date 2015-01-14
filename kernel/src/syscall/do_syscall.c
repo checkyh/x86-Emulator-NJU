@@ -21,12 +21,7 @@ void do_syscall(TrapFrame *tf) {
 		 */
 		case 0: add_irq_handle(tf->ebx, (void*)tf->ecx); break;
 		case SYS_write:
-		if(tf->eax==1||tf->eax==2)
-		{
-			uint32_t buf=tf->ecx;
-			uint32_t len=tf->edx;
-			asm volatile (".byte 0x82" : : "a"(2), "c"(buf), "d"(len));
-		}
+			asm volatile (".byte 0x82" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
 		break;
 		case SYS_brk: sys_brk(tf); break;
 
