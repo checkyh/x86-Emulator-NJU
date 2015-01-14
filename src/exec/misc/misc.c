@@ -24,7 +24,6 @@ make_helper(int3) {
 }
 
 make_helper(nemu_trap) {
-	printf("%x %x \n",cpu.eax,cpu.ecx );
 	if (cpu.eax==2)
 	{
 		printf("OK\n" );
