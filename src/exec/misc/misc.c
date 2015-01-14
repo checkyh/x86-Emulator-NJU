@@ -28,9 +28,6 @@ make_helper(nemu_trap) {
 	if (cpu.eax==2)
 	{
 		printf("OK\n" );
-		char *addr=(char *)(cpu.ecx-0xc0000000);
-		uint32_t len=cpu.edx;
-		printf("%.*s\n",len,addr);
 		return 1;
 	}
 	else
