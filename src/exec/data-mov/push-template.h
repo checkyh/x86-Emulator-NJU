@@ -16,8 +16,15 @@ make_helper(concat(push_i_, SUFFIX)) {
 
 make_helper(concat(push_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
+	if (reg_code!=4){
 	cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,REG(reg_code));
+	}
+	else{
+		DATA_TYPE temp_esp=cpu.esp;
+		cpu.esp-=DATA_BYTE;
+		MEM_W(cpu.esp,temp_esp);
+	}
 	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(reg_code));
 	return 1;
 }
