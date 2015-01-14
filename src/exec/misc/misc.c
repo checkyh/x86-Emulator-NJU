@@ -62,5 +62,6 @@ make_helper(iret)
 		if (i!=4) reg_l(i)=swaddr_read(cpu.esp,4);
 		cpu.esp+=4;
 	}
+	print_asm("iret");
 	return 1;
 }
