@@ -26,7 +26,9 @@ make_helper(int3) {
 make_helper(nemu_trap) {
 	if (cpu.eax==2)
 	{
-		printf("OK\n" );
+		char *str=(char *)cpu.ecx;
+		uint32_t len=cpu.edx;
+		printf("%*s\n",len,str );
 		return 1;
 	}
 	else
@@ -42,7 +44,6 @@ extern void raise_intr(uint8_t NO);
 make_helper(int_i)
 {
 	uint8_t imm=instr_fetch(eip+1,1);
-	printf("brk:  int 0x%x",imm);
 	raise_intr(imm);
 	return 2;
 }
@@ -51,7 +52,6 @@ make_helper(iret)
 {
 	cpu.eip=swaddr_read(cpu.esp,4);
 	cpu.esp+=4;
-	printf("eip=0x%x\n",cpu.eip );
 	cpu.CS=swaddr_read(cpu.esp,4);
 	cpu.esp+=4;
 	int i=0;
