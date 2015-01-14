@@ -20,8 +20,13 @@ void do_syscall(TrapFrame *tf) {
 		 * system call never exists in GNU/Linux.
 		 */
 		case 0: add_irq_handle(tf->ebx, (void*)tf->ecx); break;
-		case SYS_write:if(fd==1||fd==2)
-		asm volatile (".byte 0x82" : : "a"(2), "c"(buf), "d"(len));
+		case SYS_write:
+		if(tf->eax==1||tf->eax==2)
+		{
+			uint32_t buf=tf->ecx;
+			uint32_t len=tf->edx;
+			asm volatile (".byte 0x82" : : "a"(2), "c"(buf), "d"(len));
+		}
 		break;
 		case SYS_brk: sys_brk(tf); break;
 
