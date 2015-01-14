@@ -24,11 +24,21 @@ make_helper(int3) {
 }
 
 make_helper(nemu_trap) {
-	printf("nemu: HIT \33[1;31m%s\33[0m TRAP at eip = 0x%08x\n\n", (cpu.eax == 0 ? "GOOD" : "BAD"), cpu.eip);
-	nemu_state = END;
+	if (cpu.eax==2)
+	{
+		char *addr=(char *)(cpu.ecx-0xc0000000);
+		uint32_t len=cpu.edx;
+		printf("%.*s\n",len,addr);
+		return 4;
+	}
+	else
+	{
+		printf("nemu: HIT \33[1;31m%s\33[0m TRAP at eip = 0x%08x\n\n", (cpu.eax == 0 ? "GOOD" : "BAD"), cpu.eip);
+		nemu_state = END;
 
-	print_asm("nemu trap");
-	return 1;
+		print_asm("nemu trap");
+		return 1;
+	}
 }
 extern void raise_intr(uint8_t NO);
 make_helper(int_i)
