@@ -29,7 +29,8 @@ make_helper(nemu_trap) {
 	if (cpu.eax==2)
 	{
 		char *str=(char *)(page_translate(cpu.ecx));
-		printf("%x\n",(uint32_t)str );
+	
+		printf("%s\n",str );
 		return 1;
 	}
 	else
