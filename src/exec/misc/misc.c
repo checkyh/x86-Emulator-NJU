@@ -53,10 +53,8 @@ make_helper(int_i)
 make_helper(iret)
 {
 	cpu.eip=swaddr_read(cpu.esp,4);
-	printf("eip=0x%x\n",cpu.eip);
 	cpu.esp+=4;
 	cpu.CS=swaddr_read(cpu.esp,4);
-	printf("CS=0x%x\n",cpu.CS);
 	cpu.esp+=4;
 	int i=0;
 	for (i=7;i>=0;i--)

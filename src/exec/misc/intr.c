@@ -8,11 +8,6 @@ void raise_intr(uint8_t NO) {
 	/* TODO: Trigger an interrupt/exception with ``NO''.
 	 * That is, use ``NO'' to index the IDT.
 	 */
- 	lnaddr_t addr=cpu.IDTR.base+NO*8;
- 	uint32_t offset=(lnaddr_read(addr+6,2)<<16)+lnaddr_read(addr,2);
- 	uint16_t selector=lnaddr_read(addr+2,2);
- 	uint32_t base=base_read(selector);
- 	cpu.eip=base+offset;
  	int i=0;
 	uint32_t origin_esp=cpu.esp;
 	for (i=0;i<=7;i++)
@@ -25,7 +20,11 @@ void raise_intr(uint8_t NO) {
 	swaddr_write(cpu.esp,4,cpu.CS);
 	cpu.esp-=4;
 	swaddr_write(cpu.esp,4,cpu.eip);
-	printf("eip=0x%x\n",cpu.eip );
+	lnaddr_t addr=cpu.IDTR.base+NO*8;
+ 	uint32_t offset=(lnaddr_read(addr+6,2)<<16)+lnaddr_read(addr,2);
+ 	uint16_t selector=lnaddr_read(addr+2,2);
+ 	uint32_t base=base_read(selector);
+ 	cpu.eip=base+offset;
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
 }
