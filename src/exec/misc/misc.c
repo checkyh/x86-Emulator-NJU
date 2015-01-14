@@ -26,7 +26,7 @@ make_helper(int3) {
 make_helper(nemu_trap) {
 	if (cpu.eax==2)
 	{
-		char *str=(char *)cpu.ecx;
+		char *str=(char *)(cpu.ecx-0xc0000000);
 		uint32_t len=cpu.edx;
 		printf("%.*s\n",len,str );
 		return 1;
