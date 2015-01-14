@@ -18,13 +18,13 @@ void raise_intr(uint8_t NO) {
 	for (i=0;i<=7;i++)
 	{
 		cpu.esp-=4;
-		if (i!=4) swaddr_write(cpu.esp,reg_l(i),4);
-		else swaddr_write(cpu.esp,origin_esp,4);
+		if (i!=4) swaddr_write(cpu.esp,4,reg_l(i));
+		else swaddr_write(cpu.esp,4,origin_esp);
 	}
 	cpu.esp-=4;
-	swaddr_write(cpu.esp,cpu.CS,4);
+	swaddr_write(cpu.esp,4,cpu.CS);
 	cpu.esp-=4;
-	swaddr_write(cpu.esp,cpu.eip,4);
+	swaddr_write(cpu.esp,4,cpu.eip);
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
 }
