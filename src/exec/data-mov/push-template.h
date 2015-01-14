@@ -67,4 +67,14 @@ make_helper(concat(pusha_,SUFFIX)){
 	print_asm("pusha"str(SUFFIX));
 	return 1;
 }
+make_helper(concat(popa_,SUFFIX)){
+	int i=0;
+	for (i=7;i>=0;i--)
+	{
+		if (i!=4) REG(i)=MEM_R(cpu.esp);
+		cpu.esp+=DATA_BYTE;
+	}
+	print_asm("popa"str(SUFFIX));
+	return 1;
+}
 #include "exec/template-end.h"

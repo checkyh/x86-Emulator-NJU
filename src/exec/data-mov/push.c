@@ -38,3 +38,6 @@ make_helper(pop_rm_v) {
 make_helper(pusha_v) {
 	return (suffix == 'l' ? pusha_l(eip):pusha_w(eip));
 }
+make_helper(popa_v) {
+	return (suffix == 'l' ? popa_l(eip):popa_w(eip));
+}
