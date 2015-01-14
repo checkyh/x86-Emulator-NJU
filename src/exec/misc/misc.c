@@ -30,7 +30,7 @@ make_helper(nemu_trap) {
 	{
 		char *str=(char *)(page_translate(segment_translater(cpu.ecx,4)));
 	
-		printf("%s\n",str );
+		printf("%x\n",(uint32_t)str );
 		return 1;
 	}
 	else
