@@ -12,9 +12,19 @@ void raise_intr(uint8_t NO) {
  	uint32_t offset=(lnaddr_read(addr+6,2)<<16)+lnaddr_read(addr,2);
  	uint16_t selector=lnaddr_read(addr+2,2);
  	uint32_t base=base_read(selector);
- 	uint32_t temp_eip=cpu.eip;
  	cpu.eip=base+offset;
+ 	int i=0;
+	uint32_t origin_esp=cpu.esp;
+	for (i=0;i<=7;i++)
+	{
+		cpu.esp-=4;
+		if (i!=4) swaddr_write(cpu.esp,reg_l(i),4);
+		else swaddr_write(cpu.esp,origin_esp,4);
+	}
+	cpu.esp-=4;
+	swaddr_write(cpu.esp,cpu.CS,4);
+	cpu.esp-=4;
+	swaddr_write(cpu.esp,cpu.eip,4);
 	/* Jump back to cpu_exec() */
 	longjmp(jbuf, 1);
-	cpu.eip=temp_eip;
 }
