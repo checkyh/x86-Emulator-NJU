@@ -28,6 +28,7 @@ extern uint32_t segment_translater(lnaddr_t addr,size_t len);
 make_helper(nemu_trap) {
 	if (cpu.eax==2)
 	{
+		printf("%x\n",cpu.ecx );
 		char *str=(char *)(page_translate(segment_translater(cpu.ecx,4)));
 	
 		printf("%x\n",(uint32_t)str );
