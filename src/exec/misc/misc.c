@@ -33,7 +33,7 @@ make_helper(nemu_trap) {
 		uint32_t addr=cpu.ecx;
 		for (i=0;i<len;i++)
 		{
-			temp=(char)swaddr_read(addr,2);
+			temp=(char)swaddr_read(addr+i,2);
 			printf("%c", temp);
 		}
 		return 1;
