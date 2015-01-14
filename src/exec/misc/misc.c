@@ -24,11 +24,11 @@ make_helper(int3) {
 	cpu.eip--;
 	return 1;
 }
-
+extern uint32_t segment_translater(lnaddr_t addr,size_t len);
 make_helper(nemu_trap) {
 	if (cpu.eax==2)
 	{
-		char *str=(char *)(page_translate(cpu.ecx));
+		char *str=(char *)(page_translate(segment_translater(cpu.ecx,4)));
 	
 		printf("%s\n",str );
 		return 1;
