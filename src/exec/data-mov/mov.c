@@ -99,6 +99,19 @@ make_helper(mov_r2s)
 	print_asm("mov %%%s,%%%s",REG_NAME(m.R_M),seg_name);
 	return 2;
 }
+make_helper(movsw)
+{
+	ModR_M m;
+	swaddr_t addr;
+	m.val = instr_fetch(eip + 1, 1);
+	uint32_t result;
+	int len = read_ModR_M(eip + 1, &addr);
+	result=swaddr_read(addr,2);
+	if ((result>>15)&0x1) result=result|0xffff0000;
+	reg_l(m.reg)=result;
+	print_asm("movsw %s %%%s",ModR_M_asm,regsl[m.reg]);
+	return len+1;
+}
 
 #include "exec/template-end.h"
 #undef DATA_BYTE

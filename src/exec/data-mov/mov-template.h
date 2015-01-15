@@ -105,6 +105,7 @@ make_helper(concat(movzx_, SUFFIX)) {
 		return len + 1;
 	}
 }
+
 #endif
 #if (DATA_BYTE==2||DATA_BYTE==4)
 make_helper(concat(movsb_, SUFFIX)) {
