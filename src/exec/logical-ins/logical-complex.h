@@ -7,7 +7,7 @@ make_helper(concat(test_i2r_,SUFFIX)) {
 	PF_check(result)
 	cpu.OF=0;
 	cpu.CF=0;
-	print_asm("test"str(SUFFIX)" $0x%x",imm);
+	print_asm("test"str(SUFFIX)" $0x%x %%%s",imm,REG_NAME(0));
 	return 1+DATA_BYTE;
 }
 make_helper(concat(test_r2rm_, SUFFIX)) {
