@@ -1,6 +1,14 @@
 #if (logical_chooser==0)
 make_helper(concat(test_i2r_,SUFFIX)) {
-	return 0;
+	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
+	DATA_TYPE result=REG(0)&imm;
+	if ( result==0) cpu.ZF=1;else cpu.ZF=0;
+	if (MSB(result)) cpu.SF=1;else cpu.SF=0;
+	PF_check(result)
+	cpu.OF=0;
+	cpu.CF=0;
+	print_asm("test"str(SUFFIX)" $0x%x",imm);
+	return 1+DATA_BYTE;
 }
 make_helper(concat(test_r2rm_, SUFFIX)) {
 	logical_give(logical_chooser);

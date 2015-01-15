@@ -1,6 +1,6 @@
 CC      = gcc
 LD      = ld
-CFLAGS  = -m32 -Wall -Werror -static -I..
+CFLAGS  = -m32 -Wall -Werror -static -I../lib
 LDFLAGS = -melf_i386 -e main 
 SRCS = $(shell ls *.c)
 OBJS = $(SRCS:.c=)
@@ -8,7 +8,7 @@ OBJS = $(SRCS:.c=)
 all: $(OBJS)
 
 $(OBJS): % : %.o
-	$(LD) $(LDFLAGS) -o $@ $<
+	$(LD) $(LDFLAGS) -o $@ $< libc.a
 	objdump -d $@ > $@.txt
 
 clean:
