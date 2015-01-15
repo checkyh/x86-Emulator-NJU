@@ -60,7 +60,7 @@ helper_fun opcode_table [256] = {
 /* 0xc4 */	inv, inv, mov_i2rm_b, mov_i2rm_v,
 /* 0xc8 */	inv, leave_v, inv, inv,
 /* 0xcc */	int3, int_i, inv, iret,
-/* 0xd0 */	inv, xd1_switcher, inv, inv,
+/* 0xd0 */	inv, xd1_switcher, inv, xd3_switcher,
 /* 0xd4 */	inv, inv, inv, inv,
 /* 0xd8 */	inv, inv, inv, inv,
 /* 0xdc */	inv, inv, inv, inv,

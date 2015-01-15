@@ -32,6 +32,30 @@ make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 		return 1+len_i + len;
 	}
 }
+make_helper(concat(concat(binlogical,_cl2rm_),SUFFIX)) {
+	binlogical_give(binlogical_chooser);
+	ModR_M m;
+	 DATA_TYPE src=1;
+	m.val = instr_fetch(eip + 1, 1);
+	DATA_TYPE result=0;
+	if(m.mod == 3) {
+		src =REG(m.reg);
+		DATA_TYPE *dst=&REG(m.R_M);		
+		switch_r
+		print_asm("%s" str(SUFFIX) " %%%s,%%%s",ins_name,REG_NAME(1), REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		src=REG(m.reg);
+		DATA_TYPE dst_v=MEM_R(addr);
+		DATA_TYPE *dst=&dst_v;
+		switch_rm
+		print_asm("%s" str(SUFFIX) " %%%s,%s",ins_name,REG_NAME(1), ModR_M_asm);
+		return 2+len;
+	}
+}
 #include "exec/template-end.h"
 #undef switch_r
 #undef switch_rm

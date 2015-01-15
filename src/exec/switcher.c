@@ -104,6 +104,12 @@ make_helper(xd1_switcher)//bin-logcial imm
 	m.val = instr_fetch(eip + 1, 1);
 	binlogical_change(_i2rm_v)
 }
+make_helper(xd3_switcher)//bin-logcial cl
+{
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	binlogical_change(_cl2rm_v)
+}
 make_helper(x0f_switcher)//2 byte escape
 {
 	 uint8_t ins_type=instr_fetch(eip + 1, 1);

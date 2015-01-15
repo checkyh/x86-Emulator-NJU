@@ -1,4 +1,4 @@
-#if binlogical_chooser==4//sal
+#if binlogical_chooser==4//sal shl
 #define switch_r  { if (src==0) cpu.OF=0;\
 		int i=1;for (;i<=src;i++) {\
 			cpu.CF=MSB(*dst);if (MSB(*dst)==0) *dst=*dst<<1;\

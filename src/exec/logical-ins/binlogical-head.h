@@ -26,5 +26,8 @@ make_helper(concat(binlogical,_i2rm_v)) {
 	return (suffix == 'l' ? concat(binlogical,_i2rm_l)(eip) : concat(binlogical,_i2rm_w)(eip));
 }
 
+make_helper(concat(binlogical,_cl2rm_v)) {
+	return (suffix == 'l' ? concat(binlogical,_cl2rm_l)(eip) : concat(binlogical,_cl2rm_w)(eip));
+}
 
 #undef binlogical
