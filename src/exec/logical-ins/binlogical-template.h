@@ -15,7 +15,8 @@ make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 	if(m.mod == 3) {
 		if (instes!=0xd1&&instes!=0xd0) {imm = instr_fetch(eip + 1 + 1, 1);len_i++;}
 		src=imm;
-		DATA_TYPE *dst=&REG(m.R_M);		
+		DATA_TYPE *dst=&REG(m.R_M);
+		printf("%x %x\n",src,*dst );		
 		switch_r
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
 		return 1 + len_i+1;
