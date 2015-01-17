@@ -1,9 +1,8 @@
 #if binlogical_chooser==4//sal shl
 #define switch_r  { if (src==1&& MSB(*dst<<1)==cpu.CF ) cpu.OF=0;else cpu.OF=1;\
-		int i=1;for (;i<=src;i++) {\
+		printf("%x\n %x\n",*dst,src );int i=1;for (;i<=src;i++) {\
 			cpu.CF=MSB(*dst);if (MSB(*dst)==0) *dst=*dst<<1;\
-			else *dst=(*dst<<1);\
-			printf("%x\n",*dst );}\
+			else *dst=(*dst<<1);}\
 			Unused(result)}
 #define switch_rm  { if (src==1&& MSB(*dst<<1)==cpu.CF ) cpu.OF=0;else cpu.OF=1;int i=1;\
 			for (;i<=src;i++) {cpu.CF=MSB(*dst);\
