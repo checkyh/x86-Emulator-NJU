@@ -5,7 +5,7 @@ void binlogical_give(int binlogical_chooser)
 {
 	switch(binlogical_chooser)
 	{
-		case 4:sprintf(ins_name,"%s","sal");break;
+		case 4:sprintf(ins_name,"%s","shl");break;
 		case 5:sprintf(ins_name,"%s","shr");break;
 		case 7:sprintf(ins_name,"%s","sar");break;
 		default:assert(0);
