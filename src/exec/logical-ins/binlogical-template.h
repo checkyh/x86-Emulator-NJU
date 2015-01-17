@@ -15,8 +15,7 @@ make_helper(concat(concat(binlogical,_i2rm_),SUFFIX)) {
 	if(m.mod == 3) {
 		if (instes!=0xd1&&instes!=0xd0) {imm = instr_fetch(eip + 1 + 1, 1);len_i++;}
 		src=imm;
-		DATA_TYPE *dst=&REG(m.R_M);
-		printf("%x %x\n",src,*dst );		
+		DATA_TYPE *dst=&REG(m.R_M);		
 		switch_r
 		print_asm("%s" str(SUFFIX) " $0x%x,%%%s",ins_name,imm, REG_NAME(m.R_M));
 		return 1 + len_i+1;
@@ -40,7 +39,7 @@ make_helper(concat(concat(binlogical,_cl2rm_),SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result=0;
 	if(m.mod == 3) {
-		src =REG(m.reg);
+		src =REG(1);
 		DATA_TYPE *dst=&REG(m.R_M);		
 		switch_r
 		print_asm("%s" str(SUFFIX) " %%%s,%%%s",ins_name,REG_NAME(1), REG_NAME(m.R_M));
@@ -49,7 +48,7 @@ make_helper(concat(concat(binlogical,_cl2rm_),SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		src=REG(m.reg);
+		src=REG(1);
 		DATA_TYPE dst_v=MEM_R(addr);
 		DATA_TYPE *dst=&dst_v;
 		switch_rm
