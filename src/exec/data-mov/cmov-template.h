@@ -17,6 +17,7 @@ make_helper(concat(cmov_,SUFFIX)){
 			case(0x44):sprintf(ins_name,"%s","cmove");if(cpu.ZF==1) CMOV_R;break;
 			case(0x45):sprintf(ins_name,"%s","cmovne");if(cpu.ZF==0) CMOV_R;break;
 			case(0x46):sprintf(ins_name,"%s","cmovbe");if(cpu.CF==1||cpu.ZF==0) CMOV_R;break;
+			case(0x47):sprintf(ins_name,"%s","cmova");if (cpu.CF==0&&cpu.ZF==0) CMOV_R;break;
 			case(0x48):sprintf(ins_name,"%s","cmovs");if (cpu.SF==1) CMOV_R;break;
 			case(0x49):sprintf(ins_name,"%s","cmovns");if (cpu.SF==0) CMOV_R;break;
 			case(0x4d):sprintf(ins_name,"%s","cmovge");if (cpu.SF==cpu.OF) CMOV_R;break;
@@ -35,6 +36,7 @@ make_helper(concat(cmov_,SUFFIX)){
 			case(0x44):sprintf(ins_name,"%s","cmove");if(cpu.ZF==1) CMOV_RM;break;
 			case(0x45):sprintf(ins_name,"%s","cmovne");if(cpu.ZF==0) CMOV_RM;break;
 			case(0x46):sprintf(ins_name,"%s","cmovbe");if(cpu.CF==1||cpu.ZF==0) CMOV_RM;break;
+			case(0x47):sprintf(ins_name,"%s","cmova");if (cpu.CF==0&&cpu.ZF==0) CMOV_RM;break;
 			case(0x48):sprintf(ins_name,"%s","cmovs");if (cpu.SF==1) CMOV_RM;break;
 			case(0x49):sprintf(ins_name,"%s","cmovns");if (cpu.SF==0) CMOV_RM;break;
 			case(0x4d):sprintf(ins_name,"%s","cmovge");if (cpu.SF==cpu.OF) CMOV_RM;break;
