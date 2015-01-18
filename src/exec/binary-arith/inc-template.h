@@ -46,6 +46,19 @@ make_helper(concat(inc_rm_, SUFFIX)) {
 		return len  + 1;
 	}
 }
+make_helper(concat(dec_r_, SUFFIX)) {
+	int reg_code = instr_fetch(eip, 1) & 0x7;
+	DATA_TYPE src=1,dst=0,result=0;
+	dst=REG(reg_code);
+	result=dst-1;
+	if(result<dst||result<src) cpu.CF=1;else cpu.CF=0;
+	if((MSB(src)&&MSB(dst)&&MSB(result)==0)||(MSB(src)==0&&MSB(dst)==0&&MSB(result)))
+	cpu.OF=1;else cpu.OF=0;
+	RESULT_check
+	REG(reg_code)=result;
+	print_asm("dec" str(SUFFIX) " %%%s", REG_NAME(reg_code));
+	return 1;
+}
 make_helper(concat(dec_rm_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);

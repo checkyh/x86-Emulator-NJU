@@ -22,3 +22,6 @@ make_helper(inc_r_v) {
 make_helper(dec_rm_v) {
 	return (suffix == 'l' ?dec_rm_l(eip) : dec_rm_w(eip));
 }
+make_helper(dec_r_v) {
+	return (suffix == 'l' ?dec_r_l(eip) : dec_r_w(eip));
+}
