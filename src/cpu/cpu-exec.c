@@ -9,7 +9,7 @@
 int exec(swaddr_t);
 void load_prog();
 void init_dram();
-
+void sdl_clear_event_queue();
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 
@@ -22,7 +22,7 @@ void restart() {
 	/* Perform some initialization to restart a program */
 	load_prog();
 	memcpy(hwa_to_va(LOADER_START), loader, loader_len);
-
+	sdl_clear_event_queue();//来清除程序运行前触发的SDL事件(尤其是按键)
 	cpu.eip = LOADER_START;
 // load Code Segment
 	segments[CS].base=0;

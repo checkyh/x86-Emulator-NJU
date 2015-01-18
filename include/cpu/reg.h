@@ -29,7 +29,7 @@
 
 
 
-	swaddr_t eip;	uint32_t CR0,CR1,CR2,CR3;
+	swaddr_t eip;	uint32_t CR0,CR1,CR2,CR3,INTR;
 	uint16_t CS,DS,ES,SS;
 	union{struct {	unsigned CF:1;unsigned set1:1;unsigned PF:1;unsigned set3:1;
 			unsigned AF:1;unsigned set4:1;unsigned ZF:1;unsigned SF:1;

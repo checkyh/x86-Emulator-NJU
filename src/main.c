@@ -9,7 +9,8 @@ void init_bp_pool();
 void init_regex();
 void init_signal();
 void reg_test();
-
+void init_device();
+void init_sdl();
 int enable_debug = false;
 int quiet = false;
 
@@ -46,7 +47,8 @@ int main(int argc, char *argv[]) {
 
 	/* Test whether the 'CPU_state' structure is organized correctly. */
 	reg_test();
-
+	init_device();
+	init_sdl();
 	main_loop();
 
 	return 0;
