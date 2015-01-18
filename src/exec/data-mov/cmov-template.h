@@ -15,6 +15,7 @@ make_helper(concat(cmov_,SUFFIX)){
 		switch(mov_ins)
 		{
 			case(0x44):sprintf(ins_name,"%s","cmove");if(cpu.ZF==1) CMOV_R;break;
+			default:assert(0);
 		}
 		print_asm("%s"str(SUFFIX)" %%%s %%%s",ins_name,REG_NAME(m.reg),REG_NAME(m.R_M));
 		return  2;
@@ -25,6 +26,7 @@ make_helper(concat(cmov_,SUFFIX)){
 		switch(mov_ins)
 		{
 			case(0x44):sprintf(ins_name,"%s","cmove");if(cpu.ZF==1) CMOV_RM;break;
+			default:assert(0);
 		}
 		print_asm("%s"str(SUFFIX)" %%%s %s",ins_name,REG_NAME(m.reg),ModR_M_asm);
 		return  len+1;
