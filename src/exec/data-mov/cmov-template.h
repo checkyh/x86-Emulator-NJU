@@ -22,7 +22,7 @@ make_helper(concat(cmov_,SUFFIX)){
 			case(0x4d):sprintf(ins_name,"%s","cmovge");if (cpu.SF==cpu.OF) CMOV_R;break;
 			case(0x4e):sprintf(ins_name,"%s","cmovle");if (cpu.ZF==1||cpu.SF!=cpu.OF) CMOV_R;break;
 			case(0x4f):sprintf(ins_name,"%s","cmovg");if (cpu.ZF==0&&cpu.SF==cpu.OF) CMOV_R;break;
-			default:Log("%x",cpu.eip);assert(0);
+			default:printf("%x",cpu.eip);assert(0);
 		}
 		print_asm("%s"str(SUFFIX)" %%%s %%%s",ins_name,REG_NAME(m.reg),REG_NAME(m.R_M));
 		return  2;
@@ -40,7 +40,7 @@ make_helper(concat(cmov_,SUFFIX)){
 			case(0x4d):sprintf(ins_name,"%s","cmovge");if (cpu.SF==cpu.OF) CMOV_RM;break;
 			case(0x4e):sprintf(ins_name,"%s","cmovle");if (cpu.ZF==1||cpu.SF!=cpu.OF) CMOV_RM;break;
 			case(0x4f):sprintf(ins_name,"%s","cmovg");if (cpu.ZF==0&&cpu.SF==cpu.OF) CMOV_RM;break;
-			default:Log("%x",cpu.eip);assert(0);
+			default:printf("%x",cpu.eip);assert(0);
 		}
 		print_asm("%s"str(SUFFIX)" %%%s %s",ins_name,REG_NAME(m.reg),ModR_M_asm);
 		return  len+1;
