@@ -6,6 +6,7 @@
 #include "data-mov/lea.h"
 #include "data-mov/cwd.h"
 #include "data-mov/xchg.h"
+#include "data-mov/cmov.h"
 
 #include "misc/misc.h"
 
