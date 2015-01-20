@@ -54,14 +54,15 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 
 uint32_t swaddr_read(swaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	if(addr>=0xa0000&&addr<0xafa00) return hwaddr_read(addr,len);
+	if(addr>=0xa0000u&&addr<0xafa00u) return hwaddr_read(addr,len);
 	lnaddr_t lnaddr=segment_translater(addr,len);
 	return lnaddr_read(lnaddr, len);
 }
 
 void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
-	if(addr>=0xa0000&&addr<0xafa00) hwaddr_write(addr,len,data);{
+	if(addr>=0xa0000u&&addr<0xafa00u) hwaddr_write(addr,len,data);
+	else{
 	lnaddr_t lnaddr=segment_translater(addr,len);
 	lnaddr_write(lnaddr, len, data);}
 }
