@@ -14,7 +14,6 @@ void create_video_mapping() {
 	 * [0xa0000, 0xa0000 + SCR_SIZE) for user program. You may define
 	 * some page tables to create this mapping.
 	 */
-	nemu_assert(0);
 }
 
 void video_mapping_write_test() {
