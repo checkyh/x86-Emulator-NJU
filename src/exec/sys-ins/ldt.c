@@ -11,7 +11,8 @@ FI; FI;*/
 #include "memory.h"
 #include "exec/helper.h"
 #include "cpu/modrm.h"
-
+#include "device/i8259.h"
+#include "cpu/reg.h"
 extern char suffix;
 make_helper(ldt){
 	ModR_M m;
@@ -49,8 +50,13 @@ make_helper(ldt){
 	}
 }
 }
+void raise_intr(uint8_t);
 make_helper(hlt){
 	print_asm("hlt");
-	while (cpu.INTR & cpu.IF);
+	while (cpu.INTR & cpu.IF){
+		uint32_t intr_no = i8259_query_intr();
+		i8259_ack_intr();
+		raise_intr(intr_no);
+	}
 	return 1;
 }
