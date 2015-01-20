@@ -24,8 +24,10 @@ make_helper(concat(rep_,SUFFIX))
 		REG(1)-=1;
 	}
 	switch(ins){
-		case(0xaa):case(0xab):	print_asm("rep stos"str(SUFFIX)" eax,[edi]");break;
-		case(0xa4):case(0xa5):	print_asm("rep movs"str(SUFFIX)" [esi],[edi]");break;
+		case(0xaa):	print_asm("rep stosb eax,[edi]");break;
+		case(0xab):	print_asm("rep stos"str(SUFFIX)" eax,[edi]");break;
+		case(0xa4):	print_asm("rep movsb [esi],[edi]");break;
+		case(0xa5):	print_asm("rep movs"str(SUFFIX)" [esi],[edi]");break;
 		assert(0);
 	}
 	return 2;
