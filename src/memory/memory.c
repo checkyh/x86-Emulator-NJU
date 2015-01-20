@@ -44,7 +44,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
 	if (page_cross(addr,len)) {
 		/* this is a special case, you can handle it later. */
-		printf("addr=%x\n",addr );
+		printf("eip=%x addr=%x\n",cpu.eip,addr );
 		assert(0);
 		int i=0;
 		for(i=0;i<len;i++) lnaddr_write(addr+i,1,data<<(24-8*i)>>24);
