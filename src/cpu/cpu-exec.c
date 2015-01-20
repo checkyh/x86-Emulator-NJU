@@ -1,13 +1,14 @@
 #include "ui/ui.h"
 
 #include "nemu.h"
-
+#include "device/i8259.h"
 #include <setjmp.h>
 #include "ui/breakpoint.h"
 #define LOADER_START 0x100000
 
 int exec(swaddr_t);
 void load_prog();
+void raise_intr(int8_t NO);
 void init_dram();
 void sdl_clear_event_queue();
 char assembly[40];
@@ -84,5 +85,10 @@ void cpu_exec(volatile uint32_t n) {
 			return;
 		} 
 		else if(nemu_state == END) { return; }
+		if(cpu.INTR & cpu.IF) {
+			uint32_t intr_no = i8259_query_intr();
+			i8259_ack_intr();
+			raise_intr(intr_no);
+		}
 	}
 }
