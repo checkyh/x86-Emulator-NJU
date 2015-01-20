@@ -11,8 +11,7 @@ make_helper(concat(rep_,SUFFIX))
 		switch (ins){
 		case(0xaa):
 		case(0xab):
-		if ((cpu.CR0&0x1)==1){current_sreg=ES;MEM_W((7),REG(0));}
-		else MEM_W(REG(7)+(cpu.ES<<16),REG(0));break;
+		MEM_W((7),REG(0));break;
 		case(0xa4):
 		case(0xa5):
 		if ((cpu.CR0&0x1)==1){current_sreg=DS;temp=MEM_R(REG(6));current_sreg=ES;MEM_W(REG(7),temp);}
