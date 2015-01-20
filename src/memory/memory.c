@@ -2,6 +2,7 @@
 #include "cache.h"
 #include "cpu/reg.h"
 #include "page.h"
+#include "io/mmio.h"
 //物理地址hwaddr 逻辑地址 swaddr
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
@@ -14,11 +15,14 @@ uint32_t segment_translater(lnaddr_t addr,size_t len)
 }
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
+	if(is_mmio(addr)!=-1) return mmio_read(addr,len,is_mmio(addr));
 	return L1cache_reads(addr, len);
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
+	if(is_mmio(addr)!=-1) mmio_write(addr,len,data,is_mmio(addr));
+	else
 	L1cache_writes(addr, len, data);
 }
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
