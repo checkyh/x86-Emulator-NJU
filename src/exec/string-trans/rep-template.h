@@ -4,18 +4,20 @@
 extern uint32_t current_sreg;
 make_helper(concat(rep_,SUFFIX))
 {
-	uint32_t temp;
 	int ins = instr_fetch(eip+1, 1);
 	while (REG(1)!=0)
 	{
 		switch (ins){
 		case(0xaa):
+		swaddr_write(REG(7),1,reg_b(0));REG(7)+=1;break;
 		case(0xab):
-		MEM_W(REG(7),REG(0));break;
+		MEM_W(REG(7),REG(0));REG(7)+=DATA_BYTE;break;
 		case(0xa4):
+		swaddr_write(REG(7),1,swaddr_read(REG(6),1));
+		if(cpu.DF==0) {REG(7)+=1;REG(6)+=1;}else 
+			{REG(7)-=1;REG(6)-=1;}break;
 		case(0xa5):
-		if ((cpu.CR0&0x1)==1){current_sreg=DS;temp=MEM_R(REG(6));current_sreg=ES;MEM_W(REG(7),temp);}
-		else MEM_W(REG(7)+(cpu.ES<<16),MEM_R((cpu.ES<<16)+REG(6)));
+		MEM_W(REG(7),MEM_R(REG(6)));
 			if(cpu.DF==0) {REG(7)+=DATA_BYTE;REG(6)+=DATA_BYTE;}else 
 			{REG(7)-=DATA_BYTE;REG(6)-=DATA_BYTE;}break;
 		}
