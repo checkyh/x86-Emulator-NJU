@@ -51,5 +51,6 @@ make_helper(ldt){
 }
 make_helper(hlt){
 	print_asm("hlt");
+	while (cpu.INTR & cpu.IF);
 	return 1;
 }
