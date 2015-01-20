@@ -21,6 +21,7 @@ extern int quiet;
 
 void restart() {
 	/* Perform some initialization to restart a program */
+	load_prog();
 	memcpy(hwa_to_va(LOADER_START), loader, loader_len);
 	sdl_clear_event_queue();//来清除程序运行前触发的SDL事件(尤其是按键)
 	cpu.eip = LOADER_START;
