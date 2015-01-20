@@ -49,7 +49,7 @@ hwaddr_t page_translate(lnaddr_t addr)
 }
 void printpage(uint32_t addr)
 {
-	uint32_t base=0x00138000>>12<<12;
+	uint32_t base=0x00140000>>12<<12;
 	hwaddr_t table_now=hwaddr_read((addr>>22)*4+base,4);
 	hwaddr_t page_now=hwaddr_read(((addr>>12)&0x3ff)*4+(table_now>>12<<12),4);
 	uint32_t value=hwaddr_read((page_now>>12<<12)+(addr&0xfff),4);
