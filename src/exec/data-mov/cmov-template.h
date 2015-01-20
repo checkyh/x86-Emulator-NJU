@@ -4,7 +4,7 @@
 #include "cpu/reg.h"
 //cmovcc r2rm
 #define CMOV_R REG(m.reg)=REG(m.R_M)
-#define CMOV_RM len=read_ModR_M(eip+1,&addr);REG(m.reg)=MEM_R(addr)
+#define CMOV_RM REG(m.reg)=MEM_R(addr)
 make_helper(concat(cmov_,SUFFIX)){
 	int mov_ins = instr_fetch(eip, 1);
 	char ins_name[6];
@@ -25,12 +25,12 @@ make_helper(concat(cmov_,SUFFIX)){
 			case(0x4f):sprintf(ins_name,"%s","cmovg");if (cpu.ZF==0&&cpu.SF==cpu.OF) CMOV_R;break;
 			default:printf("%x",cpu.eip);assert(0);
 		}
-		print_asm("%s"str(SUFFIX)" %%%s %%%s",ins_name,REG_NAME(m.reg),REG_NAME(m.R_M));
+		print_asm("%s"str(SUFFIX)" %%%s %%%s",ins_name,REG_NAME(m.R_M),REG_NAME(m.reg));
 		return  2;
 	}
 	else{
 		swaddr_t addr;
-		int len=0;
+		int len=read_ModR_M(eip+1,&addr);
 		switch(mov_ins)
 		{
 			case(0x44):sprintf(ins_name,"%s","cmove");if(cpu.ZF==1) CMOV_RM;break;
@@ -44,7 +44,7 @@ make_helper(concat(cmov_,SUFFIX)){
 			case(0x4f):sprintf(ins_name,"%s","cmovg");if (cpu.ZF==0&&cpu.SF==cpu.OF) CMOV_RM;break;
 			default:printf("%x",cpu.eip);assert(0);
 		}
-		print_asm("%s"str(SUFFIX)" %%%s %s",ins_name,REG_NAME(m.reg),ModR_M_asm);
+		print_asm("%s"str(SUFFIX)" %%%s %s",ins_name,ModR_M_asm,REG_NAME(m.reg));
 		return  len+1;
 	}
 }
